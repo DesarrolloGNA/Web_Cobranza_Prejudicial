@@ -1,0 +1,95 @@
+﻿@model List<Web_Cobranza_Prejudicial.Models.Entities.oSP_READ_DEUDA_X_FILTROS>
+
+<style>
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #ced3d7;
+    }
+
+ 
+    .scrolling-table-container_Datos_Deuda {
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+</style>
+
+
+@if (Model.Count()> 0)
+{
+    <div class="card rounded-3">
+        <div class="card-body">
+            <h5 class="card-title">Deuda</h5>
+
+            <div class="scrolling-table-container_Datos_Deuda">
+
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-bordered table-hover overflow-auto" name="Lista_Deuda" id="Lista_Deuda">
+            
+                        <thead>
+                            <tr>
+                                <th class="h6">Mandante</th>
+                                <th class="h6">Nombre</th>
+                                <th class="h6">Rut</th>
+                                <th class="h6">Folio</th>
+                                <th class="h6">Fecha Vencimiento</th>
+                                <th class="h6">Monto Adeudado</th>
+                                <th class="h6">Estado</th>
+                                <th class="h6">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Registro in Model.ToList())
+                            {
+                                <tr>
+                                    <td class="h6"><strong>@Registro.NOMBRE_MANDANTE</strong></td>
+                                    <td class="h6">@Registro.NOMBRE</td>
+                                    <td class="h6">@Registro.RUT.ToString("N0")-@Registro.DV</td>
+                                    <td class="h6">@Registro.FOLIO</td>
+                                    <td class="h6">@Registro.FECHA_VENCIMIENTO.ToShortDateString()</td>
+                                    <td class="h6">@Registro.VALOR.ToString("C")</td>
+
+                                    @if (@Registro.ESTADO_DEUDA.ToString() == "PENDIENTE")
+                                    {
+                                        <td class="h6" style="background-color:yellowgreen"> @Registro.ESTADO_DEUDA</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="h6" style="background-color:lightcoral"> @Registro.ESTADO_DEUDA</td>
+                                    }
+                                    <td>
+                                        <div class="col-sm-2 col-1">
+                                            <button onclick="Funcion_CargarInformacion(@Registro.ID_DEUDA)" value="@Registro.ID_DEUDA" id="@Registro.ID_DEUDA" name="Boton_Select_Deuda" class="btn btn-light mb-3 border border-2" title="Buscar Deuda">
+
+
+                                                <img src="~/img/btn_select.svg"
+                                                     alt="Buscar deuda"
+                                                     width="20"
+                                                     height="20" />
+
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+   
+        </div>
+    </div>
+
+
+}
+else
+{
+
+    <div class="alert alert-warning" role="alert">
+        <strong>Atención:</strong> El registro consultado no presenta deudas asociadas.
+    </div>
+
+}
+
+
+

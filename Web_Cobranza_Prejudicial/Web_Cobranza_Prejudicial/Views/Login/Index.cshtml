@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<form method="post" action="~/Login/Index" asp-antiforgery="true">
+
+    <div class="form-outline mb-4">
+        <label for="USUARIO" class="form-label text-dark">Usuario:</label>
+
+        <div class="input-group">
+            <span class="input-group-text">
+
+                <img src="~/img/usuario.svg"
+                     alt="Buscar deuda"
+                     width="20"
+                     height="20" />
+            </span>
+            <input type="text" id="USUARIO" name="USUARIO" class="form-control" required />
+        </div>
+
+
+    </div>
+
+
+    <div class="form-outline mb-4">
+        <label for="CONTRASEÑA" class="form-label text-dark">Contraseña:</label>
+
+        <div class="input-group">
+            <span class="input-group-text">
+
+                <img src="~/img/Password.svg"
+                     alt="Buscar deuda"
+                     width="20"
+                     height="20" />
+
+
+
+
+            </span>
+            <input type="password" id="CONTRASEÑA" name="CONTRASEÑA" class="form-control" required />
+        </div>
+
+
+    </div>
+
+    <div class="row mb-4">
+        <div class="col">
+            <a href="~/Login/RememberPassword" title="¿Desea recorar su contraseña?">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block mb-4" title="Iniciar Sesión">Entrar</button>
+
+</form>
+
+
+@if (@ViewData["Message"] != null)
+{
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Error!</strong> @ViewData["Message"]
+            </div>
+        </div>
+    </div>
+}

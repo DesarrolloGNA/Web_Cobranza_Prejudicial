@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Judicial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <input type="hidden" id="ID_DEUDA" name="ID_DEUDA" value="0" />
+    <hr />
+</div>
+
+
+<div class="row g-3">
+    <div class="col-sm-3">
+        <div class="input-group mb-3">
+
+            <!-- Dropdown -->
+            <button class="btn btn-outline-secondary dropdown-toggle"
+                    type="button"
+                    id="TIPO_BUSQUEDA"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Rut
+            </button>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" data-value="rut">Rut</a></li>
+                <li><a class="dropdown-item" href="#" data-value="rutAlumno">Rut Alumno</a></li>
+                <li><a class="dropdown-item" href="#" data-value="operacion">Operación</a></li>
+                <li><a class="dropdown-item" href="#" data-value="telefono">Teléfono</a></li>
+                <li><a class="dropdown-item" href="#" data-value="email">Email</a></li>
+            </ul>
+
+            <!-- Input -->
+            <input type="text"
+                   class="form-control"
+                   id="VALOR_BUSCAR"
+                   placeholder="Ingrese valor a buscar">
+
+            <!-- Botón buscar -->
+            <button class="btn btn-primary"
+                    type="button"
+                    title="Click aquí para buscar deuda"
+                    id="Buscar_Deuda"
+                    onclick="Funcion_CargarDeuda()">
+                Buscar <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+@*Partial View de Deuda*@
+<div id="_PartialViewDeuda"></div>
+
+@*Partial View de Informacion*@
+<div id="_PartialViewInformacion"></div>
+
+@*Partial View de Botonera*@
+<div id="_PartialViewBotonera"></div>
+
+@*Partial View de Gestiones*@
+<div id="_PartialViewGestiones"></div>
+
+
+
+<script>
+
+    let filtroSeleccionado = "";
+
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Texto visible
+            const texto = this.textContent;
+
+            // Valor interno
+            filtroSeleccionado = this.getAttribute("data-value");
+
+            // Cambia el texto del botón
+            document.getElementById("TIPO_BUSQUEDA").textContent = texto;
+        });
+    });
+
+</script>
