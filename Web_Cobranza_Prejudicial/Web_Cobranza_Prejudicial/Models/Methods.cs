@@ -289,6 +289,7 @@ namespace Web_Cobranza_Prejudicial.Models
                                 output.OBSERVACION = dr["OBSERVACION"]?.ToString();
                                 output.FECHA_ACTUALIZACION = Convert.ToDateTime(dr["FECHA_ACTUALIZACION"]?.ToString());
                                 output.ESTADO_TELEFONO = dr["ESTADO_TELEFONO"]?.ToString();
+                                output.CONTACTABILIDAD = Convert.ToInt32(dr["CONTACTABILIDAD"]?.ToString());
                                 Telefonos.Add(output);  
                             }
                         }
@@ -352,7 +353,6 @@ namespace Web_Cobranza_Prejudicial.Models
             }
             return Emails;
         }
-
 
 
 

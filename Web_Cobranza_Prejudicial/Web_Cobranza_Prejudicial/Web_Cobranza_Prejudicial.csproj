@@ -12,6 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\Img\btngrabaremail.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Img\btngrabargestion.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Img\btnllamar.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Img\btnnuevotelefono.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\Img\CLA_Logo.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

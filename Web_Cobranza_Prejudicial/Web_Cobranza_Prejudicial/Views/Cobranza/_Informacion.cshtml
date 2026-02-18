@@ -15,7 +15,7 @@
     }
 
     .scrolling-table-container_Datos_Demograficos {
-        height: 195px;
+        height: 170px;
         overflow-y: scroll;
         overflow-x: hidden;
     }
@@ -73,71 +73,154 @@
 
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-6">
         <div class="card" style="height: 260px;">
             <div class="card-body">
-                <h5 class="card-title">Telefonos</h5>
-                <div class="scrolling-table-container_Datos_Demograficos">
+                <h5 class="card-title">Información de Contacto</h5>
 
-                    <table class="table table-striped table-bordered table-hover overflow-auto" name="Lista_Telefonos" id="Lista_Telefonos" style="font-size:10px;">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#Telefonos">Telefonos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#Email">Email</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#Direcciones">Direcciones</a>
+                    </li>
+                </ul>
 
-                        <thead>
-                            <tr>
-                                <th>Fono</th>
-                                <th>Fecha</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var Tel in Model.TELEFONOS.ToList())
-                            {
-                            <tr>
-                                <th title="@Tel.OBSERVACION"><strong>@Tel.TELEFONO</strong> </th>
-                                    <th>@Tel.FECHA_ACTUALIZACION.ToString("dd-MM-yyyy HH:mm:ss")</th>
-                                <th>@Tel.ESTADO_TELEFONO</th>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
+
+
+                <div class="tab-content">
+
+                    @* ---------------------------------------------------------------------------------- *@
+                    @* ---------------------------------TELEFONOS---------------------------------------- *@
+                    @* ---------------------------------------------------------------------------------- *@
+                    <div id="Telefonos" class="tab-pane active">
+
+
+                        <div class="scrolling-table-container_Datos_Demograficos">
+
+                            <table class="table table-striped table-bordered table-hover overflow-auto" name="Lista_Telefonos" id="Lista_Telefonos" style="font-size:10px;">
+
+                                <thead>
+                                    <tr>
+                                        <th>Fono</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                        <th>CD</th>
+                                        <th>CI</th>
+                                        <th>SC</th>
+                                        <th>Contactabilidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var Tel in Model.TELEFONOS.ToList())
+                                    {
+                                        <tr title="@Tel.OBSERVACION">
+                                            <th><strong>@Tel.TELEFONO</strong> </th>
+                                            <th>@Tel.FECHA_ACTUALIZACION.ToString("dd-MM-yyyy HH:mm:ss")</th>
+
+
+                                            @if (@Tel.ESTADO_TELEFONO == "VALIDO")
+                                            {
+                                                <th> <span class="badge bg-success">&nbsp;</span> &nbsp;@Tel.ESTADO_TELEFONO</th>
+                                            }
+                                            else if (@Tel.ESTADO_TELEFONO == "NO CONFIRMADO")
+                                            {
+
+                                                <th><span class="badge bg-warning">&nbsp;</span>&nbsp;@Tel.ESTADO_TELEFONO</th>
+                                            }
+                                            else
+                                            {
+                                                <th><span class="badge bg-danger">&nbsp;</span>&nbsp;@Tel.ESTADO_TELEFONO</th>
+                                            }
+
+                                         
+
+
+                                            <th>@Tel.C_CD</th>
+                                            <th>@Tel.C_CI</th>
+                                            <th>@Tel.C_SC</th>
+                                            <th>
+
+
+
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:@Tel.CONTACTABILIDAD.ToString()%">@Tel.CONTACTABILIDAD %</div>
+                                                </div>
+
+
+
+
+                                            </th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                    </div>
+
+
+                    @* ---------------------------------------------------------------------------------- *@
+                    @* ---------------------------------EMAIL-------------------------------------------- *@
+                    @* ---------------------------------------------------------------------------------- *@
+                    <div id="Email" class="tab-pane">
+
+                        <div class="scrolling-table-container_Datos_Demograficos">
+
+                            <table class="table table-striped table-bordered table-hover overflow-auto" name="Lista_Telefonos" id="Lista_Telefonos" style="font-size:10px;">
+
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var Ema in Model.EMAILS.ToList())
+                                    {
+                                        <tr>
+                                            <th title="@Ema.ID_EMAIL"><strong>@Ema.EMAIL</strong></th>
+                                            <th>@Ema.FECHA_ACTUALIZACION.ToString("dd-MM-yyyy HH:mm:ss")</th>
+                                            <th>@Ema.ESTADO_EMAIL</th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                    </div>
+
+
+                    @* ---------------------------------------------------------------------------------- *@
+                    @* ---------------------------------DIRECCIONES-------------------------------------- *@
+                    @* ---------------------------------------------------------------------------------- *@
+                    <div id="Direcciones" class="tab-pane">
+
+                        HOLA MUNDO DIRECCIONES
+
+                    </div>
+
 
                 </div>
+
+
             </div>
         </div>
     </div>
 
 
-    <div class="col-sm-3">
-        <div class="card" style="height: 260px;">
-            <div class="card-body">
-                <h5 class="card-title">Email</h5>
-                <div class="scrolling-table-container_Datos_Demograficos">
 
-                    <table class="table table-striped table-bordered table-hover overflow-auto" name="Lista_Telefonos" id="Lista_Telefonos" style="font-size:10px;">
 
-                        <thead>
-                            <tr>
-                                <th>Email</th>
-                                <th>Fecha</th>
-                                <th>Estado</th>
-                      
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var Ema in Model.EMAILS.ToList())
-                            {
-                                <tr>
-                                    <th title="@Ema.ID_EMAIL"><strong>@Ema.EMAIL</strong></th>
-                                    <th>@Ema.FECHA_ACTUALIZACION.ToString("dd-MM-yyyy HH:mm:ss")</th>
-                                    <th>@Ema.ESTADO_EMAIL</th>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 </div>

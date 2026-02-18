@@ -43,34 +43,60 @@
                     <thead>
                         <tr>
                             <th class="h6">#</th>
-                            <th class="h6">FECHA_REGISTRO</th>
+                            <th class="h6">FECHA REGISTRO</th>
                             <th class="h6">TELEFONO</th>
-                            <th class="h6">NOMBRE_RESPONSABLE</th>
+                            <th class="h6">RESPONSABLE</th>
                             <th class="h6">LUGAR</th>
-                            <th class="h6">RESPUESTA_CONTACTO</th>
-                            <th class="h6">RESPUESTA_EXCUSA</th>
-                            <th class="h6">CODIGO</th>
-                            <th class="h6">FECHA_PROMESA</th>
-                            <th class="h6">MONTO_PROMESA</th>
+                            <th class="h6">CONTACTO</th>
+                            <th class="h6">EXCUSA</th>
+                            <th class="h6">FECHA PROMESA</th>
+                            <th class="h6">MONTO PROMESA</th>
                             <th class="h6">OBSERVACION</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var Registro in Model.GESTIONES_PREJUDICIALES.ToList())
                         {
-                            <tr>
+                            <tr title="@Registro.OBSERVACION">
                                 <td class="h6">@Registro.ID_GESTIONES_PREJUDICIALES</td>
                                 <td class="h6">@Registro.FECHA_REGISTRO.ToString("dd-MM-yyyy HH:mm:ss")</td>
-                                <td class="h6">@Registro.TELEFONO</td>
-         
+                                <td class="h6">@Registro.TELEFONO</td>     
                                 <td class="h6">@Registro.NOMBRE_RESPONSABLE</td>
                                 <td class="h6">@Registro.LUGAR</td>
                                 <td class="h6">@Registro.RESPUESTA_CONTACTO</td>
                                 <td class="h6">@Registro.RESPUESTA_EXCUSA</td>
-                                <td class="h6">@Registro.CODIGO</td>
                                 <td class="h6">@Registro.FECHA_PROMESA.ToShortDateString()</td>
                                 <td class="h6">@Registro.MONTO_PROMESA.ToString("N0")</td>
-                                <td class="h6">@Registro.OBSERVACION</td>
+                                <td class="h6">
+                                    @{
+                                        var texto = Registro.OBSERVACION ?? "";
+                                        var largoCorte = 45;
+
+                                        var primeraParte = texto.Length > largoCorte
+                                        ? texto.Substring(0, largoCorte)
+                                        : texto;
+
+                                        var segundaParte = texto.Length > largoCorte
+                                        ? texto.Substring(largoCorte)
+                                        : "";
+                                    }
+
+
+                                    <p>
+                                        <span href="#" title="@Registro.OBSERVACION" data-bs-toggle="collapse" data-bs-target="#Gest_@Registro.ID_GESTIONES_PREJUDICIALES" style="cursor:pointer; text-decoration: underline;">
+                                            @primeraParte
+                                        </span><span id="Gest_@Registro.ID_GESTIONES_PREJUDICIALES" class="collapse">@segundaParte</span>
+                                    </p>
+                                
+                                </td>
+
+
+
+
+
+
+
+
                             </tr>
                         }
                     </tbody>

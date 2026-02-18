@@ -59,7 +59,7 @@ function Funcion_CargarDeuda() {
             document.getElementById('_PartialViewInformacion').innerHTML = "";
             document.getElementById('_PartialViewBotonera').innerHTML = "";
             document.getElementById('_PartialViewGestiones').innerHTML = "";
-
+         
         })
         .catch(error => {
             console.error(error);
@@ -71,14 +71,19 @@ function Funcion_CargarDeuda() {
 
 function Funcion_CargarInformacion(IDDEUDA) {
 
-    console.log(IDDEUDA);
+
+    document.getElementById("ID_DEUDA").value = IDDEUDA;
+
+
     const params = new URLSearchParams({ ID_DEUDA: IDDEUDA });
 
     Promise.all([
         cargarPartial(`/Cobranza/_Informacion?${params}`, '_PartialViewInformacion'),
         cargarPartial(`/Cobranza/_Botonera`, '_PartialViewBotonera'),
         cargarPartial(`/Cobranza/_Gestiones?${params}`, '_PartialViewGestiones')
+           
     ]);
+   
 
     document.getElementById('_PartialViewDeuda').innerHTML = "";
 
@@ -95,4 +100,40 @@ function cargarPartial(url, contenedorId) {
             document.getElementById(contenedorId).innerHTML = html;
         })
         .catch(err => console.error(err));
+}
+
+
+
+
+function Funcion_CargarRegistrarGestion() {
+    var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+    ////oculto la alerta de mensajes
+    //document.getElementById("GestionJudicialAlerta").style.visibility = "hidden";
+
+    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewRegistrarGestion').innerHTML = data;
+      /*      Dibujar_Select2("#ID_RESPUESTA_CONTACTO");*/
+        });
+
+}
+
+
+
+function Cant_Caract_Obs() {
+    var max = "1000";
+    var cadena = document.getElementById("OBSERVACION").value;
+    var longitud = cadena.length;
+    if (longitud <= max) {
+        document.getElementById("OBS_CANT_CARACTERES").innerText = max - longitud;
+        if (longitud > (max / 10) * 9) {
+            document.getElementById("OBS_CANT_CARACTERES").style.color = "red"
+        } else {
+            document.getElementById("OBS_CANT_CARACTERES").style.color = "white"
+        }
+    } else {
+        document.getElementById("OBSERVACION").value = cadena.substr(0, max);
+    }
 }

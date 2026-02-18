@@ -142,5 +142,39 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
 
+
+        [HttpGet]
+        public async Task<IActionResult> _RegistrarGestion(int ID_DEUDA)
+        {
+
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+
+
+            obj_REGISTRAR_GESTION objRegistrarGestion = new obj_REGISTRAR_GESTION();
+            objRegistrarGestion.ID_DEUDA = ID_DEUDA;
+            objRegistrarGestion.ID_RESPONSABLE = outputCookie.ID_RESPONSABLE;
+            objRegistrarGestion.TELEFONOS = await _methods.SP_READ_TELEFONOS_X_ID_DEUDA(ID_DEUDA);
+
+
+
+
+
+
+            return PartialView("_RegistrarGestion", objRegistrarGestion);
+        }
+
+
+
+
     }
 }

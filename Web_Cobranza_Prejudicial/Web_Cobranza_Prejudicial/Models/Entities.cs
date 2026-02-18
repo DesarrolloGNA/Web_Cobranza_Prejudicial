@@ -115,6 +115,7 @@ namespace Web_Cobranza_Prejudicial.Models
             public String OBSERVACION { get; set; }
             public DateTime FECHA_ACTUALIZACION { get; set; }
             public String ESTADO_TELEFONO { get; set; }
+            public int CONTACTABILIDAD { get; set; }
 
         }
 
@@ -131,6 +132,16 @@ namespace Web_Cobranza_Prejudicial.Models
         }
 
 
+
+
+
+        public class obj_REGISTRAR_GESTION
+        {
+            public int ID_DEUDA { get; set; }
+            public int ID_RESPONSABLE { get; set; }
+            public List<oSP_READ_TELEFONOS_X_ID_DEUDA> TELEFONOS { get; set; }
+
+        }
 
 
 
