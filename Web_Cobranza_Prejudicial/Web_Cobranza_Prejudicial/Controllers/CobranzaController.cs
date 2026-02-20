@@ -54,7 +54,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
                 {
                     ViewData["Log_Usuario"] = outputCookie.NOMBRE_RESPONSABLE.ToString().ToUpper();
                     ViewData["Log_Perfil"] = outputCookie.PERFIL_RESPONSABLE.ToString().ToUpper();
-
+                    ViewData["Anexo_Telefonico"] = outputCookie.ANEXO_TELEFONICO.ToString().ToUpper();
 
                     return View();
                 }
@@ -164,7 +164,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
             objRegistrarGestion.ID_DEUDA = ID_DEUDA;
             objRegistrarGestion.ID_RESPONSABLE = outputCookie.ID_RESPONSABLE;
             objRegistrarGestion.TELEFONOS = await _methods.SP_READ_TELEFONOS_X_ID_DEUDA(ID_DEUDA);
-
+            objRegistrarGestion.LUGAR = await _methods.SP_READ_LUGAR_X_ID_DEUDA(ID_DEUDA);
 
 
 
@@ -172,6 +172,76 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
             return PartialView("_RegistrarGestion", objRegistrarGestion);
         }
+
+
+
+
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> OBTENER_CONTACTO_X_LUGAR(int ID_RESPUESTA_LUGAR)
+        {
+
+            List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR> Contacto = new List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>();
+
+            Contacto = await _methods.SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR(ID_RESPUESTA_LUGAR);
+
+            return Ok(Contacto);
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> OBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO(int ID_RESPUESTA_CONTACTO)
+        {
+
+            List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO> Contacto = new List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>();
+
+            Contacto = await _methods.SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO(ID_RESPUESTA_CONTACTO);
+
+            return Ok(Contacto);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Create_Gestion_Prejudicial(iSP_CREATE_GESTION_PREJUDICIAL Input)
+        {
+
+            oSP_CREATE_GESTION_PREJUDICIAL output = new oSP_CREATE_GESTION_PREJUDICIAL();
+
+            if(Input.FECHA_PROMESA.ToString("dd-MM-yyyy") == "01-01-0001")
+            {
+                Input.FECHA_PROMESA = DateTime.Parse("01-01-1900");
+            }
+
+
+            output = await _methods.SP_CREATE_GESTION_PRE_JUDICIAL(Input);
+
+            return Ok(output);
+
+        }
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> _Discador(int ID_DEUDA)
+        {
+
+             DISCADOR Discador = new DISCADOR();
+             Discador.TELEFONOS = await _methods.SP_READ_TELEFONOS_X_ID_DEUDA(ID_DEUDA);
+             Discador.CARRIER_LLAMADAS = await _methods.SP_READ_CARRIER_LLAMADAS(ID_DEUDA);
+
+
+
+            return PartialView("_DISCADOR", Discador);
+        }
+
+
+
 
 
 

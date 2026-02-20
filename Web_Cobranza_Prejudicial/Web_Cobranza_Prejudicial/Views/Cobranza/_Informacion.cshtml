@@ -31,21 +31,22 @@
         <div class="card" style="height: 260px;font:10px;">
             <div class="card-body">
                 <h5 class="card-title">Datos Personales</h5>
-                <hr />
-                <p class="card-text">Mandante: <strong>@Model.DATOS_PERSONALES.NOMBRE_MANDANTE</strong>   </p>
-                <p class="card-text">Nombre: <strong>@Model.DATOS_PERSONALES.NOMBRE_TUTOR</strong></p>
-                <p class="card-text">Rut Tutor: <strong>@Model.DATOS_PERSONALES.RUT_TUTOR.ToString("N0")-@Model.DATOS_PERSONALES.DV_TUTOR</strong></p>
-                <p class="card-text">Nombre Alumno: <strong>@Model.DATOS_PERSONALES.NOMBRE_ALUMNO</strong></p>
-                <p class="card-text">Rut Alumno:
+ 
+                <p class="card-text">
+                Mandante: <strong>@Model.DATOS_PERSONALES.NOMBRE_MANDANTE</strong> <br />
+                    Nombre: <strong>@Model.DATOS_PERSONALES.NOMBRE_TUTOR</strong> <br />
+                    Rut Tutor: <strong>@Model.DATOS_PERSONALES.RUT_TUTOR.ToString("N0")-@Model.DATOS_PERSONALES.DV_TUTOR</strong> <br />
+                    Nombre Alumno: <strong>@Model.DATOS_PERSONALES.NOMBRE_ALUMNO</strong> <br />
+                    Rut Alumno:
                     @if (Model.DATOS_PERSONALES.RUT_ALUMNO > 0)
-                        {
-                            <strong>
-                            @($"{Model.DATOS_PERSONALES.RUT_ALUMNO:N0}-{Model.DATOS_PERSONALES.DV_ALUMNO}")
-                            </strong>
-                        }
-                </p>
-                <p class="card-text">Estado Juicio: <strong>@Model.DATOS_PERSONALES.ESTADO_JUICIO</strong></p>
-                <p class="card-text">Estado Gestion: <strong>@Model.DATOS_PERSONALES.ESTADO_GESTION</strong></p>
+                    {
+                    <strong>
+                        @($"{Model.DATOS_PERSONALES.RUT_ALUMNO:N0}-{Model.DATOS_PERSONALES.DV_ALUMNO}")
+                    </strong>
+                    }<br />
+                    Estado Juicio: <strong>@Model.DATOS_PERSONALES.ESTADO_JUICIO</strong><br />
+                    Estado Gestion: <strong>@Model.DATOS_PERSONALES.ESTADO_GESTION</strong> 
+
             </div>
         </div>
 
@@ -145,12 +146,22 @@
                                             <th>@Tel.C_SC</th>
                                             <th>
 
+                                                @if (Tel.ESTADO_TELEFONO == "ERRADO")
+                                                {
+                                                    <div class="progress">
+                                                            <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" style="width:@Tel.CONTACTABILIDAD.ToString()%">@Tel.CONTACTABILIDAD %</div>
+                                                    </div>
+           
+                                                }
+                                                else
+                                                {
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:@Tel.CONTACTABILIDAD.ToString()%">@Tel.CONTACTABILIDAD %</div>
+                                                    </div>
 
+                                                }
 
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:@Tel.CONTACTABILIDAD.ToString()%">@Tel.CONTACTABILIDAD %</div>
-                                                </div>
-
+                                          
 
 
 

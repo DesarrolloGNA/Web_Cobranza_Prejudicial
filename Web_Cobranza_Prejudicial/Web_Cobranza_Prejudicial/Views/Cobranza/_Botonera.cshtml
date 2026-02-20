@@ -1,17 +1,23 @@
 ﻿
+<style>
+    .btn-fijo {
+        width: 150px;
+    }
+</style>
+
 <hr />
 
 
 <div class="card">
     <div class="card-body">
         <div class="btn-group">
-@*             <button type="button" title="LLamar" class="btn btn-primary"><img src="~/img/btnllamar.svg" width="40px;" height="40px;" /> LLamar</button>
-            &nbsp;&nbsp; *@
-            <button type="button" title="Presione aqui para registrar Gestion." onclick="Funcion_CargarRegistrarGestion()" data-bs-toggle="modal" data-bs-target="#MODAL_REGISTRAR_GESTIONES" class="btn btn-success rounded"><img src="~/img/btngrabargestion.svg" width="40px;" height="40px;" /> Registrar Gestion</button>
+            <button type="button" title="LLamar" class="btn btn-primary rounded btn-fijo" onclick="Funcion_CargarDiscador()" data-bs-toggle="modal" data-bs-target="#MODAL_REGISTRAR_GESTIONES"><img src="~/img/btnllamar.svg" width="20px;" height="20px;" /> LLamar</button>
             &nbsp;&nbsp;
-            <button type="button" title="Crear Telefono" class="btn btn-info rounded"><img src="~/img/btnnuevotelefono.svg" width="40px;" height="40px;" /> Nuevo Fono</button>
+            <button type="button" title="Presione aqui para registrar Gestion." onclick="Funcion_CargarRegistrarGestion()" data-bs-toggle="modal" data-bs-target="#MODAL_REGISTRAR_GESTIONES" class="btn btn-success rounded btn-fijo"><img src="~/img/btngrabargestion.svg" width="20px;" height="20px;" />Gestion Manual</button>
             &nbsp;&nbsp;
-            <button type="button" title="Crear Email" class="btn btn-info rounded"><img src="~/img/btngrabaremail.svg" width="40px;" height="40px;" /> Nuevo Email</button>
+            <button type="button" title="Crear Telefono" class="btn btn-info rounded btn-fijo"><img src="~/img/btnnuevotelefono.svg" width="20px;" height="20px;" /> Nuevo Fono</button>
+            &nbsp;&nbsp;
+            <button type="button" title="Crear Email" class="btn btn-info rounded btn-fijo"><img src="~/img/btngrabaremail.svg" width="20px;" height="20px;" /> Nuevo Email</button>
         </div>
     </div>
 </div>

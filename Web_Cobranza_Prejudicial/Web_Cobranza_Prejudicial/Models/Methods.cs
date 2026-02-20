@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading;
 using static Web_Cobranza_Prejudicial.Models.Entities;
 
 namespace Web_Cobranza_Prejudicial.Models
@@ -57,6 +58,7 @@ namespace Web_Cobranza_Prejudicial.Models
                         output.ID_RESPONSABLE = Convert.ToInt32(dr["ID_RESPONSABLE"].ToString());
                         output.ID_PERFIL_RESPONSABLE = Convert.ToInt32(dr["ID_PERFIL_RESPONSABLE"].ToString());
                         output.TOKEN = dr["TOKEN"].ToString();
+                        output.ANEXO_TELEFONICO = Convert.ToInt32(dr["ANEXO_TELEFONICO"].ToString());
                     }
 
                     connection.Close();
@@ -353,6 +355,296 @@ namespace Web_Cobranza_Prejudicial.Models
             }
             return Emails;
         }
+
+
+
+
+
+        public async Task<List<oSP_READ_LUGAR_X_ID_DEUDA>> SP_READ_LUGAR_X_ID_DEUDA(int ID_DEUDA)
+        {
+            List<oSP_READ_LUGAR_X_ID_DEUDA> Lugar = new List<oSP_READ_LUGAR_X_ID_DEUDA>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_LUGAR_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_LUGAR_X_ID_DEUDA output = new oSP_READ_LUGAR_X_ID_DEUDA();
+
+                                output.ID_RESPUESTA_LUGAR = Convert.ToInt32(dr["ID_RESPUESTA_LUGAR"]?.ToString());
+                                output.LUGAR = dr["LUGAR"]?.ToString();
+
+
+                                Lugar.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Lugar;
+        }
+
+
+
+
+        public async Task<List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>> SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR(int ID_RESPUESTA_LUGAR)
+        {
+            List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR> Contacto = new List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_RESPUESTA_LUGAR", SqlDbType.Int).Value = ID_RESPUESTA_LUGAR;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR output = new oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR();
+
+                                output.ID_RESPUESTA_CONTACTO = Convert.ToInt32(dr["ID_RESPUESTA_CONTACTO"]?.ToString());
+                                output.CONTACTO = dr["RESPUESTA_CONTACTO"]?.ToString();
+
+
+                                Contacto.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Contacto;
+        }
+
+
+
+
+
+
+        public async Task<List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>> SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO(int ID_RESPUESTA_CONTACTO)
+        {
+            List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO> Excusa = new List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_RESPUESTA_CONTACTO", SqlDbType.Int).Value = ID_RESPUESTA_CONTACTO;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO output = new oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO();
+
+                                output.ID_RESPUESTA_EXCUSA = Convert.ToInt32(dr["ID_RESPUESTA_EXCUSA"]?.ToString());
+                                output.RESPUESTA_EXCUSA = dr["RESPUESTA_EXCUSA"]?.ToString();
+
+
+                                Excusa.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Excusa;
+        }
+
+
+        public async Task<oSP_CREATE_GESTION_PREJUDICIAL> SP_CREATE_GESTION_PRE_JUDICIAL(iSP_CREATE_GESTION_PREJUDICIAL input)
+        {
+
+            oSP_CREATE_GESTION_PREJUDICIAL output = new oSP_CREATE_GESTION_PREJUDICIAL();
+     
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_CREATE_GESTION_PRE_JUDICIAL", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_LOG_DISCADOR", SqlDbType.Int).Value = input.ID_LOG_DISCADOR;
+                        cmd.Parameters.Add("@ID_DEUDA_GESTION", SqlDbType.Int).Value = input.ID_DEUDA_GESTION;
+                        cmd.Parameters.Add("@ID_RESPONSABLE_GESTION", SqlDbType.Int).Value = input.ID_RESPONSABLE_GESTION;
+                        cmd.Parameters.Add("@ID_TELEFONO", SqlDbType.Int).Value = input.ID_TELEFONO;
+                        cmd.Parameters.Add("@ID_RESPUESTA_LUGAR", SqlDbType.Int).Value = input.ID_RESPUESTA_LUGAR;
+                        cmd.Parameters.Add("@ID_RESPUESTA_CONTACTO", SqlDbType.Int).Value = input.ID_RESPUESTA_CONTACTO;
+                        cmd.Parameters.Add("@ID_RESPUESTA_EXCUSA", SqlDbType.Int).Value = input.ID_RESPUESTA_EXCUSA;
+                        cmd.Parameters.Add("@FECHA_PROMESA", SqlDbType.DateTime).Value = input.FECHA_PROMESA;
+                        cmd.Parameters.Add("@MONTO_PROMESA", SqlDbType.Int).Value = input.MONTO_PROMESA;
+                        cmd.Parameters.Add("@OBSERVACION", SqlDbType.VarChar).Value = input.OBSERVACION;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+     
+
+                                output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
+                                output.MENSAJE = dr["MENSAJE"]?.ToString();
+
+                            }
+                            else
+                            {
+                                output.RETURN_VALUE = 0;
+                                output.MENSAJE = "No fue posible Registrar Gestion.";
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception EX)
+                {
+                    output.RETURN_VALUE = -1;
+                    output.MENSAJE = "Error : " + EX.Message.ToString();
+
+                    connection.Close();
+                }
+            }
+            return output;
+        }
+
+
+
+
+
+        public async Task<List<oSP_READ_CARRIER_LLAMADAS>> SP_READ_CARRIER_LLAMADAS(int ID_DEUDA)
+        {
+            List<oSP_READ_CARRIER_LLAMADAS> Carrier = new List<oSP_READ_CARRIER_LLAMADAS>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_CARRIER_LLAMADAS", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_CARRIER_LLAMADAS output = new oSP_READ_CARRIER_LLAMADAS();
+
+                                output.ID_CARRIER_LLAMADAS = Convert.ToInt32(dr["ID_CARRIER_LLAMADAS"]?.ToString());
+                                output.CARRIER = Convert.ToInt32(dr["CARRIER"]?.ToString());
+                                output.ORDEN_PRIORIDAD = Convert.ToInt32(dr["ORDEN_PRIORIDAD"]?.ToString());
+                                output.OBSERVACION = dr["OBSERVACION"]?.ToString();
+         
+
+                                Carrier.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Carrier;
+        }
+
+
+
+
+
+        public async Task<int> SP_CREATE_LOG_DISCADOR(oSP_CREATE_LOG_DISCADOR input)
+        {
+            int ID_LOG_DISCADOR = 0;
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+
+                SqlCommand cmd = new SqlCommand("PRE.SP_CREATE_LOG_DISCADOR", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add(new SqlParameter("@ID_DEUDA", input.ID_DEUDA));
+                cmd.Parameters.Add(new SqlParameter("@ID_RESPONSABLE", input.ID_RESPONSABLE));
+                cmd.Parameters.Add(new SqlParameter("@ANEXO_TELEFONICO", input.ANEXO_TELEFONICO));
+                cmd.Parameters.Add(new SqlParameter("@CARRIER_LLAMADA", input.CARRIER_LLAMADA));
+                cmd.Parameters.Add(new SqlParameter("@RESPUESTA", input.RESPUESTA));
+                cmd.Parameters.Add(new SqlParameter("@TELEFONO", input.TELEFONO));
+
+                SqlParameter VALOR_RETORNO = new SqlParameter("@RETURN_VALUE", DbType.Int32);
+                VALOR_RETORNO.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(VALOR_RETORNO);
+
+
+                connection.Open();
+                await cmd.ExecuteNonQueryAsync();
+
+                ID_LOG_DISCADOR = int.Parse(cmd.Parameters["@RETURN_VALUE"].Value.ToString());
+
+                connection.Close();
+            }
+
+            return ID_LOG_DISCADOR;
+        }
+
+
+
+
+
+
+
+
 
 
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Threading;
 
 namespace Web_Cobranza_Prejudicial.Models
 {
@@ -32,6 +33,7 @@ namespace Web_Cobranza_Prejudicial.Models
             public String MENSAJE { get; set; }
             public String TOKEN { get; set; }
 
+            public int ANEXO_TELEFONICO { get; set; }
 
         }
 
@@ -99,7 +101,7 @@ namespace Web_Cobranza_Prejudicial.Models
         {
             public List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA> GESTIONES_PREJUDICIALES { get; set; }
 
-    
+
 
         }
 
@@ -140,10 +142,106 @@ namespace Web_Cobranza_Prejudicial.Models
             public int ID_DEUDA { get; set; }
             public int ID_RESPONSABLE { get; set; }
             public List<oSP_READ_TELEFONOS_X_ID_DEUDA> TELEFONOS { get; set; }
+            public List<oSP_READ_LUGAR_X_ID_DEUDA> LUGAR { get; set; }
+        }
+
+        public class oSP_READ_LUGAR_X_ID_DEUDA
+        {
+            public int ID_RESPUESTA_LUGAR { get; set; }
+            public string LUGAR { get; set; }
+
 
         }
 
 
+        public class oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR
+        {
+            public int ID_RESPUESTA_CONTACTO { get; set; }
+            public string CONTACTO { get; set; }
+
+
+        }
+
+
+
+        public class oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO
+        {
+            public int ID_RESPUESTA_EXCUSA { get; set; }
+            public string RESPUESTA_EXCUSA { get; set; }
+
+
+        }
+
+
+
+        public class iSP_CREATE_GESTION_PREJUDICIAL
+        {
+            [Required]
+            public int ID_LOG_DISCADOR { get; set; }
+
+            [Required]
+            public int ID_DEUDA_GESTION { get; set; }
+            [Required]
+            public int ID_RESPONSABLE_GESTION { get; set; }
+            [Required]
+            public int ID_TELEFONO { get; set; }
+
+            [Required]
+            public int ID_RESPUESTA_LUGAR { get; set; }
+            [Required]
+            public int ID_RESPUESTA_CONTACTO { get; set; }
+            [Required]
+            public int ID_RESPUESTA_EXCUSA { get; set; }
+
+            public DateTime FECHA_PROMESA { get; set; }
+            public string MONTO_PROMESA { get; set; }
+
+            [Required]
+            public string OBSERVACION { get; set; }
+
+
+        }
+
+
+
+
+
+        public class oSP_CREATE_GESTION_PREJUDICIAL
+        {
+            public int RETURN_VALUE { get; set; }
+            public string MENSAJE { get; set; }
+        }
+
+
+
+        public class DISCADOR
+        {
+            public List<oSP_READ_CARRIER_LLAMADAS> CARRIER_LLAMADAS { get; set; }
+            public List<oSP_READ_TELEFONOS_X_ID_DEUDA> TELEFONOS { get; set; }
+
+        }
+
+
+        public class oSP_READ_CARRIER_LLAMADAS
+        {
+            public int ID_CARRIER_LLAMADAS { get; set; }
+            public int CARRIER { get; set; }
+            public int ORDEN_PRIORIDAD { get; set; }
+            public string OBSERVACION { get; set; }
+
+        }
+
+
+        public class oSP_CREATE_LOG_DISCADOR
+        {
+            public int ID_DEUDA { get; set; }
+            public int ID_RESPONSABLE { get; set; }
+            public int ANEXO_TELEFONICO { get; set; }
+            public int CARRIER_LLAMADA { get; set; }
+            public string RESPUESTA { get; set; }
+            public int TELEFONO { get; set; }
+
+        }
 
 
 

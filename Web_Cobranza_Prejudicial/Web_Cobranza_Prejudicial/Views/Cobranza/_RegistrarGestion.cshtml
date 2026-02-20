@@ -1,72 +1,97 @@
 ﻿@model Web_Cobranza_Prejudicial.Models.Entities.obj_REGISTRAR_GESTION
 
 
-<form class="was-validated" id="GRABARGESTIONJUD" onsubmit="return Grabar_Gestion_J()">
 
-    <input type="hidden" id="ID_DEUDA_GESTION" name="ID_DEUDA_GESTION" value="@Model.ID_DEUDA" />
-    <input type="hidden" id="ID_RESPONSABLE_GESTION" name="ID_RESPONSABLE_GESTION" value="@Model.ID_RESPONSABLE" />
+<div class="card">
+    <div class="card-body">
+        <div class="card-header">Registrar Gestion</div>
 
-    <div class="mb-3">
-        <label for="ID_TELEFONO" class="form-label h6">Telefono</label>
-        <select id="ID_TELEFONO" name="ID_TELEFONO" data-placeholder="Seleccione Telefono" onchange="Funcion_Cargar_Excusas_x_Contacto()" class="form-select" required>
-            @foreach (var Contacto in Model.TELEFONOS.Where(XmlCo ).ToList())
-            {
-                <option value="@Contacto.ID_TELEFONO">@Contacto.TELEFONO</option>
-            }
-        </select>
-        <div class="invalid-feedback">Campo Obligatorio.</div>
+
+        <form class="was-validated" id="GRABARGESTIONPRE" onsubmit="return Grabar_Gestion_Pre()">
+
+
+
+            <input type="hidden" id="ID_LOG_DISCADOR" name="ID_LOG_DISCADOR" value="0" />
+            <input type="hidden" id="ID_DEUDA_GESTION" name="ID_DEUDA_GESTION" value="@Model.ID_DEUDA" />
+            <input type="hidden" id="ID_RESPONSABLE_GESTION" name="ID_RESPONSABLE_GESTION" value="@Model.ID_RESPONSABLE" />
+
+            <div class="mb-3">
+                <label for="ID_TELEFONO" class="form-label h6">Telefono</label>
+                <select id="ID_TELEFONO" name="ID_TELEFONO" data-placeholder="Seleccione Telefono" onchange="Funcion_Cargar_Excusas_x_Contacto()" class="form-select" required>
+                    @foreach (var Contacto in Model.TELEFONOS.Where(X => X.ESTADO_TELEFONO != "ERRADO").ToList())
+                    {
+                        <option value="@Contacto.ID_TELEFONO">@Contacto.TELEFONO</option>
+                    }
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="ID_RESPUESTA_LUGAR" class="form-label h6">Lugar</label>
+                <select id="ID_RESPUESTA_LUGAR" name="ID_RESPUESTA_LUGAR" data-placeholder="Seleccione Lugar" onchange="Funcion_Cargar_Contacto_x_Lugar()" class="form-select" required>
+                    <option value=""></option>
+                    @foreach (var Contacto in Model.LUGAR.ToList())
+                    {
+                        <option value="@Contacto.ID_RESPUESTA_LUGAR">@Contacto.LUGAR</option>
+                    }
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="ID_RESPUESTA_CONTACTO" class="form-label h6">Contacto</label>
+                <select id="ID_RESPUESTA_CONTACTO" name="ID_RESPUESTA_CONTACTO" data-placeholder="Seleccione Contacto" onchange="Funcion_Cargar_Excusa_x_Contacto()" class="form-select" required>
+                    <option value=""></option>
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="ID_RESPUESTA_EXCUSA" class="form-label  h6">Excusa</label>
+                <select id="ID_RESPUESTA_EXCUSA" name="ID_RESPUESTA_EXCUSA" data-placeholder="Seleccione Excusa" class="form-select" required>
+                    <option value=""></option>
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="FECHA_PROMESA" class="form-label  h6">Fecha Promesa</label>
+                <input id="FECHA_PROMESA" name="FECHA_PROMESA" class="form-control"  type="date">
+            </div>
+
+            <div class="mb-3">
+                <label for="MONTO_PROMESA" class="form-label  h6">Monto Promesa</label>
+                <input id="MONTO_PROMESA" name="MONTO_PROMESA" value="0" class="form-control" type="number">
+            </div>
+
+
+            <div class="mb-3">
+                <label for="OBSERVACION" class="form-label h6">Observacion </label> <span style="font:10" class="badge rounded-pill bg-primary" id="OBS_CANT_CARACTERES" name="OBS_CANT_CARACTERES">0</span>
+                <textarea class="form-control" id="OBSERVACION" onKeyDown="Cant_Caract_Obs();" onKeyUp="Cant_Caract_Obs();" name="OBSERVACION" MaxLength="2000" placeholder="Observacion" required></textarea>
+                <div class="invalid-feedback">
+                    Campo Obligatorio.
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <button vale="Submit" id="BTN_GRABAR_GESTION_J" class="btn btn-primary" title="Click aqui para guardar gestion.">Grabar Gestion <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+
+
+
+            <div id="GestionPrejudicialAlerta" name="GestionPrejudiciallAlerta" style="visibility:hidden;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong><label id="GestionPrejudicialAlertaCabecera"></label></strong> <label id="GestionPrejudicialAlertaMensaje"></label>
+            </div>
+
+
+
+        </form>
+
+
     </div>
-
-
-
-
-@*     <div class="mb-3">
-        <label for="ID_RESPUESTA_CONTACTO" class="form-label h6">Contacto</label>
-        <select id="ID_RESPUESTA_CONTACTO" name="ID_RESPUESTA_CONTACTO" data-placeholder="Seleccione Contacto" onchange="Funcion_Cargar_Excusas_x_Contacto()" class="form-select" required>
-            <option value=""></option>
-            @foreach (var Contacto in Model.CONTACTOS.ToList())
-            {
-                <option value="@Contacto.ID_RESPUESTA_CONTACTO">@Contacto.RESPUESTA_CONTACTO</option>
-            }
-        </select>
-        <div class="invalid-feedback">Campo Obligatorio.</div>
-    </div>
-
-
-    <div class="mb-3">
-        <label for="ID_RESPUESTA_EXCUSA" class="form-label  h6">Excusa</label>
-        <select id="ID_RESPUESTA_EXCUSA" name="ID_RESPUESTA_EXCUSA" data-placeholder="Seleccione Excusa" class="form-select" required>
-            <option value=""></option>
-        </select>
-        <div class="invalid-feedback">Campo Obligatorio.</div>
-    </div>
- *@
-
-
-
-
-    <div class="mb-3">
-        <label for="FECHA_DILIGENCIA" class="form-label  h6">Fecha Diligencia</label>
-        <input id="FECHA_DILIGENCIA" name="FECHA_DILIGENCIA" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date">
-        <div class="invalid-feedback">Campo Obligatorio.</div>
-    </div>
-
-
-
-    <div class="mb-3">
-        <label for="OBSERVACION" class="form-label h6">Observacion </label> <span style="font:10" class="badge rounded-pill bg-primary" id="OBS_CANT_CARACTERES" name="OBS_CANT_CARACTERES">0</span>
-        <textarea class="form-control" id="OBSERVACION" onKeyDown="Cant_Caract_Obs();" onKeyUp="Cant_Caract_Obs();" name="OBSERVACION" MaxLength="2000" placeholder="Observacion" required></textarea>
-        <div class="invalid-feedback">
-            Campo Obligatorio.
-        </div>
-    </div>
-
-
-
-
-    <div class="mb-3">
-        <button vale="Submit" id="BTN_GRABAR_GESTION_J" class="btn btn-primary" title="Click aqui para guardar gestion.">Grabar Gestion <i class="fa-solid fa-floppy-disk"></i></button>
-    </div>
-
-
-</form>
+</div>

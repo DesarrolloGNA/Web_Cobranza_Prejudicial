@@ -1,0 +1,44 @@
+﻿@model Web_Cobranza_Prejudicial.Models.Entities.DISCADOR
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-header">Discador</div>
+        <div class="row">
+            <div class="col-sm-4">
+
+                <label for="ID_CARRIER" class="form-label h6">Carrier</label>
+                <select id="ID_CARRIER" name="ID_CARRIER" data-placeholder="Seleccione Carrier" class="form-select">
+                    @foreach (var Carrier in Model.CARRIER_LLAMADAS.ToList())
+                    {
+                        <option value="@Carrier.CARRIER">@Carrier.CARRIER</option>
+                    }
+                </select>
+
+            </div>
+            <div class="col-sm-4">
+
+                <label for="ID_TELEFONO" class="form-label h6">Telefono</label>
+                <select id="ID_TELEFONO" name="ID_TELEFONO" data-placeholder="Seleccione Telefono" onchange="Funcion_Cargar_Excusas_x_Contacto()" class="form-select">
+                    @foreach (var Contacto in Model.TELEFONOS.Where(X => X.ESTADO_TELEFONO != "ERRADO").ToList())
+                    {
+                        <option value="@Contacto.TELEFONO">@Contacto.TELEFONO</option>
+                    }
+                </select>
+
+
+            </div>
+            <div class="col-sm-4"><br />
+                <button type="button" onclick="LLamar()" class="btn btn-success">LLamar</button>
+            </div>
+        </div>
+
+   
+
+    </div>
+</div>
+
+
+
+
+
