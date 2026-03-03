@@ -32,7 +32,14 @@
 }
 
 
-function Funcion_CargarDeuda() {
+async function Funcion_CargarDeuda() {
+
+    var button = document.getElementById("Buscar_Deuda");
+
+    showLoading(button)
+
+    await delay(2000);
+
 
     const valorBuscar = document.getElementById("VALOR_BUSCAR").value.trim();
     const tipoBusqueda = document.getElementById("TIPO_BUSQUEDA").textContent.trim();
@@ -59,13 +66,16 @@ function Funcion_CargarDeuda() {
             document.getElementById('_PartialViewInformacion').innerHTML = "";
             document.getElementById('_PartialViewBotonera').innerHTML = "";
             document.getElementById('_PartialViewGestiones').innerHTML = "";
-         
+
+            Dibujar_Datatable_Gestiones();
+
         })
         .catch(error => {
             console.error(error);
         });
 
-    Dibujar_Datatable_Gestiones();
+    hideLoading(button);
+
 }
 
 
@@ -238,6 +248,10 @@ function Funcion_Cargar_Excusa_x_Contacto() {
 
 
 function Grabar_Gestion_Pre() {
+
+    var button = document.getElementById("BTN_GRABAR_GESTION_PRE");
+
+
     var Post = ('/Cobranza/Create_Gestion_Prejudicial');
     var DatosFormulario = new FormData(document.getElementById("GRABARGESTIONPRE"));
     fetch(Post, {
@@ -266,16 +280,22 @@ function Grabar_Gestion_Pre() {
                 
 
 
-
             } else {
                 //muestro la alerta
                 document.getElementById("GestionPrejudicialAlerta").style.visibility = "visible";
                 document.getElementById("GestionPrejudicialAlerta").className = "alert alert-danger alert-dismissible fade show";
                 document.getElementById("GestionPrejudicialAlertaCabecera").innerText = "Error! ";
                 document.getElementById("GestionPrejudicialAlertaMensaje").innerText = dataObj.mensaje;
+
+
             }
+
+
+
         })
         .catch(err => console.error(err));
+
+
     return false;
 }
 
@@ -350,4 +370,28 @@ function Funcion_CargarRegistrarGestion() {
 
         });
 
+}
+
+
+
+
+let loadingModal;
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+});
+
+function showLoading(button) {
+    if (button) button.disabled = true;
+    loadingModal.show();
+}
+
+function hideLoading(button) {
+    if (button) button.disabled = false;
+    loadingModal.hide();
+}
+
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

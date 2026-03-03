@@ -74,6 +74,9 @@ namespace Web_Cobranza_Prejudicial.Models
             public oSP_READ_DATOS_PERSONALES_X_ID_DEUDA DATOS_PERSONALES { get; set; }
             public List<oSP_READ_TELEFONOS_X_ID_DEUDA> TELEFONOS { get; set; }
             public List<oSP_READ_EMAIL_X_ID_DEUDA> EMAILS { get; set; }
+            public List<oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA> OFERTAS { get; set; }
+            public List<oSP_READ_DIRECCION_X_ID_DEUDA> DIRECCIONES { get; set; }
+            
         }
 
 
@@ -100,8 +103,8 @@ namespace Web_Cobranza_Prejudicial.Models
         public class GESTIONES
         {
             public List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA> GESTIONES_PREJUDICIALES { get; set; }
-
-
+            public List<oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA> GESTIONES_JUDICIALES { get; set; }
+            
 
         }
 
@@ -243,6 +246,54 @@ namespace Web_Cobranza_Prejudicial.Models
 
         }
 
+
+
+        public class oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA
+        {
+            public int ID_CAMPAÑAS_OFERTAS { get; set; }
+            public int ID_MANDANTE { get; set; }
+            public int ID_DEUDA { get; set; }
+            public DateTime FECHA_INICIO_CAMPAÑA { get; set; }
+            public DateTime FECHA_FIN_CAMPAÑA { get; set; }
+            public int PRIORIDAD { get; set; }
+            public String DESCRIPCION { get; set; }
+
+        }
+
+
+
+        public class oSP_READ_DIRECCION_X_ID_DEUDA
+        {
+            public int ID_DIRECCION { get; set; }
+            public int ID_MANDANTE { get; set; }
+            public String DIRECCION { get; set; }
+            public int ID_COMUNA { get; set; }
+            public DateTime FECHA_CREACION { get; set; }
+            public String OBSERVACION { get; set; }
+            public DateTime FECHA_ACTUALIZACION { get; set; }
+            public int ID_CLIENTE { get; set; }
+            public int ID_ESTADO_DIRECCION { get; set; }
+            public String ESTADO_DIRECCION { get; set; }
+            public String CIUDAD { get; set; }
+            public String COMUNA { get; set; }
+            public String REGION { get; set; }
+            public String NUM_REGION { get; set; }
+
+        }
+
+        public class oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA
+        {
+            public int ID_GESTIONES_JUDICIALES { get; set; }
+            public DateTime FECHA_REGISTRO { get; set; }
+            public String NOMBRE_RESPONSABLE { get; set; }
+            public String RESPUESTA_CONTACTO { get; set; }
+            public String RESPUESTA_EXCUSA { get; set; }
+            public String OBSERVACION { get; set; }
+            public String TIPO_GESTION { get; set; }
+            public DateTime FECHA_DILIGENCIA { get; set; }
+            public int VALOR_DILIGENCIA { get; set; }
+
+        }
 
 
 

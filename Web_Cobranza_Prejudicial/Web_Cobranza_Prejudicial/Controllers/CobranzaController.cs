@@ -108,9 +108,8 @@ namespace Web_Cobranza_Prejudicial.Controllers
             Info.DATOS_PERSONALES = await _methods.SP_READ_DATOS_PERSONALES_X_ID_DEUDA(ID_DEUDA);
             Info.TELEFONOS = await _methods.SP_READ_TELEFONOS_X_ID_DEUDA(ID_DEUDA);
             Info.EMAILS = await _methods.SP_READ_EMAIL_X_ID_DEUDA(ID_DEUDA);
-            
-
-
+            Info.OFERTAS = await _methods.SP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA(ID_DEUDA);
+            Info.DIRECCIONES = await _methods.SP_READ_DIRECCION_X_ID_DEUDA(ID_DEUDA);
 
             return PartialView("_Informacion", Info);
         }
@@ -134,6 +133,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
             GESTIONES Gestiones = new GESTIONES();
 
             Gestiones.GESTIONES_PREJUDICIALES = await _methods.SP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA(ID_DEUDA);
+            Gestiones.GESTIONES_JUDICIALES = await _methods.SP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA(ID_DEUDA);
 
             return PartialView("_Gestiones", Gestiones);
         }

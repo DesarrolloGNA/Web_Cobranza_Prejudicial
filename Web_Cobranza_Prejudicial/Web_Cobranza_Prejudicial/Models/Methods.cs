@@ -307,12 +307,6 @@ namespace Web_Cobranza_Prejudicial.Models
             return Telefonos;
         }
 
-
-
-
-
-
-
         public async Task<List<oSP_READ_EMAIL_X_ID_DEUDA>> SP_READ_EMAIL_X_ID_DEUDA(int ID_DEUDA)
         {
             List<oSP_READ_EMAIL_X_ID_DEUDA> Emails = new List<oSP_READ_EMAIL_X_ID_DEUDA>();
@@ -645,9 +639,155 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
+        public async Task<List<oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA>> SP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA(int ID_DEUDA)
+        {
+            List<oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA> Ofertas = new List<oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA output = new oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA();
+
+                                output.ID_CAMPAÑAS_OFERTAS = Convert.ToInt32(dr["ID_CAMPAÑAS_OFERTAS"]?.ToString());
+                                output.ID_MANDANTE = Convert.ToInt32(dr["ID_MANDANTE"]?.ToString());
+                                output.ID_DEUDA = Convert.ToInt32(dr["ID_DEUDA"]?.ToString());
+                                output.FECHA_INICIO_CAMPAÑA = Convert.ToDateTime(dr["FECHA_INICIO_CAMPAÑA"]?.ToString());
+                                output.FECHA_FIN_CAMPAÑA = Convert.ToDateTime(dr["FECHA_FIN_CAMPAÑA"]?.ToString());
+                                output.PRIORIDAD = Convert.ToInt32(dr["PRIORIDAD"]?.ToString());
+                                output.DESCRIPCION = dr["DESCRIPCION"]?.ToString();
+
+                                Ofertas.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Ofertas;
+        }
 
 
 
+
+        public async Task<List<oSP_READ_DIRECCION_X_ID_DEUDA>> SP_READ_DIRECCION_X_ID_DEUDA(int ID_DEUDA)
+        {
+            List<oSP_READ_DIRECCION_X_ID_DEUDA> Direccion = new List<oSP_READ_DIRECCION_X_ID_DEUDA>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_DIRECCION_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_DIRECCION_X_ID_DEUDA output = new oSP_READ_DIRECCION_X_ID_DEUDA();
+
+                                output.ID_DIRECCION = Convert.ToInt32(dr["ID_DIRECCION"]?.ToString());
+                                output.ID_MANDANTE = Convert.ToInt32(dr["ID_MANDANTE"]?.ToString());
+                                output.DIRECCION = dr["DIRECCION"]?.ToString();
+                                output.ID_COMUNA = Convert.ToInt32(dr["ID_COMUNA"]?.ToString());
+                                output.FECHA_CREACION = Convert.ToDateTime(dr["FECHA_CREACION"]?.ToString());
+                                output.OBSERVACION = dr["OBSERVACION"]?.ToString();
+                                output.FECHA_ACTUALIZACION = Convert.ToDateTime(dr["FECHA_ACTUALIZACION"]?.ToString());
+                                output.ID_CLIENTE = Convert.ToInt32(dr["ID_CLIENTE"]?.ToString());
+                                output.ID_ESTADO_DIRECCION = Convert.ToInt32(dr["ID_ESTADO_DIRECCION"]?.ToString());
+                                output.ESTADO_DIRECCION = dr["ESTADO_DIRECCION"]?.ToString();
+                                output.CIUDAD = dr["CIUDAD"]?.ToString();
+                                output.COMUNA = dr["COMUNA"]?.ToString();
+                                output.REGION = dr["REGION"]?.ToString();
+                                output.NUM_REGION = dr["NUM_REGION"]?.ToString();
+
+
+                                Direccion.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Direccion;
+        }
+
+        public async Task<List<oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA>> SP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA(int ID_DEUDA)
+        {
+            List<oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA> Gestiones = new List<oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA output = new oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA();
+
+                                output.ID_GESTIONES_JUDICIALES = Convert.ToInt32(dr["ID_GESTIONES_JUDICIALES"]?.ToString());
+                                output.FECHA_REGISTRO = Convert.ToDateTime(dr["FECHA_REGISTRO"]?.ToString());
+                                output.NOMBRE_RESPONSABLE = dr["NOMBRE_RESPONSABLE"]?.ToString();
+                                output.RESPUESTA_CONTACTO = dr["RESPUESTA_CONTACTO"]?.ToString();
+                                output.RESPUESTA_EXCUSA = dr["RESPUESTA_EXCUSA"]?.ToString();
+                                output.OBSERVACION = dr["OBSERVACION"]?.ToString();
+                                output.TIPO_GESTION = dr["TIPO_GESTION"]?.ToString();
+                                output.FECHA_DILIGENCIA = Convert.ToDateTime(dr["FECHA_DILIGENCIA"]?.ToString());
+                                output.VALOR_DILIGENCIA = Convert.ToInt32(dr["VALOR_DILIGENCIA"]?.ToString());
+
+                                Gestiones.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Gestiones;
+        }
 
 
     }

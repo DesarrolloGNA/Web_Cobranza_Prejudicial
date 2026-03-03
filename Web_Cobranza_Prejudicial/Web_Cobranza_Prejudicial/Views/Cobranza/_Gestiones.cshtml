@@ -138,10 +138,80 @@
 
 
 
-            <div id="Gestiones_Judiciales" class="container tab-pane fade">
+            <div id="Gestiones_Judiciales" class="tab-pane fade">
+
+                <div class="scrolling-table-container_Gestiones">
+
+                    <table class="table table-striped table-bordered table-hover overflow-auto" style="width:100%;" name="Lista_Gestiones_Jud" id="Lista_Gestiones_Jud">
+
+                        <thead>
+                            <tr>
+ 
+                                <th class="h6">#</th>
+                                <th class="h6">FECHA_REGISTRO</th>
+                                <th class="h6">NOMBRE_RESPONSABLE</th>
+                                <th class="h6">RESPUESTA_CONTACTO</th>
+                                <th class="h6">RESPUESTA_EXCUSA</th>
+                                <th class="h6">OBSERVACION</th>
+                                <th class="h6">TIPO_GESTION</th>
+                                <th class="h6">FECHA_DILIGENCIA</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var jud in Model.GESTIONES_JUDICIALES.ToList())
+                            {
 
 
-                <div class="scrolling-table-container_Gestiones"></div>
+
+                                <tr title="@jud.OBSERVACION">
+                                    <td class="h6">@jud.ID_GESTIONES_JUDICIALES</td>
+                                    <td class="h6">@jud.FECHA_REGISTRO.ToString("dd-MM-yyyy HH:mm:ss")</td>
+                                    <td class="h6">@jud.NOMBRE_RESPONSABLE</td>
+                                    <td class="h6">@jud.RESPUESTA_CONTACTO</td>
+                                    <td class="h6">@jud.RESPUESTA_EXCUSA</td>
+
+                                    <td class="h6">
+                                        @{
+                                            var textoj = jud.OBSERVACION ?? "";
+                                            var largoCortej = 50;
+
+                                            var primeraParte = textoj.Length > largoCortej
+                                            ? textoj.Substring(0, largoCortej)
+                                            : textoj;
+
+                                            var segundaParte = textoj.Length > largoCortej
+                                            ? textoj.Substring(largoCortej)
+                                            : "";
+                                        }
+
+                                        <p>
+                                            <span href="#" title="@jud.OBSERVACION" data-bs-toggle="collapse" data-bs-target="#GestJ_@jud.ID_GESTIONES_JUDICIALES" style="cursor:pointer; text-decoration: underline;">
+                                                @primeraParte
+                                            </span><span id="GestJ_@jud.ID_GESTIONES_JUDICIALES" class="collapse">@segundaParte</span>
+                                        </p>
+
+                                    </td>
+                                    <th class="h6">@jud.TIPO_GESTION</th>
+                                    <td class="h6">
+
+                                        @if (@jud.FECHA_DILIGENCIA.ToString("yyyyMMdd") == "19000101")
+                                        {
+
+                                        }
+                                        else
+                                        {
+
+                                            @jud.FECHA_DILIGENCIA.ToShortDateString()
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
 
 
             </div>
