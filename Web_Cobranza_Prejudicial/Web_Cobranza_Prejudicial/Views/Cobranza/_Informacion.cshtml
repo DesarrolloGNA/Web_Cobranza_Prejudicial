@@ -67,7 +67,7 @@
             <div class="card-body">
                 <h5 class="card-title">Campañas</h5>
                 <div class="scrolling-table-container_Campañas">
-           @*          <p class="card-text"> *@
+    
                         @foreach(var i in Model.OFERTAS)
                         {
 
@@ -82,7 +82,8 @@
                             <div class="progress" style="height:30px">
                                 <div class="progress-bar bg-success btn text-left progress-bar-striped progress-bar-animated"
                                      title="@texto"
-                                     style="width:100%; text-align:left; padding-left:10px;">
+                                     style="width:100%; text-align:left; padding-left:10px;"
+                                     data-bs-toggle="tooltip" data-bs-placement="bottom">
                                     <strong>
                                         (@i.FECHA_INICIO_CAMPAÑA.ToString("dd/MM/yyyy")-
                                         @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))
@@ -97,7 +98,8 @@
                             <div class="progress" style="height:30px">
                                 <div class="progress-bar bg-secondary text-left progress-bar-striped progress-bar-animated"
                                      title="@texto"
-                                     style="width:100%; text-align:left; padding-left:10px;">
+                                     style="width:100%; text-align:left; padding-left:10px;"
+                                     data-bs-toggle="tooltip" data-bs-placement="bottom">
                                     <strong>
                                         (@i.FECHA_INICIO_CAMPAÑA.ToString("dd/MM/yyyy")-
                                         @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))
@@ -113,7 +115,7 @@
                            
   
                         }
-                @*     </p> *@
+           
                 </div>
             </div>
         </div>

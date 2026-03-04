@@ -790,5 +790,160 @@ namespace Web_Cobranza_Prejudicial.Models
         }
 
 
+
+
+
+
+        public async Task<List<oSP_READ_DEUDAS_X_ID_DEUDA>> SP_READ_DEUDAS_X_ID_DEUDA(int ID_DEUDA)
+        {
+            List<oSP_READ_DEUDAS_X_ID_DEUDA> Deuda = new List<oSP_READ_DEUDAS_X_ID_DEUDA>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_DEUDAS_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_DEUDAS_X_ID_DEUDA output = new oSP_READ_DEUDAS_X_ID_DEUDA();
+
+                                output.ID_DEUDA             = Convert.ToInt32(dr["ID_DEUDA"]?.ToString());
+                                output.FOLIO                = dr["FOLIO"]?.ToString();
+                                output.FECHA_VENCIMIENTO    = Convert.ToDateTime(dr["FECHA_VENCIMIENTO"]?.ToString());
+                                output.VALOR                = Convert.ToInt32(dr["VALOR"]?.ToString());
+                                output.FACULTAD             = dr["FACULTAD"]?.ToString();
+                                output.SEDE                 = dr["SEDE"]?.ToString();
+                                output.MOTIVO               = dr["MOTIVO"]?.ToString();
+                                output.FECHA_CARGA          = Convert.ToDateTime(dr["FECHA_CARGA"]?.ToString());
+                                output.NRO_JUICIO           = Convert.ToInt32(dr["NRO_JUICIO"]?.ToString());
+                                output.RUT_ALUMNO           = Convert.ToInt32(dr["RUT_ALUMNO"]?.ToString());
+                                output.DV_ALUMNO            = dr["DV_ALUMNO"]?.ToString();
+                                output.NOMBRE_ALUMNO        = dr["NOMBRE_ALUMNO"]?.ToString();
+                                output.ESTADO_DEUDA         = dr["ESTADO_DEUDA"]?.ToString();
+
+                                Deuda.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Deuda;
+        }
+
+
+
+
+
+        public async Task<List<oSP_READ_PAGO_X_ID_DEUDA>> SP_READ_PAGO_X_ID_DEUDA(int ID_DEUDA)
+        {
+            List<oSP_READ_PAGO_X_ID_DEUDA> Pagos = new List<oSP_READ_PAGO_X_ID_DEUDA>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_DEUDAS_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_PAGO_X_ID_DEUDA output = new oSP_READ_PAGO_X_ID_DEUDA();
+
+                                output.ID_PAGO = Convert.ToInt32(dr["ID_PAGO"]?.ToString());
+                                output.MONTO_PAGO = Convert.ToInt32(dr["MONTO_PAGO"]?.ToString());
+                                output.FECHA_PAGO = Convert.ToDateTime(dr["FECHA_PAGO"]?.ToString());
+                                output.TIPO_PAGO = dr["TIPO_PAGO"]?.ToString();
+
+                                Pagos.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Pagos;
+        }
+
+
+
+        public async Task<oSP_READ_BANNER_X_ID_DEUDA> SP_READ_BANNER_X_ID_DEUDA(int ID_DEUDA)
+        {
+            oSP_READ_BANNER_X_ID_DEUDA Banner = new oSP_READ_BANNER_X_ID_DEUDA();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_BANNER_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+                              
+                                Banner.FOLIO = dr["FOLIO"]?.ToString();
+                                Banner.ESTADO_DEUDA = dr["ESTADO_DEUDA"]?.ToString();
+                                Banner.NOMBRE_MANDANTE = dr["NOMBRE_MANDANTE"]?.ToString();                
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Banner;
+        }
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
     }
 }

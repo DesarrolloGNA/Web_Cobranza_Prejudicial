@@ -67,6 +67,8 @@ async function Funcion_CargarDeuda() {
             document.getElementById('_PartialViewBotonera').innerHTML = "";
             document.getElementById('_PartialViewGestiones').innerHTML = "";
 
+          
+
             Dibujar_Datatable_Gestiones();
 
         })
@@ -90,8 +92,9 @@ function Funcion_CargarInformacion(IDDEUDA) {
     Promise.all([
         cargarPartial(`/Cobranza/_Informacion?${params}`, '_PartialViewInformacion'),
         cargarPartial(`/Cobranza/_Botonera`, '_PartialViewBotonera'),
-        cargarPartial(`/Cobranza/_Gestiones?${params}`, '_PartialViewGestiones')
-           
+        cargarPartial(`/Cobranza/_Gestiones?${params}`, '_PartialViewGestiones'),
+        cargarPartial(`/Cobranza/_Banner?${params}`, '_PartialViewBanner')
+
     ]);
    
 

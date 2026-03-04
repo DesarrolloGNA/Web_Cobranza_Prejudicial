@@ -115,6 +115,21 @@ namespace Web_Cobranza_Prejudicial.Controllers
         }
 
 
+
+        [HttpGet]
+        public async Task<IActionResult> _Banner(int ID_DEUDA)
+        {
+
+
+            oSP_READ_BANNER_X_ID_DEUDA Banner = new oSP_READ_BANNER_X_ID_DEUDA();
+            Banner = await _methods.SP_READ_BANNER_X_ID_DEUDA(ID_DEUDA);
+
+            return PartialView("_Banner", Banner);
+        }
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> _Botonera()
         {
@@ -134,6 +149,8 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
             Gestiones.GESTIONES_PREJUDICIALES = await _methods.SP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA(ID_DEUDA);
             Gestiones.GESTIONES_JUDICIALES = await _methods.SP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA(ID_DEUDA);
+            Gestiones.DEUDAS = await _methods.SP_READ_DEUDAS_X_ID_DEUDA(ID_DEUDA);
+            Gestiones.PAGOS = await _methods.SP_READ_PAGO_X_ID_DEUDA(ID_DEUDA);
 
             return PartialView("_Gestiones", Gestiones);
         }

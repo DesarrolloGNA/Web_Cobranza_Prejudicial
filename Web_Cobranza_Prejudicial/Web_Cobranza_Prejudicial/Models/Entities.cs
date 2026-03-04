@@ -104,8 +104,8 @@ namespace Web_Cobranza_Prejudicial.Models
         {
             public List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA> GESTIONES_PREJUDICIALES { get; set; }
             public List<oSP_READ_GESTIONES_JUDICIALES_X_ID_DEUDA> GESTIONES_JUDICIALES { get; set; }
-            
-
+            public List<oSP_READ_DEUDAS_X_ID_DEUDA> DEUDAS { get; set; }
+            public List<oSP_READ_PAGO_X_ID_DEUDA> PAGOS { get; set; }
         }
 
 
@@ -294,6 +294,53 @@ namespace Web_Cobranza_Prejudicial.Models
             public int VALOR_DILIGENCIA { get; set; }
 
         }
+
+
+
+        public class oSP_READ_DEUDAS_X_ID_DEUDA
+        {
+
+            public int ID_DEUDA { get; set; }
+            public String FOLIO { get; set; }
+            public DateTime FECHA_VENCIMIENTO { get; set; }
+            public int VALOR { get; set; }
+            public String FACULTAD { get; set; }
+            public String SEDE { get; set; }
+            public String MOTIVO { get; set; }
+            public DateTime FECHA_CARGA { get; set; }
+            public int NRO_JUICIO { get; set; }
+            public int RUT_ALUMNO { get; set; }
+            public String DV_ALUMNO { get; set; }
+            public String NOMBRE_ALUMNO { get; set; }
+            public String ESTADO_DEUDA { get; set; }
+
+        }
+
+
+        public class oSP_READ_PAGO_X_ID_DEUDA
+        {
+            public int ID_PAGO { get; set; }
+            public int MONTO_PAGO { get; set; }
+            public DateTime FECHA_PAGO { get; set; }
+            public String TIPO_PAGO { get; set; }
+        }
+
+
+
+        public class oSP_READ_BANNER_X_ID_DEUDA
+        {
+            public String FOLIO { get; set; }
+            public String ESTADO_DEUDA { get; set; }
+            public String NOMBRE_MANDANTE { get; set; }
+
+           
+        }
+
+
+
+
+
+
 
 
 
