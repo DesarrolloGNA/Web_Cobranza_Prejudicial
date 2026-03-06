@@ -340,6 +340,48 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
+        public class iSP_CREATE_TELEFONO_PREJUDICIAL
+        {
+            [Required]
+            public int ID_DEUDA_TELEFONO { get; set; }
+
+            [Required]
+            public int TELEFONO_PRE { get; set; }
+
+      
+        }
+
+
+        public class oSP_CREATE_TELEFONO_PREJUDICIAL
+        {
+            public int RETURN_VALUE { get; set; }
+            public string MENSAJE { get; set; }
+        }
+
+
+
+
+        public class iSP_CREATE_EMAIL_PREJUDICIAL
+        {
+            [Required]
+            public int ID_DEUDA_EMAIL{ get; set; }
+
+            [Required]
+            public string EMAIL_PRE { get; set; }
+
+
+        }
+
+
+        public class oSP_CREATE_EMAIL_PREJUDICIAL
+        {
+            public int RETURN_VALUE { get; set; }
+            public string MENSAJE { get; set; }
+        }
+
+
+
+
 
 
 

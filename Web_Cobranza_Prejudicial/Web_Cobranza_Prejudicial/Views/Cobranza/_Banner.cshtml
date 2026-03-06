@@ -5,8 +5,8 @@
 @if (Model.ESTADO_DEUDA == "PENDIENTE")
 {
     <div class="progress" style="height:30px">
-        <div class="progress-bar bg-success btn text-left" style="width:100%; text-align:left; padding-left:10px;">
-            Mandante: @Model.NOMBRE_MANDANTE  Folio:@Model.FOLIO  Estado Deuda: @Model.ESTADO_DEUDA
+        <div class="progress-bar bg-success btn text-left" style="width:100%; text-align:left; padding-left:10px;font-size: 15px;">
+            Mandante: @Model.NOMBRE_MANDANTE  Folio: @Model.FOLIO  Estado Deuda: @Model.ESTADO_DEUDA
         </div>
     </div>
 
@@ -14,8 +14,8 @@
 else
 {
     <div class="progress" style="height:30px">
-        <div class="progress-bar bg-danger btn text-left" style="width:100%; text-align:left; padding-left:10px;">
-            Mandante: @Model.NOMBRE_MANDANTE  Folio:@Model.FOLIO  Estado Deuda: @Model.ESTADO_DEUDA
+        <div class="progress-bar bg-danger btn text-left" style="width:100%; text-align:left; padding-left:10px; font-size: 15px;">
+            Mandante: @Model.NOMBRE_MANDANTE  Folio: @Model.FOLIO  Estado Deuda: @Model.ESTADO_DEUDA
         </div>
     </div>
 

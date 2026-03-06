@@ -936,8 +936,114 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
+        public async Task<oSP_CREATE_TELEFONO_PREJUDICIAL> SP_CREATE_TELEFONO_PRE_JUDICIAL(iSP_CREATE_TELEFONO_PREJUDICIAL input, int ID_RESPONSABLE)
+        {
 
-        
+            oSP_CREATE_TELEFONO_PREJUDICIAL output = new oSP_CREATE_TELEFONO_PREJUDICIAL();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_CREATE_TELEFONO_PRE_JUDICIAL", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = input.ID_DEUDA_TELEFONO;
+                        cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
+                        cmd.Parameters.Add("@TELEFONO", SqlDbType.Int).Value = input.TELEFONO_PRE;
+          
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+
+
+                                output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
+                                output.MENSAJE = dr["MENSAJE"]?.ToString();
+
+                            }
+                            else
+                            {
+                                output.RETURN_VALUE = 0;
+                                output.MENSAJE = "No fue posible Registrar Telefono.";
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception EX)
+                {
+                    output.RETURN_VALUE = -1;
+                    output.MENSAJE = "Error : " + EX.Message.ToString();
+
+                    connection.Close();
+                }
+            }
+            return output;
+        }
+
+
+
+
+
+        public async Task<oSP_CREATE_EMAIL_PREJUDICIAL> SP_CREATE_EMAIL_PRE_JUDICIAL(iSP_CREATE_EMAIL_PREJUDICIAL input, int ID_RESPONSABLE)
+        {
+
+            oSP_CREATE_EMAIL_PREJUDICIAL output = new oSP_CREATE_EMAIL_PREJUDICIAL();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_CREATE_EMAIL_PRE_JUDICIAL", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = input.ID_DEUDA_EMAIL;
+                        cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
+                        cmd.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = input.EMAIL_PRE;
+
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+
+
+                                output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
+                                output.MENSAJE = dr["MENSAJE"]?.ToString();
+
+                            }
+                            else
+                            {
+                                output.RETURN_VALUE = 0;
+                                output.MENSAJE = "No fue posible Registrar Telefono.";
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception EX)
+                {
+                    output.RETURN_VALUE = -1;
+                    output.MENSAJE = "Error : " + EX.Message.ToString();
+
+                    connection.Close();
+                }
+            }
+            return output;
+        }
+
 
 
 

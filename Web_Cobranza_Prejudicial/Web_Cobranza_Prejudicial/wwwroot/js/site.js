@@ -398,3 +398,162 @@ function hideLoading(button) {
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+
+
+
+function Funcion_CargarRegistrarTelefono() {
+
+
+
+
+    var Get = ('/Cobranza/_RegistrarTelefono');
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewRegistrarTelefono').innerHTML = data;
+            document.getElementById("ID_DEUDA_TELEFONO").value = document.getElementById("ID_DEUDA").value;
+        });
+}
+
+
+function Funcion_CargarRegistrarEmail() {
+
+
+
+    
+    var Get = ('/Cobranza/_RegistrarEmail');
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewRegistrarEmail').innerHTML = data;
+            document.getElementById("ID_DEUDA_EMAIL").value = document.getElementById("ID_DEUDA").value;
+        });
+}
+
+
+
+
+function Grabar_Telefono_Pre() {
+
+    var button = document.getElementById("BTN_GRABAR_TELEFONO_PRE");
+
+
+    var Post = ('/Cobranza/Create_Telefono_Prejudicial');
+    var DatosFormulario = new FormData(document.getElementById("GRABARTELEFONOPRE"));
+    fetch(Post, {
+        method: "POST",
+        body: DatosFormulario
+    })
+        .then(res => {
+            if (res.status != 200) { throw new Error("Bad Server Response"); }
+            return res.text();
+        })
+        .then(res => {
+
+            //Serializo el Json
+            var dataObj = JSON.parse(res);
+            //aqui la logica si registra o no
+            if (dataObj.returN_VALUE > 0) {
+                var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+                Funcion_CargarInformacion(ID_DEUDA);
+
+                //muestro la alerta
+                
+                document.getElementById("TelefonoPrejudicialAlerta").style.visibility = "visible";
+                document.getElementById("TelefonoPrejudicialAlerta").className = "alert alert-success alert-dismissible fade show";
+                document.getElementById("TelefonoPrejudicialAlertaCabecera").innerText = "Registro Correcto! ";
+                document.getElementById("TelefonoPrejudicialAlertaMensaje").innerText = dataObj.mensaje;
+                document.getElementById("BTN_GRABAR_GESTION_J").style.visibility = "hidden";
+
+
+
+            } else {
+                //muestro la alerta
+                document.getElementById("TelefonoPrejudicialAlerta").style.visibility = "visible";
+                document.getElementById("TelefonoPrejudicialAlerta").className = "alert alert-danger alert-dismissible fade show";
+                document.getElementById("TelefonoPrejudicialAlertaCabecera").innerText = "Error! ";
+                document.getElementById("TelefonoPrejudicialAlertaMensaje").innerText = dataObj.mensaje;
+
+
+            }
+
+
+
+        })
+        .catch(err => console.error(err));
+
+
+    return false;
+}
+
+
+
+
+
+
+function Grabar_Email_Pre() {
+
+    var button = document.getElementById("BTN_GRABAR_EMAIL_PRE");
+
+
+    var Post = ('/Cobranza/Create_Email_Prejudicial');
+    var DatosFormulario = new FormData(document.getElementById("GRABAREMAILPRE"));
+    fetch(Post, {
+        method: "POST",
+        body: DatosFormulario
+    })
+        .then(res => {
+            if (res.status != 200) { throw new Error("Bad Server Response"); }
+            return res.text();
+        })
+        .then(res => {
+
+            //Serializo el Json
+            var dataObj = JSON.parse(res);
+            //aqui la logica si registra o no
+            if (dataObj.returN_VALUE > 0) {
+                var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+                Funcion_CargarInformacion(ID_DEUDA);
+
+                //muestro la alerta
+
+                document.getElementById("EmailPrejudicialAlerta").style.visibility = "visible";
+                document.getElementById("EmailPrejudicialAlerta").className = "alert alert-success alert-dismissible fade show";
+                document.getElementById("EmailPrejudicialAlertaCabecera").innerText = "Registro Correcto! ";
+                document.getElementById("EmailPrejudicialAlertaMensaje").innerText = dataObj.mensaje;
+                document.getElementById("BTN_GRABAR_GESTION_J").style.visibility = "hidden";
+
+
+
+            } else {
+                //muestro la alerta
+                document.getElementById("EmailPrejudicialAlerta").style.visibility = "visible";
+                document.getElementById("EmailPrejudicialAlerta").className = "alert alert-danger alert-dismissible fade show";
+                document.getElementById("EmailPrejudicialAlertaCabecera").innerText = "Error! ";
+                document.getElementById("EmailPrejudicialAlertaMensaje").innerText = dataObj.mensaje;
+
+
+            }
+
+
+
+        })
+        .catch(err => console.error(err));
+
+
+    return false;
+}
+
+
+
+
+
+
+
+
+
+
+

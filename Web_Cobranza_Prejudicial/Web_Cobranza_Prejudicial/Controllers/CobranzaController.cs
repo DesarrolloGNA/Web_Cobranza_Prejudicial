@@ -258,10 +258,75 @@ namespace Web_Cobranza_Prejudicial.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> _RegistrarTelefono()
+        {
+            return PartialView("_RegistrarTelefono");
+        }
 
+
+
+        [HttpGet]
+        public async Task<IActionResult> _RegistrarEmail()
+        {
+
+            return PartialView("_RegistrarEmail");
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create_Telefono_Prejudicial(iSP_CREATE_TELEFONO_PREJUDICIAL Input)
+        {
+
+            oSP_CREATE_TELEFONO_PREJUDICIAL output = new oSP_CREATE_TELEFONO_PREJUDICIAL();
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+
+            output = await _methods.SP_CREATE_TELEFONO_PRE_JUDICIAL(Input, outputCookie.ID_RESPONSABLE);
+
+            return Ok(output);
+
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create_Email_Prejudicial(iSP_CREATE_EMAIL_PREJUDICIAL Input)
+        {
+
+            oSP_CREATE_EMAIL_PREJUDICIAL output = new oSP_CREATE_EMAIL_PREJUDICIAL();
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+
+            output = await _methods.SP_CREATE_EMAIL_PRE_JUDICIAL(Input, outputCookie.ID_RESPONSABLE);
+
+            return Ok(output);
+
+        }
 
 
 
 
     }
+
 }
+

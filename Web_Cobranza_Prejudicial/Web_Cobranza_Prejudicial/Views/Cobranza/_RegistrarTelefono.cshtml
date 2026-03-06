@@ -1,0 +1,38 @@
+﻿<div class="card">
+    <div class="card-body">
+        <div class="card-header">Registrar Telefono</div>
+        <form class="was-validated" id="GRABARTELEFONOPRE" onsubmit="return Grabar_Telefono_Pre()">
+
+
+
+            <input type="hidden" id="ID_DEUDA_TELEFONO" name="ID_DEUDA_TELEFONO" value="0" />
+
+            <div class="mb-3">
+                <label for="TELEFONO_PRE" class="form-label h6">Telefono </label> 
+                <input id="TELEFONO_PRE" name="TELEFONO_PRE" class="form-control" type="number" required>
+                <div class="invalid-feedback">
+                    Campo Obligatorio.
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <button vale="Submit" id="BTN_GRABAR_TELEFONO_PRE" class="btn btn-primary" title="Click aqui para guardar Telefono.">Grabar Telefono <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+
+
+
+
+
+            <div id="TelefonoPrejudicialAlerta" name="TelefonoPrejudicialAlerta" style="visibility:hidden;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong><label id="TelefonoPrejudicialAlertaCabecera"></label></strong> <label id="TelefonoPrejudicialAlertaMensaje"></label>
+            </div>
+
+
+
+        </form>
+
+
+    </div>
+</div>

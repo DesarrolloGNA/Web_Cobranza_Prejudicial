@@ -1,0 +1,29 @@
+﻿<div class="card">
+    <div class="card-body">
+        <div class="card-header">Registrar Email</div>
+        <form class="was-validated" id="GRABAREMAILPRE" onsubmit="return Grabar_Email_Pre()">
+
+            <input type="hidden" id="ID_DEUDA_EMAIL" name="ID_DEUDA_EMAIL" value="0" />
+
+            <div class="mb-3">
+                <label for="EMAIL_PRE" class="form-label h6">Email </label>
+                <input id="EMAIL_PRE" name="EMAIL_PRE" class="form-control" type="email" required>
+                <div class="invalid-feedback">
+                    Campo Obligatorio.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button vale="Submit" id="BTN_GRABAR_EMAIL_PRE" class="btn btn-primary" title="Click aqui para guardar Email.">Grabar Email <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+
+            <div id="EmailPrejudicialAlerta" name="EmailPrejudicialAlerta" style="visibility:hidden;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong><label id="EmailPrejudicialAlertaCabecera"></label></strong> <label id="EmailPrejudicialAlertaMensaje"></label>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
