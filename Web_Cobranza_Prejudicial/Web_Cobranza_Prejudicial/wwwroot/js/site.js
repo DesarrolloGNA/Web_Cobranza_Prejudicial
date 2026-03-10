@@ -31,7 +31,6 @@
     $.fn.dataTable.ext.errMode = 'none';
 }
 
-
 async function Funcion_CargarDeuda() {
 
     var button = document.getElementById("Buscar_Deuda");
@@ -80,7 +79,6 @@ async function Funcion_CargarDeuda() {
 
 }
 
-
 function Funcion_CargarInformacion(IDDEUDA) {
 
 
@@ -102,7 +100,6 @@ function Funcion_CargarInformacion(IDDEUDA) {
 
 }
 
-
 function cargarPartial(url, contenedorId) {
     return fetch(url)
         .then(r => {
@@ -114,9 +111,6 @@ function cargarPartial(url, contenedorId) {
         })
         .catch(err => console.error(err));
 }
-
-
-
 
 function Funcion_CargarDiscador() {
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
@@ -132,7 +126,6 @@ function Funcion_CargarDiscador() {
         });
 
 }
-
 
 function Cant_Caract_Obs() {
     var max = "1000";
@@ -150,9 +143,6 @@ function Cant_Caract_Obs() {
     }
 }
 
-
-
-//carga formato Search a los Select de bootstrap 5
 function Dibujar_Select2(ID_SELECT) {
     $(ID_SELECT).each(function () {
         $(this).select2({
@@ -163,8 +153,6 @@ function Dibujar_Select2(ID_SELECT) {
         });
     });
 }
-
-
 
 function Funcion_Cargar_Contacto_x_Lugar() {
 
@@ -193,9 +181,6 @@ function Funcion_Cargar_Contacto_x_Lugar() {
             Dibujar_Select2("#ID_RESPUESTA_CONTACTO");
         });
 }
-
-
-
 
 function Funcion_Cargar_Excusa_x_Contacto() {
 
@@ -226,12 +211,9 @@ function Funcion_Cargar_Excusa_x_Contacto() {
         });
 }
 
-
 function Grabar_Gestion_Pre() {
 
-    var button = document.getElementById("BTN_GRABAR_GESTION_PRE");
-
-
+   
     var Post = ('/Cobranza/Create_Gestion_Prejudicial');
     var DatosFormulario = new FormData(document.getElementById("GRABARGESTIONPRE"));
     fetch(Post, {
@@ -256,7 +238,7 @@ function Grabar_Gestion_Pre() {
                 document.getElementById("GestionPrejudicialAlerta").className = "alert alert-success alert-dismissible fade show";
                 document.getElementById("GestionPrejudicialAlertaCabecera").innerText = "Registro Correcto! ";
                 document.getElementById("GestionPrejudicialAlertaMensaje").innerText = dataObj.mensaje;
-                document.getElementById("BTN_GRABAR_GESTION_J").style.visibility = "hidden";
+                document.getElementById("BTN_GRABAR_GESTION_PRE").style.visibility = "hidden";
                 
 
 
@@ -279,10 +261,9 @@ function Grabar_Gestion_Pre() {
     return false;
 }
 
-
 function LLamar() {
 
-   
+
     document.getElementById("BTN_LLAMAR_DISCADOR").disabled = true;
 
     var DISCADOR = document.getElementById("DISCADOR");
@@ -319,8 +300,8 @@ function LLamar() {
             const option = new Option(TELEFONO_DISCADO, ID_TELEFONO_DISCADOR, true, true);
             telefonoGestion.add(option);
 
-            telefonoGestion.disabled = true;
-
+     
+            telefonoGestion.style.pointerEvents = "none";
 
 
         });
@@ -329,7 +310,7 @@ function LLamar() {
 
     //EFECTUO LA LLAMADA
 
-    var url = `/api/call/call?NUMERO_TELEFONO=${ID_TELEFONO_DISCADOR}&CARRIER=${ID_CARRIER}&ID_DEUDA=${ID_DEUDA}`;
+    var url = `/api/call/call?NUMERO_TELEFONO=${TELEFONO_DISCADO}&CARRIER=${ID_CARRIER}&ID_DEUDA=${ID_DEUDA}`;
 
 
     fetch(url, {
@@ -359,12 +340,11 @@ function LLamar() {
 
 
 
-    console.log(DISCADOR);
+    SELECT_TELEFONO_DISCADOR.style.pointerEvents = "none";
 
 
 
 }
-
 
 function Funcion_CargarRegistrarGestion() {
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
@@ -385,7 +365,6 @@ function Funcion_CargarRegistrarGestion() {
         });
 }
 
-
 let loadingModal;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -402,13 +381,9 @@ function hideLoading(button) {
     loadingModal.hide();
 }
 
-
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
-
 
 function Funcion_CargarRegistrarTelefono() {
 
@@ -424,7 +399,6 @@ function Funcion_CargarRegistrarTelefono() {
         });
 }
 
-
 function Funcion_CargarRegistrarEmail() {
 
 
@@ -438,9 +412,6 @@ function Funcion_CargarRegistrarEmail() {
             document.getElementById("ID_DEUDA_EMAIL").value = document.getElementById("ID_DEUDA").value;
         });
 }
-
-
-
 
 function Grabar_Telefono_Pre() {
 
@@ -496,7 +467,6 @@ function Grabar_Telefono_Pre() {
     return false;
 }
 
-
 function Grabar_Email_Pre() {
 
     var button = document.getElementById("BTN_GRABAR_EMAIL_PRE");
@@ -550,7 +520,6 @@ function Grabar_Email_Pre() {
 
     return false;
 }
-
 
 function Funcion_Mostrar_Telefonos() {
 

@@ -22,7 +22,7 @@
                 <select id="ID_TELEFONO_DISCADOR" name="ID_TELEFONO_DISCADOR" data-placeholder="Seleccione Telefono" class="form-select">
                     @foreach (var Contacto in Model.TELEFONOS.Where(X => X.ESTADO_TELEFONO != "ERRADO").ToList())
                     {
-                        <option value="@Contacto.TELEFONO">@Contacto.TELEFONO</option>
+                        <option value="@Contacto.ID_TELEFONO">@Contacto.TELEFONO</option>
                     }
                 </select>
 

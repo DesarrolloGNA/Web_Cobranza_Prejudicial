@@ -32,6 +32,7 @@ public class AmiService
                 $"CallerID: {anexo}\r\n" +
                 "Async: true\r\n\r\n";
 
+
         return await SendAsync(action);
     }
 
