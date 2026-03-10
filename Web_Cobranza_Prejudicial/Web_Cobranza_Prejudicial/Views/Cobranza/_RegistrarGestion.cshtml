@@ -14,19 +14,7 @@
             <input type="hidden" id="ID_LOG_DISCADOR" name="ID_LOG_DISCADOR" value="0" />
             <input type="hidden" id="ID_DEUDA_GESTION" name="ID_DEUDA_GESTION" value="@Model.ID_DEUDA" />
             <input type="hidden" id="ID_RESPONSABLE_GESTION" name="ID_RESPONSABLE_GESTION" value="@Model.ID_RESPONSABLE" />
-
-            <div class="mb-3">
-                <label for="ID_TELEFONO" class="form-label h6">Telefono</label>
-                <select id="ID_TELEFONO" name="ID_TELEFONO" data-placeholder="Seleccione Telefono" onchange="Funcion_Cargar_Excusas_x_Contacto()" class="form-select" required>
-                    @foreach (var Contacto in Model.TELEFONOS.Where(X => X.ESTADO_TELEFONO != "ERRADO").ToList())
-                    {
-                        <option value="@Contacto.ID_TELEFONO">@Contacto.TELEFONO</option>
-                    }
-                </select>
-                <div class="invalid-feedback">Campo Obligatorio.</div>
-            </div>
-
-
+  
             <div class="mb-3">
                 <label for="ID_RESPUESTA_LUGAR" class="form-label h6">Lugar</label>
                 <select id="ID_RESPUESTA_LUGAR" name="ID_RESPUESTA_LUGAR" data-placeholder="Seleccione Lugar" onchange="Funcion_Cargar_Contacto_x_Lugar()" class="form-select" required>
@@ -51,11 +39,22 @@
 
             <div class="mb-3">
                 <label for="ID_RESPUESTA_EXCUSA" class="form-label  h6">Excusa</label>
-                <select id="ID_RESPUESTA_EXCUSA" name="ID_RESPUESTA_EXCUSA" data-placeholder="Seleccione Excusa" class="form-select" required>
+                <select id="ID_RESPUESTA_EXCUSA" name="ID_RESPUESTA_EXCUSA" data-placeholder="Seleccione Excusa" onchange="Funcion_Mostrar_Telefonos()" class="form-select" required>
                     <option value=""></option>
                 </select>
                 <div class="invalid-feedback">Campo Obligatorio.</div>
             </div>
+
+
+
+            <div class="mb-3">
+                <label for="ID_TELEFONO" class="form-label h6">Telefono</label>
+                <select id="ID_TELEFONO" name="ID_TELEFONO" data-placeholder="Seleccione Telefono" class="form-select">
+        
+                </select>
+            </div>
+
+
 
             <div class="mb-3">
                 <label for="FECHA_PROMESA" class="form-label  h6">Fecha Promesa</label>

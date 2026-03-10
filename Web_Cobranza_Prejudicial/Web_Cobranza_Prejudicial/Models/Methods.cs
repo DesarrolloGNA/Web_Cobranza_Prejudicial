@@ -244,6 +244,7 @@ namespace Web_Cobranza_Prejudicial.Models
                                 output.RESPUESTA_EXCUSA = dr["RESPUESTA_EXCUSA"]?.ToString();
                                 output.RESPUESTA_CONTACTO = dr["RESPUESTA_CONTACTO"]?.ToString();
                                 output.CODIGO = dr["CODIGO"]?.ToString();
+                                output.ID_TIPO_CONTACTABILIDAD = Convert.ToInt32(dr["ID_TIPO_CONTACTABILIDAD"]?.ToString());
                                 Gestiones.Add(output);
                             }
                         }
@@ -354,7 +355,7 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
-        public async Task<List<oSP_READ_LUGAR_X_ID_DEUDA>> SP_READ_LUGAR_X_ID_DEUDA(int ID_DEUDA)
+        public async Task<List<oSP_READ_LUGAR_X_ID_DEUDA>> SP_READ_LUGAR_X_ID_DEUDA(int ID_DEUDA,int DISCADOR = 0)
         {
             List<oSP_READ_LUGAR_X_ID_DEUDA> Lugar = new List<oSP_READ_LUGAR_X_ID_DEUDA>();
 
@@ -368,7 +369,7 @@ namespace Web_Cobranza_Prejudicial.Models
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
-
+                        cmd.Parameters.Add("@DISCADOR", SqlDbType.Int).Value = DISCADOR;
                         await connection.OpenAsync();
 
                         using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
@@ -379,7 +380,7 @@ namespace Web_Cobranza_Prejudicial.Models
 
                                 output.ID_RESPUESTA_LUGAR = Convert.ToInt32(dr["ID_RESPUESTA_LUGAR"]?.ToString());
                                 output.LUGAR = dr["LUGAR"]?.ToString();
-
+                                output.ID_TIPO_RESPUESTA_LUGAR = Convert.ToInt32(dr["ID_TIPO_RESPUESTA_LUGAR"]?.ToString());
 
                                 Lugar.Add(output);
                             }
@@ -1049,6 +1050,53 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
+
+
+        public async Task<List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA>> SP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA(int ID_DEUDA,int ID_RESPUESTA_EXCUSA)
+        {
+            List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA> Telefonos = new List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+                        cmd.Parameters.Add("@ID_RESPUESTA_EXCUSA", SqlDbType.Int).Value = ID_RESPUESTA_EXCUSA;
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA output = new oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA();
+                                output.ID_TELEFONO = Convert.ToInt32(dr["ID_TELEFONO"]?.ToString());
+                                output.TELEFONO = Convert.ToInt32(dr["TELEFONO"]?.ToString());
+                                output.C_CD = Convert.ToInt32(dr["C_CD"]?.ToString());
+                                output.C_CI = Convert.ToInt32(dr["C_CI"]?.ToString());
+                                output.C_SC = Convert.ToInt32(dr["C_SC"]?.ToString());
+                                output.OBSERVACION = dr["OBSERVACION"]?.ToString();
+                                output.FECHA_ACTUALIZACION = Convert.ToDateTime(dr["FECHA_ACTUALIZACION"]?.ToString());
+                                output.ESTADO_TELEFONO = dr["ESTADO_TELEFONO"]?.ToString();
+                                output.CONTACTABILIDAD = Convert.ToInt32(dr["CONTACTABILIDAD"]?.ToString());
+                                Telefonos.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Telefonos;
+        }
 
 
     }

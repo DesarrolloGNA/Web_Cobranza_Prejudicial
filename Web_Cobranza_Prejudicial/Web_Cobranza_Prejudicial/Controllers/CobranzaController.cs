@@ -161,7 +161,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> _RegistrarGestion(int ID_DEUDA)
+        public async Task<IActionResult> _RegistrarGestion(int ID_DEUDA,int DISCADOR = 0)
         {
 
 
@@ -180,8 +180,11 @@ namespace Web_Cobranza_Prejudicial.Controllers
             obj_REGISTRAR_GESTION objRegistrarGestion = new obj_REGISTRAR_GESTION();
             objRegistrarGestion.ID_DEUDA = ID_DEUDA;
             objRegistrarGestion.ID_RESPONSABLE = outputCookie.ID_RESPONSABLE;
-            objRegistrarGestion.TELEFONOS = await _methods.SP_READ_TELEFONOS_X_ID_DEUDA(ID_DEUDA);
-            objRegistrarGestion.LUGAR = await _methods.SP_READ_LUGAR_X_ID_DEUDA(ID_DEUDA);
+
+
+
+            objRegistrarGestion.LUGAR = await _methods.SP_READ_LUGAR_X_ID_DEUDA(ID_DEUDA, DISCADOR);
+
 
 
 
@@ -232,6 +235,13 @@ namespace Web_Cobranza_Prejudicial.Controllers
             {
                 Input.FECHA_PROMESA = DateTime.Parse("01-01-1900");
             }
+
+
+            if (Input.ID_TELEFONO==0)
+            {
+                Input.ID_TELEFONO = 1;
+            }
+
 
 
             output = await _methods.SP_CREATE_GESTION_PRE_JUDICIAL(Input);
@@ -322,6 +332,36 @@ namespace Web_Cobranza_Prejudicial.Controllers
             return Ok(output);
 
         }
+
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> OBTENER_TELEFONOS_X_ID_RESPUESTA_EXCUSA(int ID_DEUDA, int ID_RESPUESTA_EXCUSA)
+        {
+
+            List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA> Contacto = new List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA>();
+
+            Contacto = await _methods.SP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA(ID_DEUDA,ID_RESPUESTA_EXCUSA);
+ 
+
+            return Ok(Contacto);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

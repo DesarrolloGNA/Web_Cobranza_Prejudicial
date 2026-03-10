@@ -59,7 +59,26 @@
                             @foreach (var Registro in Model.GESTIONES_PREJUDICIALES.ToList())
                             {
                                 <tr title="@Registro.OBSERVACION">
-                                    <td class="h6">@Registro.ID_GESTIONES_PREJUDICIALES</td>
+                                    <td class="h6">
+
+                                        @if (@Registro.ID_TIPO_CONTACTABILIDAD ==1)
+                                        {
+                                            <span class="badge bg-success">&nbsp;</span>
+
+                                        }else if(@Registro.ID_TIPO_CONTACTABILIDAD == 2)
+                                        {
+                                            <span class="badge bg-warning">&nbsp;</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">&nbsp;</span>
+                                        }
+
+
+                                        &nbsp;@Registro.ID_GESTIONES_PREJUDICIALES
+                                        
+                                    
+                                    </td>
                                     <td class="h6">@Registro.FECHA_REGISTRO.ToString("dd-MM-yyyy HH:mm:ss")</td>
                                     <td class="h6">@Registro.TELEFONO</td>     
                                     <td class="h6">@Registro.NOMBRE_RESPONSABLE</td>

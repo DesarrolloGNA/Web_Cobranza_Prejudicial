@@ -66,7 +66,7 @@ async function Funcion_CargarDeuda() {
             document.getElementById('_PartialViewInformacion').innerHTML = "";
             document.getElementById('_PartialViewBotonera').innerHTML = "";
             document.getElementById('_PartialViewGestiones').innerHTML = "";
-
+            document.getElementById('_PartialViewBanner').innerHTML = "";
           
 
             Dibujar_Datatable_Gestiones();
@@ -118,23 +118,6 @@ function cargarPartial(url, contenedorId) {
 
 
 
-function Funcion_CargarRegistrarGestion() {
-    var ID_DEUDA = document.getElementById("ID_DEUDA").value;
-    ////oculto la alerta de mensajes
-    //document.getElementById("GestionJudicialAlerta").style.visibility = "hidden";
-
-    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA);
-    fetch(Get)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('_PartialViewRegistrarGestion').innerHTML = data;
-            document.getElementById('_PartialViewDiscador').innerHTML = null;
-                  Dibujar_Select2("#ID_RESPUESTA_LUGAR");
-
-        });
-
-}
-
 function Funcion_CargarDiscador() {
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
 
@@ -149,10 +132,6 @@ function Funcion_CargarDiscador() {
         });
 
 }
-
-
-
-
 
 
 function Cant_Caract_Obs() {
@@ -248,8 +227,6 @@ function Funcion_Cargar_Excusa_x_Contacto() {
 }
 
 
-
-
 function Grabar_Gestion_Pre() {
 
     var button = document.getElementById("BTN_GRABAR_GESTION_PRE");
@@ -303,28 +280,56 @@ function Grabar_Gestion_Pre() {
 }
 
 
-
 function LLamar() {
 
+   
+    document.getElementById("BTN_LLAMAR_DISCADOR").disabled = true;
+
+    var DISCADOR = document.getElementById("DISCADOR");
+    DISCADOR.value = 1;
 
 
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
-    var ID_TELEFONO = document.getElementById("ID_TELEFONO").value;
+
+    var SELECT_TELEFONO_DISCADOR = document.getElementById("ID_TELEFONO_DISCADOR");
+
+    var ID_TELEFONO_DISCADOR = SELECT_TELEFONO_DISCADOR.value;
+    var TELEFONO_DISCADO = SELECT_TELEFONO_DISCADOR.options[SELECT_TELEFONO_DISCADOR.selectedIndex].text;
+
     var ID_CARRIER = document.getElementById("ID_CARRIER").value;
 
+
     //VISTA DEL FORMULARIO
-    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA);
+    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA + '&DISCADOR=1');
     fetch(Get)
         .then(response => response.text())
         .then(data => {
             document.getElementById('_PartialViewRegistrarGestion').innerHTML = data;
             document.getElementById("ID_LOG_DISCADOR").value = "0";
             Dibujar_Select2("#ID_RESPUESTA_LUGAR");
+
+
+
+            const telefonoGestion = document.getElementById('ID_TELEFONO');
+
+            if (!telefonoGestion) return;
+
+            telefonoGestion.options.length = 0;
+
+            const option = new Option(TELEFONO_DISCADO, ID_TELEFONO_DISCADOR, true, true);
+            telefonoGestion.add(option);
+
+            telefonoGestion.disabled = true;
+
+
+
         });
-        
+
+
+
     //EFECTUO LA LLAMADA
 
-    var url = `/api/call/call?NUMERO_TELEFONO=${ID_TELEFONO}&CARRIER=${ID_CARRIER}&ID_DEUDA=${ID_DEUDA}`;
+    var url = `/api/call/call?NUMERO_TELEFONO=${ID_TELEFONO_DISCADOR}&CARRIER=${ID_CARRIER}&ID_DEUDA=${ID_DEUDA}`;
 
 
     fetch(url, {
@@ -337,12 +342,11 @@ function LLamar() {
             return res.json();
         })
         .then(data => {
-            console.log("Respuesta completa:", data);
+
 
             if (data.success) {
                 document.getElementById("ID_LOG_DISCADOR").value = data.logId;
-                console.log("ID LOG:", data.logId);
-                console.log("Respuesta AMI:", data.amiResponse);
+
             } else {
                 document.getElementById("ID_LOG_DISCADOR").value = "0";
                 console.error("Error backend:", data.message);
@@ -355,13 +359,20 @@ function LLamar() {
 
 
 
+    console.log(DISCADOR);
+
+
+
 }
-
-
 
 
 function Funcion_CargarRegistrarGestion() {
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+   
+
+    var DISCADOR = document.getElementById("DISCADOR");
+    DISCADOR.value = 0;
+
 
     var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA);
     fetch(Get)
@@ -372,10 +383,7 @@ function Funcion_CargarRegistrarGestion() {
             Dibujar_Select2("#ID_RESPUESTA_LUGAR");
 
         });
-
 }
-
-
 
 
 let loadingModal;
@@ -489,10 +497,6 @@ function Grabar_Telefono_Pre() {
 }
 
 
-
-
-
-
 function Grabar_Email_Pre() {
 
     var button = document.getElementById("BTN_GRABAR_EMAIL_PRE");
@@ -545,6 +549,66 @@ function Grabar_Email_Pre() {
 
 
     return false;
+}
+
+
+function Funcion_Mostrar_Telefonos() {
+
+    var DISCADOR = document.getElementById("DISCADOR").value;
+
+
+    if (DISCADOR == 0) {
+
+        var Telefonos = document.getElementById('ID_TELEFONO');
+
+        while (Telefonos.firstChild) {
+            Telefonos.removeChild(Telefonos.firstChild);
+        }
+        var optionDefault = document.createElement("option");
+        optionDefault.value = "";
+        optionDefault.text = "Seleccione Contacto";
+        Telefonos.appendChild(optionDefault);
+
+        var ID_RESPUESTA_EXCUSA = document.getElementById("ID_RESPUESTA_EXCUSA").value;
+        var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+
+
+        var Get = ('/Cobranza/OBTENER_TELEFONOS_X_ID_RESPUESTA_EXCUSA?ID_DEUDA=' + ID_DEUDA +'&ID_RESPUESTA_EXCUSA=' + ID_RESPUESTA_EXCUSA);
+        fetch(Get)
+            .then(response => response.text())
+            .then(data => {
+                var dataObj = JSON.parse(data);
+  
+                dataObj.forEach(function (option) {
+                    var optionElement = document.createElement("option");
+                    optionElement.value = option.iD_TELEFONO;
+                    optionElement.text = option.telefono;
+
+                    if (option.iD_TELEFONO == 1) {
+                        optionElement.selected = true;
+                        telefonoCero = true;
+                    } else {
+                        optionElement.selected = false;
+                        telefonoCero = false;
+
+                    }
+
+                    Telefonos.appendChild(optionElement);
+
+
+                });
+
+
+                Telefonos.disabled = telefonoCero;
+
+
+                Dibujar_Select2("#ID_TELEFONO");
+            });
+
+    }
+
+
 }
 
 

@@ -95,6 +95,7 @@ namespace Web_Cobranza_Prejudicial.Models
             public String RESPUESTA_EXCUSA { get; set; }
             public String RESPUESTA_CONTACTO { get; set; }
             public String CODIGO { get; set; }
+            public int ID_TIPO_CONTACTABILIDAD { get; set; }
 
         }
 
@@ -153,7 +154,7 @@ namespace Web_Cobranza_Prejudicial.Models
             public int ID_RESPUESTA_LUGAR { get; set; }
             public string LUGAR { get; set; }
 
-
+            public int ID_TIPO_RESPUESTA_LUGAR { get; set; }
         }
 
 
@@ -382,6 +383,19 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
+        public class oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA
+        {
+            public int ID_TELEFONO { get; set; }
+            public int TELEFONO { get; set; }
+            public int C_CD { get; set; }
+            public int C_CI { get; set; }
+            public int C_SC { get; set; }
+            public String OBSERVACION { get; set; }
+            public DateTime FECHA_ACTUALIZACION { get; set; }
+            public String ESTADO_TELEFONO { get; set; }
+            public int CONTACTABILIDAD { get; set; }
+
+        }
 
 
 
