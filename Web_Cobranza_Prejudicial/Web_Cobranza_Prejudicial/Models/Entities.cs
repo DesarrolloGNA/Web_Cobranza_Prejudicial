@@ -65,6 +65,9 @@ namespace Web_Cobranza_Prejudicial.Models
             public int ID_DEUDA { get; set; }
             public String ESTADO_JUICIO { get; set; }
             public String ESTADO_GESTION { get; set; }
+            public DateTime FECHA_ULTIMO_PAGO { get; set; }
+
+
         }
 
 
@@ -76,7 +79,10 @@ namespace Web_Cobranza_Prejudicial.Models
             public List<oSP_READ_EMAIL_X_ID_DEUDA> EMAILS { get; set; }
             public List<oSP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA> OFERTAS { get; set; }
             public List<oSP_READ_DIRECCION_X_ID_DEUDA> DIRECCIONES { get; set; }
+            public List<oSP_READ_ALERTA_X_ID_DEUDA> ALERTAS { get; set; }
+
             
+
         }
 
 
@@ -394,6 +400,28 @@ namespace Web_Cobranza_Prejudicial.Models
             public DateTime FECHA_ACTUALIZACION { get; set; }
             public String ESTADO_TELEFONO { get; set; }
             public int CONTACTABILIDAD { get; set; }
+
+        }
+
+
+
+        public class oSP_VALIDA_BOTONERA_X_ID_DEUDA
+        {
+
+            public int ESTADO_DEUDA { get; set; }
+            public int BLOQUEO_LEY { get; set; }
+            
+
+        }
+
+
+        public class oSP_READ_ALERTA_X_ID_DEUDA
+        {
+            public int ID_ALERTAS { get; set; }
+            public int TIPO_ALERTA { get; set; }
+            public String TITULO_ALERTA { get; set; }
+            public String MENSAJE_ALERTA { get; set; }
+            public int PRIORIDAD { get; set; }
 
         }
 

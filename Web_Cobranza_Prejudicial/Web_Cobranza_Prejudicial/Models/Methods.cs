@@ -37,7 +37,7 @@ namespace Web_Cobranza_Prejudicial.Models
         {
             oLogin output = new oLogin();
 
-  
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -192,7 +192,8 @@ namespace Web_Cobranza_Prejudicial.Models
                                 output.ID_DEUDA = dr["ID_DEUDA"] == DBNull.Value ? 0 : Convert.ToInt32(dr["ID_DEUDA"]);
                                 output.ESTADO_JUICIO = dr["ESTADO_JUICIO"]?.ToString();
                                 output.ESTADO_GESTION = dr["ESTADO_GESTION"]?.ToString();
-                              
+                                output.FECHA_ULTIMO_PAGO = Convert.ToDateTime(dr["FECHA_ULTIMO_PAGO"]?.ToString());
+
                             }
                         }
                     }
@@ -211,8 +212,8 @@ namespace Web_Cobranza_Prejudicial.Models
 
         public async Task<List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA>> SP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA(int ID_DEUDA)
         {
-            
-            List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA> Gestiones =  new List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA>();
+
+            List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA> Gestiones = new List<oSP_READ_GESTIONES_PREJUDICIALES_X_ID_DEUDA>();
 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -293,7 +294,7 @@ namespace Web_Cobranza_Prejudicial.Models
                                 output.FECHA_ACTUALIZACION = Convert.ToDateTime(dr["FECHA_ACTUALIZACION"]?.ToString());
                                 output.ESTADO_TELEFONO = dr["ESTADO_TELEFONO"]?.ToString();
                                 output.CONTACTABILIDAD = Convert.ToInt32(dr["CONTACTABILIDAD"]?.ToString());
-                                Telefonos.Add(output);  
+                                Telefonos.Add(output);
                             }
                         }
                     }
@@ -355,7 +356,7 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
-        public async Task<List<oSP_READ_LUGAR_X_ID_DEUDA>> SP_READ_LUGAR_X_ID_DEUDA(int ID_DEUDA,int DISCADOR = 0)
+        public async Task<List<oSP_READ_LUGAR_X_ID_DEUDA>> SP_READ_LUGAR_X_ID_DEUDA(int ID_DEUDA, int DISCADOR = 0, int BLOQUEO_LEY = 0)
         {
             List<oSP_READ_LUGAR_X_ID_DEUDA> Lugar = new List<oSP_READ_LUGAR_X_ID_DEUDA>();
 
@@ -370,6 +371,9 @@ namespace Web_Cobranza_Prejudicial.Models
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
                         cmd.Parameters.Add("@DISCADOR", SqlDbType.Int).Value = DISCADOR;
+                        cmd.Parameters.Add("@BLOQUEO_LEY", SqlDbType.Int).Value = BLOQUEO_LEY;
+
+                        
                         await connection.OpenAsync();
 
                         using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
@@ -494,7 +498,7 @@ namespace Web_Cobranza_Prejudicial.Models
         {
 
             oSP_CREATE_GESTION_PREJUDICIAL output = new oSP_CREATE_GESTION_PREJUDICIAL();
-     
+
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -521,7 +525,7 @@ namespace Web_Cobranza_Prejudicial.Models
                         {
                             if (await dr.ReadAsync())
                             {
-     
+
 
                                 output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
                                 output.MENSAJE = dr["MENSAJE"]?.ToString();
@@ -579,7 +583,7 @@ namespace Web_Cobranza_Prejudicial.Models
                                 output.CARRIER = Convert.ToInt32(dr["CARRIER"]?.ToString());
                                 output.ORDEN_PRIORIDAD = Convert.ToInt32(dr["ORDEN_PRIORIDAD"]?.ToString());
                                 output.OBSERVACION = dr["OBSERVACION"]?.ToString();
-         
+
 
                                 Carrier.Add(output);
                             }
@@ -817,19 +821,19 @@ namespace Web_Cobranza_Prejudicial.Models
                             {
                                 oSP_READ_DEUDAS_X_ID_DEUDA output = new oSP_READ_DEUDAS_X_ID_DEUDA();
 
-                                output.ID_DEUDA             = Convert.ToInt32(dr["ID_DEUDA"]?.ToString());
-                                output.FOLIO                = dr["FOLIO"]?.ToString();
-                                output.FECHA_VENCIMIENTO    = Convert.ToDateTime(dr["FECHA_VENCIMIENTO"]?.ToString());
-                                output.VALOR                = Convert.ToInt32(dr["VALOR"]?.ToString());
-                                output.FACULTAD             = dr["FACULTAD"]?.ToString();
-                                output.SEDE                 = dr["SEDE"]?.ToString();
-                                output.MOTIVO               = dr["MOTIVO"]?.ToString();
-                                output.FECHA_CARGA          = Convert.ToDateTime(dr["FECHA_CARGA"]?.ToString());
-                                output.NRO_JUICIO           = Convert.ToInt32(dr["NRO_JUICIO"]?.ToString());
-                                output.RUT_ALUMNO           = Convert.ToInt32(dr["RUT_ALUMNO"]?.ToString());
-                                output.DV_ALUMNO            = dr["DV_ALUMNO"]?.ToString();
-                                output.NOMBRE_ALUMNO        = dr["NOMBRE_ALUMNO"]?.ToString();
-                                output.ESTADO_DEUDA         = dr["ESTADO_DEUDA"]?.ToString();
+                                output.ID_DEUDA = Convert.ToInt32(dr["ID_DEUDA"]?.ToString());
+                                output.FOLIO = dr["FOLIO"]?.ToString();
+                                output.FECHA_VENCIMIENTO = Convert.ToDateTime(dr["FECHA_VENCIMIENTO"]?.ToString());
+                                output.VALOR = Convert.ToInt32(dr["VALOR"]?.ToString());
+                                output.FACULTAD = dr["FACULTAD"]?.ToString();
+                                output.SEDE = dr["SEDE"]?.ToString();
+                                output.MOTIVO = dr["MOTIVO"]?.ToString();
+                                output.FECHA_CARGA = Convert.ToDateTime(dr["FECHA_CARGA"]?.ToString());
+                                output.NRO_JUICIO = Convert.ToInt32(dr["NRO_JUICIO"]?.ToString());
+                                output.RUT_ALUMNO = Convert.ToInt32(dr["RUT_ALUMNO"]?.ToString());
+                                output.DV_ALUMNO = dr["DV_ALUMNO"]?.ToString();
+                                output.NOMBRE_ALUMNO = dr["NOMBRE_ALUMNO"]?.ToString();
+                                output.ESTADO_DEUDA = dr["ESTADO_DEUDA"]?.ToString();
 
                                 Deuda.Add(output);
                             }
@@ -859,7 +863,7 @@ namespace Web_Cobranza_Prejudicial.Models
                 try
                 {
 
-                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_DEUDAS_X_ID_DEUDA", connection))
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_PAGO_X_ID_DEUDA", connection))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
@@ -914,10 +918,10 @@ namespace Web_Cobranza_Prejudicial.Models
                         {
                             if (await dr.ReadAsync())
                             {
-                              
+
                                 Banner.FOLIO = dr["FOLIO"]?.ToString();
                                 Banner.ESTADO_DEUDA = dr["ESTADO_DEUDA"]?.ToString();
-                                Banner.NOMBRE_MANDANTE = dr["NOMBRE_MANDANTE"]?.ToString();                
+                                Banner.NOMBRE_MANDANTE = dr["NOMBRE_MANDANTE"]?.ToString();
                             }
                         }
                     }
@@ -954,7 +958,7 @@ namespace Web_Cobranza_Prejudicial.Models
                         cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = input.ID_DEUDA_TELEFONO;
                         cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
                         cmd.Parameters.Add("@TELEFONO", SqlDbType.Int).Value = input.TELEFONO_PRE;
-          
+
 
                         await connection.OpenAsync();
 
@@ -1052,7 +1056,7 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
-        public async Task<List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA>> SP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA(int ID_DEUDA,int ID_RESPUESTA_EXCUSA)
+        public async Task<List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA>> SP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA(int ID_DEUDA, int ID_RESPUESTA_EXCUSA)
         {
             List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA> Telefonos = new List<oSP_READ_TELEFONOS_X_ID_RESPUESTA_EXCUSA>();
 
@@ -1097,6 +1101,105 @@ namespace Web_Cobranza_Prejudicial.Models
             }
             return Telefonos;
         }
+
+
+
+
+        public async Task<oSP_VALIDA_BOTONERA_X_ID_DEUDA> SP_VALIDA_BOTONERA_X_ID_DEUDA(int ID_DEUDA)
+        {
+
+            oSP_VALIDA_BOTONERA_X_ID_DEUDA Output = new oSP_VALIDA_BOTONERA_X_ID_DEUDA();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_VALIDA_BOTONERA_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+
+                                Output.ESTADO_DEUDA = Convert.ToInt32(dr["ESTADO_DEUDA"]?.ToString());
+                                Output.BLOQUEO_LEY = Convert.ToInt32(dr["BLOQUEO_LEY"]?.ToString());
+
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Output;
+        }
+
+
+
+
+
+
+
+
+        public async Task<List<oSP_READ_ALERTA_X_ID_DEUDA>> SP_READ_ALERTA_X_ID_DEUDA(int ID_DEUDA)
+        {
+            List<oSP_READ_ALERTA_X_ID_DEUDA> Alertas = new List<oSP_READ_ALERTA_X_ID_DEUDA>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_ALERTA_X_ID_DEUDA", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = ID_DEUDA;
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_ALERTA_X_ID_DEUDA output = new oSP_READ_ALERTA_X_ID_DEUDA();
+
+                                output.ID_ALERTAS = Convert.ToInt32(dr["ID_ALERTAS"]?.ToString());
+                                output.TIPO_ALERTA = Convert.ToInt32(dr["TIPO_ALERTA"]?.ToString());
+                                output.TITULO_ALERTA = dr["TITULO_ALERTA"]?.ToString();
+                                output.MENSAJE_ALERTA = dr["MENSAJE_ALERTA"]?.ToString();
+                                output.PRIORIDAD = Convert.ToInt32(dr["PRIORIDAD"]?.ToString());
+
+                                Alertas.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Alertas;
+        }
+
+
+
+
+
+
 
 
     }

@@ -4,7 +4,6 @@
 }
 
 
-
 <div class="row">
     <input type="hidden" id="ID_DEUDA" name="ID_DEUDA" value="0" />
     <hr />
@@ -51,8 +50,21 @@
         </div>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-7">
         <div id="_PartialViewBanner"></div>
+    </div>
+
+    <div class="col-sm-2">
+
+        <select class="form-select" id="ID_ESTADO_RESPONSABLE" style="width:100%;">
+            <option value="1" data-color="green">🟢 En Línea</option>
+            <option value="2" data-color="orange">🟡 Break</option>
+            <option value="3" data-color="orange">🟡 Almuerzo</option>
+            <option value="4" data-color="orange">🟡 Coach</option>
+            <option value="5" data-color="red">🔴 Ocupado</option>
+            <option value="6" data-color="gray" selected>⚪ Desconectado</option>
+        </select>
+
     </div>
 </div>
 
@@ -133,8 +145,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <script>

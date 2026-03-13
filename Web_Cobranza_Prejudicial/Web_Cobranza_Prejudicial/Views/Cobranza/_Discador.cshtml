@@ -5,35 +5,56 @@
     <div class="card-body">
         <div class="card-header">Discador</div>
         <div class="row">
-            <div class="col-sm-4">
 
-                <label for="ID_CARRIER" class="form-label h6">Carrier</label>
-                <select id="ID_CARRIER" name="ID_CARRIER" data-placeholder="Seleccione Carrier" class="form-select">
-                    @foreach (var Carrier in Model.CARRIER_LLAMADAS.ToList())
-                    {
-                        <option value="@Carrier.CARRIER">@Carrier.CARRIER</option>
-                    }
-                </select>
+              @if (Model.TELEFONOS.Where(X => X.ESTADO_TELEFONO != "ERRADO").Count() > 0)
+              {
 
-            </div>
-            <div class="col-sm-4">
+                <div class="col-sm-4">
 
-                <label for="ID_TELEFONO_DISCADOR" class="form-label h6">Telefono</label>
-                <select id="ID_TELEFONO_DISCADOR" name="ID_TELEFONO_DISCADOR" data-placeholder="Seleccione Telefono" class="form-select">
-                    @foreach (var Contacto in Model.TELEFONOS.Where(X => X.ESTADO_TELEFONO != "ERRADO").ToList())
-                    {
-                        <option value="@Contacto.ID_TELEFONO">@Contacto.TELEFONO</option>
-                    }
-                </select>
+                    <label for="ID_CARRIER" class="form-label h6">Carrier</label>
+                    <select id="ID_CARRIER" name="ID_CARRIER" data-placeholder="Seleccione Carrier" class="form-select">
+                        @foreach (var Carrier in Model.CARRIER_LLAMADAS.ToList())
+                        {
+                            <option value="@Carrier.CARRIER">@Carrier.CARRIER</option>
+                        }
+                    </select>
+
+                </div>
+                <div class="col-sm-4">
+
+                    <label for="ID_TELEFONO_DISCADOR" class="form-label h6">Telefono</label>
+                    <select id="ID_TELEFONO_DISCADOR" name="ID_TELEFONO_DISCADOR" data-placeholder="Seleccione Telefono" class="form-select">
+                        @foreach (var Contacto in Model.TELEFONOS.Where(X => X.ESTADO_TELEFONO != "ERRADO").ToList())
+                        {
+                            <option value="@Contacto.ID_TELEFONO">@Contacto.TELEFONO</option>
+                        }
+                    </select>
 
 
-            </div>
-            <div class="col-sm-4"><br />
-                <button type="button" id="BTN_LLAMAR_DISCADOR" onclick="LLamar()" class="btn btn-success">LLamar</button>
-            </div>
+                </div>
+                <div class="col-sm-4"><br />
+
+              
+
+                        <button type="button" id="BTN_LLAMAR_DISCADOR" onclick="LLamar()" class="btn btn-success">LLamar</button>
+              
+         
+
+
+                </div>
+
+            }
+            else
+            {
+                <div class="col-sm-12 text-center">
+                <p>No Posee Telefonos Registrados.</p>
+
+                </div>
+            }
+
         </div>
 
-   
+    
 
     </div>
 </div>

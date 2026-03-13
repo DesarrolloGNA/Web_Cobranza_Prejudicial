@@ -89,7 +89,7 @@ function Funcion_CargarInformacion(IDDEUDA) {
 
     Promise.all([
         cargarPartial(`/Cobranza/_Informacion?${params}`, '_PartialViewInformacion'),
-        cargarPartial(`/Cobranza/_Botonera`, '_PartialViewBotonera'),
+        cargarPartial(`/Cobranza/_Botonera?${params}`, '_PartialViewBotonera'),
         cargarPartial(`/Cobranza/_Gestiones?${params}`, '_PartialViewGestiones'),
         cargarPartial(`/Cobranza/_Banner?${params}`, '_PartialViewBanner')
 
@@ -271,6 +271,7 @@ function LLamar() {
 
 
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+    var BLOQUEO_LEY = document.getElementById("BLOQUEO_LEY").value;
 
     var SELECT_TELEFONO_DISCADOR = document.getElementById("ID_TELEFONO_DISCADOR");
 
@@ -281,7 +282,7 @@ function LLamar() {
 
 
     //VISTA DEL FORMULARIO
-    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA + '&DISCADOR=1');
+    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA + '&DISCADOR=1&BLOQUEO_LEY=' + BLOQUEO_LEY);
     fetch(Get)
         .then(response => response.text())
         .then(data => {
@@ -348,13 +349,13 @@ function LLamar() {
 
 function Funcion_CargarRegistrarGestion() {
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
-   
+    var BLOQUEO_LEY = document.getElementById("BLOQUEO_LEY").value;
 
     var DISCADOR = document.getElementById("DISCADOR");
     DISCADOR.value = 0;
 
 
-    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA);
+    var Get = ('/Cobranza/_RegistrarGestion?ID_DEUDA=' + ID_DEUDA + '&BLOQUEO_LEY=' + BLOQUEO_LEY);
     fetch(Get)
         .then(response => response.text())
         .then(data => {
@@ -583,10 +584,49 @@ function Funcion_Mostrar_Telefonos() {
 
 
 
+function Filtrar_Gestiones() {
+
+    const filtro = document.getElementById("FILTRAR_GESTIONES").value;
+    const filas = document.querySelectorAll("#Lista_Gestiones tbody tr");
+
+    filas.forEach(fila => {
+
+        const tipo = fila.dataset.gestion;
+
+        fila.style.display = (filtro === "0" || tipo === filtro) ? "" : "none";
+
+    });
+}
 
 
 
 
+function CalcularMontoDeuda() {
+
+    let total = 0;
+
+    const checks = document.querySelectorAll("#Lista_Deudas_Ges tbody input[type='checkbox']");
+
+    checks.forEach(chk => {
+        if (chk.checked) {
+            total += Number(chk.value) || 0;
+        }
+    });
+
+    document.getElementById("MONTO_TOTAL_DEUDA").value =
+        "$" + total.toLocaleString("es-CL");
+}
 
 
+function Seleccionar_Todo(chkHeader) {
 
+    const estado = chkHeader.checked;
+
+    const checks = document.querySelectorAll("#Lista_Deudas_Ges tbody input[type='checkbox']");
+
+    checks.forEach(chk => {
+        chk.checked = estado;
+    });
+
+    CalcularMontoDeuda();
+}

@@ -45,7 +45,16 @@
                     </strong>
                     }<br />
                     Estado Juicio: <strong>@Model.DATOS_PERSONALES.ESTADO_JUICIO</strong><br />
-                    Estado Gestion: <strong>@Model.DATOS_PERSONALES.ESTADO_GESTION</strong> 
+                    Estado Gestion: <strong>@Model.DATOS_PERSONALES.ESTADO_GESTION</strong> <br />
+                    Fecha Ultimo Pago :
+                    @if (Model.DATOS_PERSONALES.FECHA_ULTIMO_PAGO.ToString("dd-MM-yyyy") != "01-01-1900")
+                    {
+                        <strong>@Model.DATOS_PERSONALES.FECHA_ULTIMO_PAGO.ToString("dd-MM-yyyy")</strong>
+                    }
+       
+
+
+
 
             </div>
         </div>
@@ -58,7 +67,38 @@
             <div class="card-body">
                 <h5 class="card-title">Alertas</h5>
                 <div class="scrolling-table-container_Alertas">
-                    Sin Alertas.
+                   @foreach(var i in Model.ALERTAS)
+                    {
+                        <div class="progress" style="height:30px">
+
+                            @if (i.TIPO_ALERTA == 1)
+                            {
+                                <div class="progress-bar bg-danger btn text-left" style="width:100%; text-align:left; padding-left:10px;">
+                                        @i.TITULO_ALERTA - @i.MENSAJE_ALERTA
+                                </div>
+                      
+                            }else if(i.TIPO_ALERTA == 2)
+                            {
+
+                                <div class="progress-bar bg-warning btn text-left" style="width:100%; text-align:left; padding-left:10px;">
+                                    @i.TITULO_ALERTA - @i.MENSAJE_ALERTA
+                                </div>
+                       
+                            }
+                            else
+                            {
+
+                                <div class="progress-bar bg-success btn text-left" style="width:100%; text-align:left; padding-left:10px;">
+                                    @i.TITULO_ALERTA - @i.MENSAJE_ALERTA
+                                </div>
+
+                            }
+
+
+
+
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -85,8 +125,7 @@
                                      style="width:100%; text-align:left; padding-left:10px;"
                                      data-bs-toggle="tooltip" data-bs-placement="bottom">
                                     <strong>
-                                        (@i.FECHA_INICIO_CAMPAÑA.ToString("dd/MM/yyyy")-
-                                        @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))
+                                        (Fin. @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))
                                         @textoCorto
                                     </strong>
                                 </div>
@@ -101,8 +140,7 @@
                                      style="width:100%; text-align:left; padding-left:10px;"
                                      data-bs-toggle="tooltip" data-bs-placement="bottom">
                                     <strong>
-                                        (@i.FECHA_INICIO_CAMPAÑA.ToString("dd/MM/yyyy")-
-                                        @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))
+                                        (Fin. @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))
                                         @textoCorto
                                     </strong>
                                 </div>

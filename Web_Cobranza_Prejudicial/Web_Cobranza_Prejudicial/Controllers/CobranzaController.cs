@@ -110,6 +110,8 @@ namespace Web_Cobranza_Prejudicial.Controllers
             Info.EMAILS = await _methods.SP_READ_EMAIL_X_ID_DEUDA(ID_DEUDA);
             Info.OFERTAS = await _methods.SP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA(ID_DEUDA);
             Info.DIRECCIONES = await _methods.SP_READ_DIRECCION_X_ID_DEUDA(ID_DEUDA);
+            Info.ALERTAS = await _methods.SP_READ_ALERTA_X_ID_DEUDA(ID_DEUDA);
+
 
             return PartialView("_Informacion", Info);
         }
@@ -131,12 +133,17 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> _Botonera()
+        public async Task<IActionResult> _Botonera(int ID_DEUDA)
         {
 
-         
+            oSP_VALIDA_BOTONERA_X_ID_DEUDA Output = new oSP_VALIDA_BOTONERA_X_ID_DEUDA();
 
-            return PartialView("_Botonera");
+      
+            Output = await _methods.SP_VALIDA_BOTONERA_X_ID_DEUDA(ID_DEUDA);
+
+  
+
+            return PartialView("_Botonera", Output);
         }
 
 
@@ -161,9 +168,9 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> _RegistrarGestion(int ID_DEUDA,int DISCADOR = 0)
+        public async Task<IActionResult> _RegistrarGestion(int ID_DEUDA,int DISCADOR = 0, int BLOQUEO_LEY = 0)
         {
-
+            
 
             string JsonCookie_Codificado = Request.Cookies["Session"];
 
@@ -183,7 +190,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
 
-            objRegistrarGestion.LUGAR = await _methods.SP_READ_LUGAR_X_ID_DEUDA(ID_DEUDA, DISCADOR);
+            objRegistrarGestion.LUGAR = await _methods.SP_READ_LUGAR_X_ID_DEUDA(ID_DEUDA, DISCADOR, BLOQUEO_LEY);
 
 
 
@@ -241,6 +248,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
             {
                 Input.ID_TELEFONO = 1;
             }
+
 
 
 
