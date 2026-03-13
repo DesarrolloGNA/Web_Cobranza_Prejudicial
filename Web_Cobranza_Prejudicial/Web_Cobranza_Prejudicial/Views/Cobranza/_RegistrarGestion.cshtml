@@ -15,7 +15,10 @@
             <input type="hidden" id="ID_DEUDA_GESTION" name="ID_DEUDA_GESTION" value="@Model.ID_DEUDA" />
             <input type="hidden" id="ID_RESPONSABLE_GESTION" name="ID_RESPONSABLE_GESTION" value="@Model.ID_RESPONSABLE" />
   
-            <div class="mb-3">
+
+               <div class="row">
+
+            <div class="col-sm-6">
                 <label for="ID_RESPUESTA_LUGAR" class="form-label h6">Lugar</label>
                 <select id="ID_RESPUESTA_LUGAR" name="ID_RESPUESTA_LUGAR" data-placeholder="Seleccione Lugar" onchange="Funcion_Cargar_Contacto_x_Lugar()" class="form-select" required>
                     <option value=""></option>
@@ -28,7 +31,7 @@
             </div>
 
 
-            <div class="mb-3">
+            <div class="col-sm-6">
                 <label for="ID_RESPUESTA_CONTACTO" class="form-label h6">Contacto</label>
                 <select id="ID_RESPUESTA_CONTACTO" name="ID_RESPUESTA_CONTACTO" data-placeholder="Seleccione Contacto" onchange="Funcion_Cargar_Excusa_x_Contacto()" class="form-select" required>
                     <option value=""></option>
@@ -36,8 +39,11 @@
                 <div class="invalid-feedback">Campo Obligatorio.</div>
             </div>
 
+                </div>
 
-            <div class="mb-3">
+                      <div class="row">
+
+            <div class="col-sm-6">
                 <label for="ID_RESPUESTA_EXCUSA" class="form-label  h6">Excusa</label>
                 <select id="ID_RESPUESTA_EXCUSA" name="ID_RESPUESTA_EXCUSA" data-placeholder="Seleccione Excusa" onchange="Funcion_Mostrar_Telefonos()" class="form-select" required>
                     <option value=""></option>
@@ -47,24 +53,34 @@
 
 
 
-            <div class="mb-3">
+
+
+
+
+            <div class="col-sm-6">
                 <label for="ID_TELEFONO" class="form-label h6">Telefono</label>
                 <select id="ID_TELEFONO" name="ID_TELEFONO" data-placeholder="Seleccione Telefono" class="form-select">
         
                 </select>
             </div>
 
+                 </div>
 
 
-            <div class="mb-3">
-                <label for="FECHA_PROMESA" class="form-label  h6">Fecha Promesa</label>
-                <input id="FECHA_PROMESA" name="FECHA_PROMESA" class="form-control"  type="date">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="FECHA_PROMESA" class="form-label  h6">Fecha Promesa</label>
+                    <input id="FECHA_PROMESA" name="FECHA_PROMESA" class="form-control" type="date">
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="MONTO_PROMESA" class="form-label  h6">Monto Promesa</label>
+                    <input id="MONTO_PROMESA" name="MONTO_PROMESA" value="0" class="form-control" type="number">
+                </div>
+
             </div>
+          
 
-            <div class="mb-3">
-                <label for="MONTO_PROMESA" class="form-label  h6">Monto Promesa</label>
-                <input id="MONTO_PROMESA" name="MONTO_PROMESA" value="0" class="form-control" type="number">
-            </div>
 
 
             <div class="mb-3">
