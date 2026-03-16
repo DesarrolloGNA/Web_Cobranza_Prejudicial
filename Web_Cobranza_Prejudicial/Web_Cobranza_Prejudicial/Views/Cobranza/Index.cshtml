@@ -36,7 +36,8 @@
                    class="form-control"
                    id="VALOR_BUSCAR"
                    placeholder="Ingrese valor a buscar"
-                   autocomplete="off">
+                   autocomplete="off"
+                   onkeypress="Funcion_CargarDeuda()">
 
             <!-- Botón buscar -->
             <button class="btn btn-primary"
@@ -56,16 +57,42 @@
 
     <div class="col-sm-2">
 
-        <select class="form-select" id="ID_ESTADO_RESPONSABLE" style="width:100%;">
-            <option value="1" data-color="green">🟢 En Línea</option>
-            <option value="2" data-color="orange">🟡 Break</option>
-            <option value="3" data-color="orange">🟡 Almuerzo</option>
-            <option value="4" data-color="orange">🟡 Coach</option>
-            <option value="5" data-color="red">🔴 Ocupado</option>
-            <option value="6" data-color="gray" selected>⚪ Desconectado</option>
-        </select>
+
+        <form id="Form_estado" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <select class="form-select border-secondary text-secondary"
+                    id="ID_ESTADO_RESPONSABLE"
+                    name="IdEstado"
+                    style="width:100%;"
+                    onchange="CambiarEstado();">
+
+                <optgroup label="Estados">
+                    <option value="1">🟢 En Línea</option>
+                    <option value="2">🟡 Break</option>
+                    <option value="3">🟡 Almuerzo</option>
+                    <option value="4">🟡 Coach</option>
+                    <option value="5">🔴 Ocupado</option>
+                    <option value="6" selected>⚪ Desconectado</option>
+                </optgroup>
+
+                <optgroup label="Sesión">
+                    <option value="7">⚪ Cerrar Sesión</option>
+                </optgroup>
+
+            </select>
+
+        </form>
+
+
+
+    
+
+
 
     </div>
+
 </div>
 
 

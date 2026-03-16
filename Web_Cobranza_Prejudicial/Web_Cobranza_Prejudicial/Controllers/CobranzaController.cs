@@ -362,18 +362,6 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 }

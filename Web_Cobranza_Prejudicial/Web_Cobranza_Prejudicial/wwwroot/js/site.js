@@ -37,7 +37,7 @@ async function Funcion_CargarDeuda() {
 
     showLoading(button)
 
-    await delay(2000);
+    await delay(500);
 
 
     const valorBuscar = document.getElementById("VALOR_BUSCAR").value.trim();
@@ -629,4 +629,111 @@ function Seleccionar_Todo(chkHeader) {
     });
 
     CalcularMontoDeuda();
+}
+
+
+//document.addEventListener("DOMContentLoaded", () => {
+//    ActualizarColorEstado(
+//        document.getElementById("ID_ESTADO_RESPONSABLE").value
+//    );
+//});
+
+async function CambiarEstado() {
+
+    const select = document.getElementById("ID_ESTADO_RESPONSABLE");
+    const estado = select.value;
+
+    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+    if (estado === "7") {
+
+        const form = document.getElementById("Form_estado");
+        form.action = "/Home/CerrarSession";
+        form.submit();
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("IdEstado", estado);
+    formData.append("__RequestVerificationToken", token);
+
+    await fetch("/Home/CambiarEstado", {
+        method: "POST",
+        body: formData
+    });
+
+    ActualizarColorEstado(estado);
+}
+
+
+
+
+
+
+
+
+function ActualizarColorEstado(estado) {
+
+    const select = document.getElementById("ID_ESTADO_RESPONSABLE");
+
+    select.classList.remove(
+        "border-success", "text-success",
+        "border-warning", "text-warning",
+        "border-danger", "text-danger",
+        "border-secondary", "text-secondary"
+    );
+
+    switch (estado) {
+
+        case "1":
+            select.classList.add("border-success", "text-success");
+            break;
+
+        case "2":
+        case "3":
+        case "4":
+            select.classList.add("border-warning", "text-warning");
+            break;
+
+        case "5":
+            select.classList.add("border-danger", "text-danger");
+            break;
+
+        case "6":
+            select.classList.add("border-secondary", "text-secondary");
+            break;
+    }
+}
+
+
+
+function Seleccionar_Todo_Pagos(chkHeader) {
+
+    const estado = chkHeader.checked;
+
+    const checks = document.querySelectorAll("#Lista_Pagos_Ges tbody input[type='checkbox']");
+
+    checks.forEach(chk => {
+        chk.checked = estado;
+    });
+
+    CalcularMontoPago();
+}
+
+
+
+function CalcularMontoPago() {
+
+    let total = 0;
+
+    const checks = document.querySelectorAll("#Lista_Pagos_Ges tbody input[type='checkbox']");
+
+    checks.forEach(chk => {
+        if (chk.checked) {
+            total += Number(chk.value) || 0;
+        }
+    });
+
+    document.getElementById("MONTO_TOTAL_PAGO").value =
+        "$" + total.toLocaleString("es-CL");
 }

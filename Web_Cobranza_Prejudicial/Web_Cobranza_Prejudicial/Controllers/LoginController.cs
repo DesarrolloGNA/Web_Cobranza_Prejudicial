@@ -69,11 +69,6 @@ namespace Web_Cobranza_Prejudicial.Controllers
             /*-                 VALIDAR USUARIO                -*/
             /*--------------------------------------------------*/
 
-            //using (Methods methods = new Methods())
-            //{
-            //    output = methods.Login(Input, DIR_IP);
-            //}
-
             oLogin output = _methods.Login(Input, DIR_IP);
 
 

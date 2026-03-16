@@ -43,7 +43,7 @@ namespace Web_Cobranza_Prejudicial.Models
                 try
                 {
 
-                    using SqlCommand cmd = new SqlCommand("GNA.WL_SP_READ_RESPONSABLE_VALIDA_SESION", connection);
+                    using SqlCommand cmd = new SqlCommand("PRE.SP_READ_RESPONSABLE_VALIDA_SESION", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@USUARIO", input.USUARIO));
                     cmd.Parameters.Add(new SqlParameter("@CONTRASEÑA", input.CONTRASEÑA));
@@ -1194,6 +1194,40 @@ namespace Web_Cobranza_Prejudicial.Models
             }
             return Alertas;
         }
+
+
+
+        public  void SP_CREATE_LOG_RESPONSABLE_X_ESTADO(int ID_RESPONSABLE,int ID_ESTADO_CONEXION)
+        {
+          
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_CREATE_LOG_RESPONSABLE_X_ESTADO", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
+                        cmd.Parameters.Add("@ID_ESTADO_CONEXION", SqlDbType.Int).Value = ID_ESTADO_CONEXION;
+                        connection.Open();
+
+                        cmd.ExecuteNonQuery();
+
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+ 
+        }
+
+
 
 
 
