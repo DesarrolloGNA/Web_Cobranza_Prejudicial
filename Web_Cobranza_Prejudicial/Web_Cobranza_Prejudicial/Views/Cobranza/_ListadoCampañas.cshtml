@@ -1,0 +1,15 @@
+﻿@model Web_Cobranza_Prejudicial.Models.Entities.INFORMACION
+
+
+@foreach(var i in Model.OFERTAS)
+{
+
+
+    <div class="alert alert-success">
+        <strong>(Ini. @i.FECHA_INICIO_CAMPAÑA.ToString("dd/MM/yyyy")  Fin. @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))</strong>
+        @i.DESCRIPCION
+    </div>
+
+
+
+}

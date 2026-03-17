@@ -61,19 +61,19 @@
 
                         @if (alerta.TIPO_ALERTA == 1)
                         {
-                            <div class="progress-bar bg-danger text-start" style="width:100%; padding-left:10px;">
+                            <div class="btn progress-bar bg-danger text-start" style="width:100%; padding-left:10px;" onclick="Funcion_CargarModalAlertas()" data-bs-toggle="modal" data-bs-target="#MODAL_READ_ALERTAS">
                                 @alerta.TITULO_ALERTA - @alerta.MENSAJE_ALERTA
                             </div>
                         }
                         else if (alerta.TIPO_ALERTA == 2)
                         {
-                            <div class="progress-bar bg-warning text-start" style="width:100%; padding-left:10px;">
+                            <div class="btn progress-bar bg-warning text-start" style="width:100%; padding-left:10px;" onclick="Funcion_CargarModalAlertas()" data-bs-toggle="modal" data-bs-target="#MODAL_READ_ALERTAS">
                                 @alerta.TITULO_ALERTA - @alerta.MENSAJE_ALERTA
                             </div>
                         }
                         else
                         {
-                            <div class="progress-bar bg-success text-start" style="width:100%; padding-left:10px;">
+                            <div class="btn progress-bar bg-success text-start" style="width:100%; padding-left:10px;" onclick="Funcion_CargarModalAlertas()" data-bs-toggle="modal" data-bs-target="#MODAL_READ_ALERTAS">
                                 @alerta.TITULO_ALERTA - @alerta.MENSAJE_ALERTA
                             </div>
                         }
@@ -99,10 +99,11 @@
                     var clase = i.PRIORIDAD == 1 ? "bg-success" : "bg-secondary";
 
                     <div class="progress" style="height:30px">
-                        <div class="progress-bar @clase progress-bar-striped progress-bar-animated"
+                        <div class="btn progress-bar @clase progress-bar-striped progress-bar-animated"
                              title="@texto"
                              style="width:100%; text-align:left; padding-left:10px;"
-                             data-bs-toggle="tooltip" data-bs-placement="bottom">
+                             data-bs-placement="bottom"
+                             onclick="Funcion_CargarModalCampañas()" data-bs-toggle="modal" data-bs-target="#MODAL_READ_CAMPAÑAS">
                             <strong>
                                 (Fin. @i.FECHA_FIN_CAMPAÑA.ToString("dd/MM/yyyy"))
                                 @textoCorto
@@ -319,17 +320,6 @@
                             </table>
 
                         </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -737,3 +737,40 @@ function CalcularMontoPago() {
     document.getElementById("MONTO_TOTAL_PAGO").value =
         "$" + total.toLocaleString("es-CL");
 }
+
+
+
+
+function Funcion_CargarModalCampañas() {
+
+    var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+
+    var Get = ('/Cobranza/_LeerCampañas?ID_DEUDA=' + ID_DEUDA);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewReadCampañas').innerHTML = data;
+
+        });
+}
+
+
+function Funcion_CargarModalAlertas() {
+
+
+
+    var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+
+    var Get = ('/Cobranza/_LeerAlertas?ID_DEUDA=' + ID_DEUDA);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewReadAlertas').innerHTML = data;
+
+        });
+
+
+    
+}

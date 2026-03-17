@@ -362,6 +362,45 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
 
+
+        [HttpGet]
+        public async Task<IActionResult> _LeerCampañas(int ID_DEUDA)
+        {
+
+            INFORMACION Info = new INFORMACION();
+
+            Info.OFERTAS = await _methods.SP_READ_CAMPAÑAS_OFERTAS_X_ID_DEUDA(ID_DEUDA);
+
+
+            return PartialView("_ListadoCampañas", Info);
+        }
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> _LeerAlertas(int ID_DEUDA)
+        {
+
+            INFORMACION Info = new INFORMACION();
+
+            Info.ALERTAS = await _methods.SP_READ_ALERTA_X_ID_DEUDA(ID_DEUDA);
+
+
+            return PartialView("_ListadoAlertas", Info);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 }

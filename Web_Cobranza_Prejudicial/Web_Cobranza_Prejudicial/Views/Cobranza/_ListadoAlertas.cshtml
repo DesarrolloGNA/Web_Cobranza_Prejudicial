@@ -1,0 +1,43 @@
+﻿@model Web_Cobranza_Prejudicial.Models.Entities.INFORMACION
+
+
+
+@foreach (var alerta in Model.ALERTAS)
+{
+    
+    @if (alerta.TIPO_ALERTA == 1)
+    {
+
+
+        <div class="alert alert-danger">
+            <strong>@alerta.TITULO_ALERTA</strong> - @alerta.MENSAJE_ALERTA
+        </div>
+
+
+    }
+    else if (alerta.TIPO_ALERTA == 2)
+    {
+        <div class="btn progress-bar bg-warning text-start" style="width:100%; padding-left:10px;" onclick="Funcion_CargarModalAlertas()" data-bs-toggle="modal" data-bs-target="#MODAL_READ_ALERTAS">
+            @alerta.TITULO_ALERTA - @alerta.MENSAJE_ALERTA
+        </div>
+
+
+
+        <div class="alert alert-warning">
+            <strong>@alerta.TITULO_ALERTA</strong> - @alerta.MENSAJE_ALERTA
+        </div>
+
+    }
+    else
+    {
+
+
+
+        <div class="alert alert-success">
+            <strong>@alerta.TITULO_ALERTA</strong> - @alerta.MENSAJE_ALERTA
+        </div>
+
+
+    }
+
+}
