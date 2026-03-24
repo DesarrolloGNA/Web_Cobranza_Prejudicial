@@ -87,6 +87,9 @@ namespace Web_Cobranza_Prejudicial.Controllers
                 var cookieOptions = new CookieOptions
                 {
                     Expires = DateTime.Now.AddDays(1),
+                    SameSite = SameSiteMode.Strict,
+            
+
                 };
                 string OutputJson;
                 using (Helpers helpers = new Helpers())

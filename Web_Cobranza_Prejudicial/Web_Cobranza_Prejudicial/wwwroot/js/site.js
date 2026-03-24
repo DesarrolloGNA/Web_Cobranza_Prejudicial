@@ -45,6 +45,7 @@ async function Funcion_CargarDeuda() {
 
     if (!valorBuscar || !tipoBusqueda) {
         alert("Debe ingresar un valor y seleccionar un tipo de búsqueda");
+        hideLoading(button);
         return;
     }
 
@@ -61,14 +62,33 @@ async function Funcion_CargarDeuda() {
             return response.text();
         })
         .then(html => {
+
+
+            if (!cookieExists('Session')) {
+
+                document.getElementById('ID_ESTADO_RESPONSABLE').value = "7";
+                CambiarEstado();
+
+                return;
+            }
+   
+
             document.getElementById('_PartialViewDeuda').innerHTML = html;
             document.getElementById('_PartialViewInformacion').innerHTML = "";
             document.getElementById('_PartialViewBotonera').innerHTML = "";
             document.getElementById('_PartialViewGestiones').innerHTML = "";
             document.getElementById('_PartialViewBanner').innerHTML = "";
           
-
             Dibujar_Datatable_Gestiones();
+
+
+            //focus en el primer registro de la grilla
+            const primerBtn = document.querySelector('#Lista_Deuda tbody tr:first-child button[name="Boton_Select_Deuda"]');
+
+            if (primerBtn) {
+                primerBtn.focus();
+            }
+
 
         })
         .catch(error => {
@@ -81,7 +101,7 @@ async function Funcion_CargarDeuda() {
 
 function Funcion_CargarInformacion(IDDEUDA) {
 
-
+    console.log("Cargando información para ID_DEUDA:", IDDEUDA);
     document.getElementById("ID_DEUDA").value = IDDEUDA;
 
 
@@ -632,11 +652,6 @@ function Seleccionar_Todo(chkHeader) {
 }
 
 
-//document.addEventListener("DOMContentLoaded", () => {
-//    ActualizarColorEstado(
-//        document.getElementById("ID_ESTADO_RESPONSABLE").value
-//    );
-//});
 
 async function CambiarEstado() {
 
@@ -645,7 +660,7 @@ async function CambiarEstado() {
 
     const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-    if (estado === "7") {
+    if (estado === "8") {
 
         const form = document.getElementById("Form_estado");
         form.action = "/Home/CerrarSession";
@@ -690,16 +705,22 @@ function ActualizarColorEstado(estado) {
             break;
 
         case "2":
+            select.classList.add("border-success", "text-success");
+            break;
         case "3":
+            select.classList.add("border-warning", "text-warning");
+            break;
         case "4":
             select.classList.add("border-warning", "text-warning");
             break;
-
         case "5":
+            select.classList.add("border-warning", "text-warning");
+            break;
+        case "6":
             select.classList.add("border-danger", "text-danger");
             break;
 
-        case "6":
+        case "7":
             select.classList.add("border-secondary", "text-secondary");
             break;
     }
@@ -774,3 +795,11 @@ function Funcion_CargarModalAlertas() {
 
     
 }
+
+
+function cookieExists(cookieName) {
+    return document.cookie.split(';').some((cookie) => {
+        return cookie.trim().startsWith(cookieName + '=');
+    });
+}
+

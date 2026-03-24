@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Web_Cobranza_Prejudicial.Models;
 using static Web_Cobranza_Prejudicial.Models.Entities;
 
@@ -32,7 +32,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
                 }
 
                 oLogin outputCookie = new oLogin();
-                outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+                outputCookie =  JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
 
 
                 /*--------------------------------------------------*/
@@ -48,7 +48,6 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
                 ESTADO_SESSION = _methods.WL_VALIDA_SESSION_ACTIVA(outputCookie.TOKEN, IP);
 
-            
 
                 if (ESTADO_SESSION)
                 {
@@ -86,15 +85,82 @@ namespace Web_Cobranza_Prejudicial.Controllers
         [HttpGet]
         public IActionResult _Deuda(string TIPO_BUSQUEDA, string VALOR_BUSCAR)
         {
-            if (string.IsNullOrWhiteSpace(TIPO_BUSQUEDA) ||
-                string.IsNullOrWhiteSpace(VALOR_BUSCAR))
+
+
+            try
             {
-                return BadRequest("Parámetros inválidos");
+
+                string JsonCookie_Codificado = Request.Cookies["Session"];
+                string JsonCookie_Decodificado = "";
+                using (Helpers helpers = new Helpers())
+                {
+                    JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+                }
+
+                oLogin outputCookie = new oLogin();
+
+                outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
+
+                /*--------------------------------------------------*/
+                /*-        VALIDA SESION ACTIVA                    -*/
+                /*--------------------------------------------------*/
+                string IP;
+                using (Helpers helpers = new Helpers())
+                {
+                    IP = helpers.DIRECCION_IP();
+                }
+
+
+
+                Boolean ESTADO_SESSION = false;
+
+                ESTADO_SESSION = _methods.WL_VALIDA_SESSION_ACTIVA(outputCookie.TOKEN, IP);
+
+                if (ESTADO_SESSION)
+                {
+
+
+                    if (string.IsNullOrWhiteSpace(TIPO_BUSQUEDA) ||
+                        string.IsNullOrWhiteSpace(VALOR_BUSCAR))
+                    {
+                        return BadRequest("Parámetros inválidos");
+                    }
+
+                    var output = _methods.SP_READ_DEUDA_X_FILTROS(TIPO_BUSQUEDA, VALOR_BUSCAR);
+
+                    return PartialView("_Deuda", output);
+
+                }
+                else
+                {
+                    /*--------------------------------------------------*/
+                    /*-        ELIMINAR COOKIE                         -*/
+                    /*--------------------------------------------------*/
+                    Response.Cookies.Delete("Session");
+                    ViewData["MessageError"] = "Session Expirada.";
+                    ViewData["MessageSucces"] = null;
+
+                    return RedirectToAction("Index", "Login");
+                }
+
+            }
+            catch
+            {
+                /*--------------------------------------------------*/
+                /*-        ELIMINAR COOKIE                         -*/
+                /*--------------------------------------------------*/
+                Response.Cookies.Delete("Session");
+                ViewData["MessageError"] = "Session Expirada.";
+                ViewData["MessageSucces"] = null;
+
+                //return RedirectToAction("Index", "Login");
+                return RedirectToAction("CerrarSession", "Home");
+
+       
+
             }
 
-            var output = _methods.SP_READ_DEUDA_X_FILTROS(TIPO_BUSQUEDA, VALOR_BUSCAR);
 
-            return PartialView("_Deuda", output);
         }
 
 
@@ -181,7 +247,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
             }
 
             oLogin outputCookie = new oLogin();
-            outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
 
 
             obj_REGISTRAR_GESTION objRegistrarGestion = new obj_REGISTRAR_GESTION();
@@ -308,7 +374,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
             }
 
             oLogin outputCookie = new oLogin();
-            outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
 
             output = await _methods.SP_CREATE_TELEFONO_PRE_JUDICIAL(Input, outputCookie.ID_RESPONSABLE);
 
@@ -333,7 +399,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
             }
 
             oLogin outputCookie = new oLogin();
-            outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
 
             output = await _methods.SP_CREATE_EMAIL_PRE_JUDICIAL(Input, outputCookie.ID_RESPONSABLE);
 

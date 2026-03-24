@@ -37,7 +37,7 @@
                    id="VALOR_BUSCAR"
                    placeholder="Ingrese valor a buscar"
                    autocomplete="off"
-                   onkeypress="Funcion_CargarDeuda()">
+                   onkeypress="if(event.key === 'Enter'){ Funcion_CargarDeuda(); }">
 
             <!-- Botón buscar -->
             <button class="btn btn-primary"
@@ -51,10 +51,24 @@
         </div>
     </div>
 
-    <div class="col-sm-7">
+    <div class="col-sm-5">
         <div id="_PartialViewBanner"></div>
     </div>
+    <div class="col-sm-2">
+        
 
+
+        <div class="progress" style="height:30px">
+            <div class="progress-bar bg-white btn text-left text-dark" style="width:100%; text-align:left; padding-left:10px; font-size: 15px;">
+                Usuario : @ViewData["Log_Usuario"] | Anexo : @ViewData["Anexo_Telefonico"]
+            </div>
+        </div>
+        
+        
+
+
+
+    </div>
     <div class="col-sm-2">
 
 
@@ -70,15 +84,16 @@
 
                 <optgroup label="Estados">
                     <option value="1">🟢 En Línea</option>
-                    <option value="2">🟡 Break</option>
-                    <option value="3">🟡 Almuerzo</option>
-                    <option value="4">🟡 Coach</option>
-                    <option value="5">🔴 Ocupado</option>
-                    <option value="6" selected>⚪ Desconectado</option>
+                    <option value="2">🟢 Disponible</option>
+                    <option value="3">🟡 Break</option>
+                    <option value="4">🟡 Almuerzo</option>
+                    <option value="5">🟡 Coach</option>
+                    <option value="6">🔴 Ocupado</option>
+                    <option value="7" selected>⚪ Desconectado</option>
                 </optgroup>
 
                 <optgroup label="Sesión">
-                    <option value="7">⚪ Cerrar Sesión</option>
+                    <option value="8">⚪ Cerrar Sesión</option>
                 </optgroup>
 
             </select>

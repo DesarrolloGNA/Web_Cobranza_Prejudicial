@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
+
     @*DATATABLES*@
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.min.css" rel="stylesheet" />
@@ -35,34 +36,6 @@
 
 </head>
 <body style="background-color:whitesmoke; height:auto; " >
-@*     <header class="border-bottom text-muted" style="background-color:cornflowerblue">
-        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color:cornflowerblue">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <div class="col-lg-4 d-none d-lg-flex">
-                        <img src="~/Img/Logo_GNA_Login.png" alt="Garcia Nadal" class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
-                    </div>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav">
-
-                        <li class="nav-item">
-                            <a class="nav-link h5" asp-area="" asp-controller="Cobranza" asp-action="Index">Cobranza</a>
-                        </li>
-
-               
-
-                    </ul>
-                </div>
-                <form method="post" asp-controller="Home" asp-action="CerrarSession" class="form-inline my-2 my-lg-0">
-                    <button class="btn btn-outline-danger my-2 my-sm-0 col-12" data-toggle="tooltip" data-placement="bottom" title="Cerrar Sesión" type="submit"> <i class="fas fa-sign-out-alt"></i> Salir </button>
-                </form>
-            </div>
-        </nav>
-    </header> *@
 
     <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
@@ -83,25 +56,8 @@
         </main>
     </div>
 
-
-
-
-@* 
-    <footer class="border-top footer text-muted" style="background-color:cornflowerblue">
-
-        <div class="container-fluid text-white">
-            <string>Usuario : </string> @ViewData["Log_Usuario"] | <string>Perfil : </string> @ViewData["Log_Perfil"]| <string>Anexo Telefonico : </string> @ViewData["Anexo_Telefonico"]
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&copy;COPYRIGHT @DateTime.Now.ToString("yyyy")  "GARCIA NADAL". ALL RIGHT RESERVED
-        </div>
-
-
-
-    </footer> *@
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-
     @*Jquery*@
-    <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
 
 
     @*datatables*@
@@ -111,6 +67,13 @@
 
     @*BOOTSTRAP 5 SELECT2*@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
+
+
+    @*Application script (load after vendor libs so dependencies are available) *@
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @*BOOTSTRAP 5 tooltip*@
     <script>

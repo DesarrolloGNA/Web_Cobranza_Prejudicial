@@ -65,27 +65,35 @@ namespace Web_Cobranza_Prejudicial.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CerrarSession()
         {
-
-
-
-            string JsonCookie_Codificado = Request.Cookies["Session"];
-
-            string JsonCookie_Decodificado = "";
-            using (Helpers helpers = new Helpers())
+            try
             {
-                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+                string JsonCookie_Codificado = Request.Cookies["Session"];
+
+                string JsonCookie_Decodificado = "";
+                using (Helpers helpers = new Helpers())
+                {
+                    JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+                }
+
+                oLogin outputCookie = new oLogin();
+                outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
+
+
+                _methods.SP_CREATE_LOG_RESPONSABLE_X_ESTADO(outputCookie.ID_RESPONSABLE, 7);
+
+
+
+                Response.Cookies.Delete("Session");
+                return RedirectToAction("Index", "Login");
+
+            }
+            catch
+            {
+                Response.Cookies.Delete("Session");
+                return RedirectToAction("Index", "Login");
+
             }
 
-            oLogin outputCookie = new oLogin();
-            outputCookie = JsonSerializer.Deserialize<oLogin>(JsonCookie_Decodificado);
-
-
-            _methods.SP_CREATE_LOG_RESPONSABLE_X_ESTADO(outputCookie.ID_RESPONSABLE, 7);
-
-
-
-            Response.Cookies.Delete("Session");
-            return RedirectToAction("Index", "Login");
         }
 
 
