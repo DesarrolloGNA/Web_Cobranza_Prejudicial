@@ -85,7 +85,7 @@
 
             <div class="mb-3">
                 <label for="OBSERVACION" class="form-label h6">Observacion </label> <span style="font:10" class="badge rounded-pill bg-primary" id="OBS_CANT_CARACTERES" name="OBS_CANT_CARACTERES">0</span>
-                <textarea class="form-control" id="OBSERVACION" onKeyDown="Cant_Caract_Obs();" onKeyUp="Cant_Caract_Obs();" name="OBSERVACION" MaxLength="2000" placeholder="Observacion" required></textarea>
+                <textarea class="form-control" id="OBSERVACION" onKeyDown="Cant_Caract_Obs();" style="height: 74px;" onKeyUp="Cant_Caract_Obs();" name="OBSERVACION" MaxLength="2000" placeholder="Observacion" onkeypress="if(event.key === 'Enter'){  document.getElementById('BTN_GRABAR_GESTION_PRE').focus(); }" required></textarea>
                 <div class="invalid-feedback">
                     Campo Obligatorio.
                 </div>

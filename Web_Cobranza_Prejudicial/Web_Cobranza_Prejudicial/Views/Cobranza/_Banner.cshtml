@@ -5,8 +5,8 @@
 @if (Model.ESTADO_DEUDA == "PENDIENTE")
 {
     <div class="progress" style="height:30px">
-        <div class="progress-bar bg-success btn text-left" style="width:100%; text-align:left; padding-left:10px;font-size: 15px;">
-            Folio: @Model.FOLIO | Estado Deuda: @Model.ESTADO_DEUDA
+        <div class="progress-bar bg-success btn text-left" style="width:100%; text-align:left; padding-left:10px;font-size: 15px;" onclick="Funcion_CargarEstadoPreJudicial()" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_PREJUDICIAL">
+            Folio: @Model.FOLIO | Estado Deuda: @Model.ESTADO_DEUDA | Estado Pre Judicial : @Model.ESTADO_JUDICIAL
         </div>
     </div>
 
@@ -14,13 +14,16 @@
 else
 {
     <div class="progress" style="height:30px">
-        <div class="progress-bar bg-danger btn text-left" style="width:100%; text-align:left; padding-left:10px; font-size: 15px;">
-            Folio: @Model.FOLIO | Estado Deuda: @Model.ESTADO_DEUDA
+        <div class="progress-bar bg-danger btn text-left" style="width:100%; text-align:left; padding-left:10px; font-size: 15px;" onclick="Funcion_CargarEstadoPreJudicial()" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_PREJUDICIAL">
+            Folio: @Model.FOLIO | Estado Deuda: @Model.ESTADO_DEUDA | Estado Pre Judicial :  @Model.ESTADO_JUDICIAL
         </div>
     </div>
 
 }
 
+
+
+<input type="hidden" id="ESTADO_PREJUDICIAL" name="ESTADO_PREJUDICIAL" value="@Model.ESTADO_JUDICIAL" />
 
 
 

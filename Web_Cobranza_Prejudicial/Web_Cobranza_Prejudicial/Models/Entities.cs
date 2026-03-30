@@ -330,7 +330,12 @@ namespace Web_Cobranza_Prejudicial.Models
             public int MONTO_PAGO { get; set; }
             public DateTime FECHA_PAGO { get; set; }
             public String TIPO_PAGO { get; set; }
+
+            public String FOLIO { get; set; }
         }
+
+
+
 
 
 
@@ -340,7 +345,7 @@ namespace Web_Cobranza_Prejudicial.Models
             public String ESTADO_DEUDA { get; set; }
             public String NOMBRE_MANDANTE { get; set; }
 
-           
+            public String ESTADO_JUDICIAL { get; set; }
         }
 
 
@@ -425,6 +430,48 @@ namespace Web_Cobranza_Prejudicial.Models
 
         }
 
+
+
+        public class oSP_READ_LISTA_ESTADO_PRE_JUDICIAL
+        {
+            public int ID_ESTADO_JUDICIAL { get; set; }
+
+            public String ESTADO_JUDICIAL { get; set; }
+  
+        }
+
+        public class OBJ_MODIFICAR_ESTADO_PREJUDICIAL
+        {
+            public int ID_DEUDA { get; set; }
+            public List<oSP_READ_LISTA_ESTADO_PRE_JUDICIAL> ESTADOS_PREJUDICIAL { get; set; }
+
+            public string ESTADO_ACTUAL { get; set; }
+        }
+
+
+
+
+
+
+
+
+        public class iSP_UPDATE_ESTADO_PREJUDICIAL
+        {
+            [Required]
+            public int ID_DEUDA_ESTADO_PREJUDICIAL { get; set; }
+
+            [Required]
+            public int ID_ESTADO_JUDICIAL { get; set; }
+
+
+        }
+
+
+        public class oSP_UPDATE_ESTADO_PREJUDICIAL
+        {
+            public int RETURN_VALUE { get; set; }
+            public string MENSAJE { get; set; }
+        }
 
 
 

@@ -459,6 +459,46 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> _LeerEstadoPreJudicial(int ID_DEUDA, string ESTADO_ACTUAL)
+        {
+
+            OBJ_MODIFICAR_ESTADO_PREJUDICIAL Estados_Prejudicial = new OBJ_MODIFICAR_ESTADO_PREJUDICIAL();
+
+            Estados_Prejudicial.ESTADOS_PREJUDICIAL = await _methods.SP_READ_LISTA_ESTADO_PRE_JUDICIAL(ID_DEUDA);
+            Estados_Prejudicial.ID_DEUDA = ID_DEUDA;
+            Estados_Prejudicial.ESTADO_ACTUAL = ESTADO_ACTUAL;
+
+
+            return PartialView("_EstadoPreJudicial", Estados_Prejudicial);
+        }
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update_Estado_PreJudicial(iSP_UPDATE_ESTADO_PREJUDICIAL Input)
+        {
+
+            oSP_UPDATE_ESTADO_PREJUDICIAL output = new oSP_UPDATE_ESTADO_PREJUDICIAL();
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
+
+            output = await _methods.SP_UPDATE_ESTADO_PREJUDICIAL(Input, outputCookie.ID_RESPONSABLE);
+
+            return Ok(output);
+
+        }
+
 
 
 

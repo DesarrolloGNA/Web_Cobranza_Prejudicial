@@ -347,6 +347,24 @@
                                         <input type="checkbox" onchange="Seleccionar_Todo_Pagos(this)" class="form-check-input" id="CHK_TODAS_PAGOS" value="@Model.PAGOS.Sum(x => x.MONTO_PAGO)">
                                     </div>
                                 </th>
+                                <th class="h6">
+                                    
+                                    <select id="FILTRAR_PAGOS" onchange="Filtrar_Pagos()" name="FILTRAR_PAGOS" class="form-select">
+                                        <option value="0" title="Folio">Folio(Todos)</option>
+                                        @foreach (var Fol in Model.PAGOS.Select(p => p.FOLIO).Distinct())
+                                        {
+                                            <option value="@Fol" title="Folio">@Fol</option>
+                                        }
+
+
+  
+
+                                    </select>
+                                     
+
+
+
+                                </th>
                                 <th class="h6">Monto </th>
                                 <th class="h6">Fecha</th>
                                 <th class="h6">Tipo</th>
@@ -357,12 +375,13 @@
 
                             @foreach (var Pag in Model.PAGOS.ToList())
                             {
-                                <tr>
+                                <tr data-gestion="@Pag.FOLIO">
                                     <td class="h6">
                                         <div class="form-check">
                                             <input type="checkbox" onchange="CalcularMontoPago()" class="form-check-input" id="@Pag.ID_PAGO" name="@Pag.ID_PAGO" value="@Pag.MONTO_PAGO" checked>
                                         </div>
                                     </td>
+                                    <td class="h6">@Pag.FOLIO</td>
                                     <td class="h6">@Pag.MONTO_PAGO</td>
                                     <td class="h6">@Pag.FECHA_PAGO</td>
                                     <td class="h6">@Pag.TIPO_PAGO</td>

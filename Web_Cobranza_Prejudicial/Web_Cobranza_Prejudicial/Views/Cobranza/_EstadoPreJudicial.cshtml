@@ -1,0 +1,60 @@
+﻿@model Web_Cobranza_Prejudicial.Models.Entities.OBJ_MODIFICAR_ESTADO_PREJUDICIAL
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-header">Actualizar Estado PreJudicial</div>
+        <form class="was-validated" id="GRABARESTADOPREJUDICIAL" onsubmit="return Actualizar_Estado_PreJudicial()">
+
+
+
+            <input type="hidden" id="ID_DEUDA_ESTADO_PREJUDICIAL" name="ID_DEUDA_ESTADO_PREJUDICIAL" value="@Model.ID_DEUDA" />
+
+ 
+
+            <div class="col-sm-12">
+                <label for="ID_ESTADO_JUDICIAL" class="form-label h6">Estado PreJudicial</label>
+                <select id="ID_ESTADO_JUDICIAL" name="ID_ESTADO_JUDICIAL" data-placeholder="Seleccione Estado PreJudicial" class="form-select" required>
+                    @foreach (var Contacto in Model.ESTADOS_PREJUDICIAL.ToList())
+                    {
+                        if (Model.ESTADO_ACTUAL == Contacto.ESTADO_JUDICIAL)
+                        {
+                            <option value="@Contacto.ID_ESTADO_JUDICIAL" selected>@Contacto.ESTADO_JUDICIAL</option>
+                        }
+                        else
+                        {
+                            <option value="@Contacto.ID_ESTADO_JUDICIAL">@Contacto.ESTADO_JUDICIAL</option>
+                        }
+
+                    }
+
+
+
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+            <br>
+
+
+
+            <div class="mb-3">
+                <button vale="Submit" id="BTN_GRABAR_ESTADO_PRE" class="btn btn-primary" title="Click aqui para actualizar estado.">Actualizar Estado <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+
+
+
+            <div id="EstadoPreJudicialAlerta" name="EstadoPreJudicialAlerta" style="visibility:hidden;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong><label id="EstadoPreJudicialAlertaCabecera"></label></strong> <label id="EstadoPreJudicialAlertaMensaje"></label>
+            </div>
+
+
+
+        </form>
+
+
+    </div>
+</div>

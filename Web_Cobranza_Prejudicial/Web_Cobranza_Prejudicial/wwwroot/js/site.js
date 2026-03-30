@@ -260,7 +260,7 @@ function Grabar_Gestion_Pre() {
                 document.getElementById("GestionPrejudicialAlertaMensaje").innerText = dataObj.mensaje;
                 document.getElementById("BTN_GRABAR_GESTION_PRE").style.visibility = "hidden";
                 
-
+                document.getElementById('Btn_Cerrar_Modal_Gestiones').focus(); 
 
             } else {
                 //muestro la alerta
@@ -618,6 +618,32 @@ function Filtrar_Gestiones() {
     });
 }
 
+function Filtrar_Pagos() {
+
+    const filtro = document.getElementById("FILTRAR_PAGOS").value;
+    const filas = document.querySelectorAll("#Lista_Pagos_Ges tbody tr");
+
+    filas.forEach(fila => {
+
+        const tipo = fila.dataset.gestion;
+
+        fila.style.display = (filtro === "0" || tipo === filtro) ? "" : "none";
+
+    });
+
+    CalcularMontoPago();
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -795,6 +821,109 @@ function Funcion_CargarModalAlertas() {
 
     
 }
+
+
+function Funcion_CargarEstadoPreJudicial() {
+
+
+
+    var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+    var ESTADO_ACTUAL = document.getElementById("ESTADO_PREJUDICIAL").value;
+    
+
+    var Get = ('/Cobranza/_LeerEstadoPreJudicial?ID_DEUDA=' + ID_DEUDA + '&ESTADO_ACTUAL=' + ESTADO_ACTUAL);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewEstado_PreJudicial').innerHTML = data;
+
+
+            Dibujar_Select2("#ID_ESTADO_JUDICIAL");
+
+        });
+
+}
+
+
+
+
+
+
+
+function Actualizar_Estado_PreJudicial() {
+
+    var button = document.getElementById("BTN_GRABAR_ESTADO_PRE");
+
+
+    var Post = ('/Cobranza/Update_Estado_PreJudicial');
+    var DatosFormulario = new FormData(document.getElementById("GRABARESTADOPREJUDICIAL"));
+    fetch(Post, {
+        method: "POST",
+        body: DatosFormulario
+    })
+        .then(res => {
+            if (res.status != 200) { throw new Error("Bad Server Response"); }
+            return res.text();
+        })
+        .then(res => {
+
+            //Serializo el Json
+            var dataObj = JSON.parse(res);
+            //aqui la logica si registra o no
+            if (dataObj.returN_VALUE > 0) {
+                var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+                Funcion_CargarInformacion(ID_DEUDA);
+
+                //muestro la alerta
+
+                document.getElementById("EstadoPreJudicialAlerta").style.visibility = "visible";
+                document.getElementById("EstadoPreJudicialAlerta").className = "alert alert-success alert-dismissible fade show";
+                document.getElementById("EstadoPreJudicialAlertaCabecera").innerText = "Registro Correcto! ";
+                document.getElementById("EstadoPreJudicialAlertaMensaje").innerText = dataObj.mensaje;
+                document.getElementById("BTN_GRABAR_ESTADO_PRE").style.visibility = "hidden";
+
+
+
+            } else {
+                //muestro la alerta
+                document.getElementById("EstadoPreJudicialAlerta").style.visibility = "visible";
+                document.getElementById("EstadoPreJudicialAlerta").className = "alert alert-danger alert-dismissible fade show";
+                document.getElementById("EstadoPreJudicialAlertaCabecera").innerText = "Error! ";
+                document.getElementById("EstadoPreJudicialAlertaMensaje").innerText = dataObj.mensaje;
+
+
+            }
+
+
+
+        })
+        .catch(err => console.error(err));
+
+
+    return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function cookieExists(cookieName) {

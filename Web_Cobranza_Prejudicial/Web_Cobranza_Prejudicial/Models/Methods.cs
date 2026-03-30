@@ -880,7 +880,7 @@ namespace Web_Cobranza_Prejudicial.Models
                                 output.MONTO_PAGO = Convert.ToInt32(dr["MONTO_PAGO"]?.ToString());
                                 output.FECHA_PAGO = Convert.ToDateTime(dr["FECHA_PAGO"]?.ToString());
                                 output.TIPO_PAGO = dr["TIPO_PAGO"]?.ToString();
-
+                                output.FOLIO = dr["FOLIO"]?.ToString();
                                 Pagos.Add(output);
                             }
                         }
@@ -922,6 +922,7 @@ namespace Web_Cobranza_Prejudicial.Models
                                 Banner.FOLIO = dr["FOLIO"]?.ToString();
                                 Banner.ESTADO_DEUDA = dr["ESTADO_DEUDA"]?.ToString();
                                 Banner.NOMBRE_MANDANTE = dr["NOMBRE_MANDANTE"]?.ToString();
+                                Banner.ESTADO_JUDICIAL = dr["ESTADO_JUDICIAL"]?.ToString();
                             }
                         }
                     }
@@ -1147,11 +1148,6 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
-
-
-
-
-
         public async Task<List<oSP_READ_ALERTA_X_ID_DEUDA>> SP_READ_ALERTA_X_ID_DEUDA(int ID_DEUDA)
         {
             List<oSP_READ_ALERTA_X_ID_DEUDA> Alertas = new List<oSP_READ_ALERTA_X_ID_DEUDA>();
@@ -1225,6 +1221,102 @@ namespace Web_Cobranza_Prejudicial.Models
                 }
             }
  
+        }
+
+
+
+        public async Task<List<oSP_READ_LISTA_ESTADO_PRE_JUDICIAL>> SP_READ_LISTA_ESTADO_PRE_JUDICIAL(int ID_DEUDA)
+        {
+            List<oSP_READ_LISTA_ESTADO_PRE_JUDICIAL> Estados_PreJudiciales = new List<oSP_READ_LISTA_ESTADO_PRE_JUDICIAL>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_LISTA_ESTADO_PRE_JUDICIAL", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_LISTA_ESTADO_PRE_JUDICIAL output = new oSP_READ_LISTA_ESTADO_PRE_JUDICIAL();
+
+                                output.ID_ESTADO_JUDICIAL = Convert.ToInt32(dr["ID_ESTADO_JUDICIAL"]?.ToString());
+                                output.ESTADO_JUDICIAL = dr["ESTADO_JUDICIAL"]?.ToString();
+
+
+                                Estados_PreJudiciales.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Estados_PreJudiciales;
+        }
+
+
+
+        public async Task<oSP_UPDATE_ESTADO_PREJUDICIAL> SP_UPDATE_ESTADO_PREJUDICIAL(iSP_UPDATE_ESTADO_PREJUDICIAL input, int ID_RESPONSABLE)
+        {
+
+            oSP_UPDATE_ESTADO_PREJUDICIAL output = new oSP_UPDATE_ESTADO_PREJUDICIAL();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_UPDATE_ESTADO_PREJUDICIAL", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DEUDA", SqlDbType.Int).Value = input.ID_DEUDA_ESTADO_PREJUDICIAL;
+                        cmd.Parameters.Add("@ID_ESTADO_JUDICIAL", SqlDbType.Int).Value = input.ID_ESTADO_JUDICIAL;
+                        cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
+
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+
+
+                                output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
+                                output.MENSAJE = dr["MENSAJE"]?.ToString();
+
+                            }
+                            else
+                            {
+                                output.RETURN_VALUE = 0;
+                                output.MENSAJE = "No fue posible Registrar Telefono.";
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception EX)
+                {
+                    output.RETURN_VALUE = -1;
+                    output.MENSAJE = "Error : " + EX.Message.ToString();
+
+                    connection.Close();
+                }
+            }
+            return output;
         }
 
 
