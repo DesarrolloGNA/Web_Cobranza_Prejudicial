@@ -9,10 +9,22 @@
 
             <div class="mb-3">
                 <label for="TELEFONO_PRE" class="form-label h6">Telefono </label> 
-                <input id="TELEFONO_PRE" name="TELEFONO_PRE" class="form-control" type="number" required>
+    
+                <input id="TELEFONO_PRE"
+                       name="TELEFONO_PRE"
+                       class="form-control"
+                       type="text"
+                       inputmode="numeric"
+                       pattern="[0-9]{9}"
+                       maxlength="9"
+                       minlength="9"
+                       required
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 9)">
                 <div class="invalid-feedback">
-                    Campo Obligatorio.
+                    El teléfono debe tener 9 dígitos.
                 </div>
+
+
             </div>
 
 

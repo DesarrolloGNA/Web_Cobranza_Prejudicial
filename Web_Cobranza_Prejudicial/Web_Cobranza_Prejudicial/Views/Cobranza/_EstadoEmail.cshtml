@@ -1,0 +1,60 @@
+﻿@model Web_Cobranza_Prejudicial.Models.Entities.OBJ_MODIFICAR_ESTADO_EMAIL
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-header">Actualizar Estado Email</div>
+        <form class="was-validated" id="GRABARESTADOEMAIL" onsubmit="return Actualizar_Estado_Email()">
+
+            <input type="hidden" id="ID_EMAIL_ESTADO_EMAIL" name="ID_EMAIL_ESTADO_EMAIL" value="@Model.ID_EMAIL" />
+
+            <br />
+            <div class="col-sm-12">
+                <label class="form-label h6"> Email : @Model.EMAIL.ToString()</label>         
+            </div>
+            <br />
+            <div class="col-sm-12">
+                <label class="form-label h6"> Estado Actual : @Model.ESTADO_ACTUAL_EMAIL.ToString()</label>
+            </div>
+            <br />
+
+ 
+            <div class="col-sm-12">
+                <label for="ID_ESTADO_EMAIL" class="form-label h6">Estado Email</label>
+                <select id="ID_ESTADO_EMAIL" name="ID_ESTADO_EMAIL" data-placeholder="Seleccione Estado Email" class="form-select" required>
+                    @foreach (var Est in Model.ESTADO_EMAIL.ToList())
+                    {
+                        if (Model.ESTADO_ACTUAL_EMAIL == Est.ESTADO_EMAIL)
+                        {
+                            <option value="@Est.ID_ESTADO_EMAIL" selected>@Est.ESTADO_EMAIL</option>
+                        }
+                        else
+                        {
+                            <option value="@Est.ID_ESTADO_EMAIL">@Est.ESTADO_EMAIL</option>
+                        }
+
+                    }
+
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+            <br>
+
+            <div class="mb-3">
+                <button vale="Submit" id="BTN_GRABAR_ESTADO_EMAIL" class="btn btn-primary" title="Click aqui para actualizar estado.">Actualizar Estado <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+
+            <div id="EstadoEmailAlerta" name="EstadoEmailAlerta" style="visibility:hidden;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong><label id="EstadoEmailAlertaCabecera"></label></strong> <label id="EstadoEmailAlertaMensaje"></label>
+            </div>
+
+
+
+        </form>
+
+
+    </div>
+</div>

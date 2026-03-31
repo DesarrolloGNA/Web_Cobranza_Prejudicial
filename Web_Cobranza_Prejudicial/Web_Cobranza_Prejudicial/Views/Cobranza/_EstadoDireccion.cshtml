@@ -1,0 +1,60 @@
+﻿@model Web_Cobranza_Prejudicial.Models.Entities.OBJ_MODIFICAR_ESTADO_DIRECCION
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-header">Actualizar Estado Email</div>
+        <form class="was-validated" id="GRABARESTADODIRECCION" onsubmit="return Actualizar_Estado_Direccion()">
+
+            <input type="hidden" id="ID_DIRECCION_ESTADO_DIRECCION" name="ID_DIRECCION_ESTADO_DIRECCION" value="@Model.ID_DIRECCION" />
+
+            <br />
+            <div class="col-sm-12">
+                <label class="form-label h6"> Direccion : @Model.DIRECCION.ToString(), @Model.COMUNA.ToString()</label>
+            </div>
+            <br />
+            <div class="col-sm-12">
+                <label class="form-label h6"> Estado Actual : @Model.ESTADO_ACTUAL_DIRECCION.ToString()</label>
+            </div>
+            <br />
+
+ 
+            <div class="col-sm-12">
+                <label for="ID_ESTADO_DIRECCION" class="form-label h6">Estado Direccion</label>
+                <select id="ID_ESTADO_DIRECCION" name="ID_ESTADO_DIRECCION" data-placeholder="Seleccione Estado Direccion" class="form-select" required>
+                    @foreach (var Est in Model.ESTADO_DIRECCION.ToList())
+                    {
+                        if (Model.ESTADO_ACTUAL_DIRECCION == Est.ESTADO_DIRECCION)
+                        {
+                            <option value="@Est.ID_ESTADO_DIRECCION" selected>@Est.ESTADO_DIRECCION</option>
+                        }
+                        else
+                        {
+                            <option value="@Est.ID_ESTADO_DIRECCION">@Est.ESTADO_DIRECCION</option>
+                        }
+
+                    }
+
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+            <br>
+
+            <div class="mb-3">
+                <button vale="Submit" id="BTN_GRABAR_ESTADO_DIRECCION" class="btn btn-primary" title="Click aqui para actualizar estado.">Actualizar Estado <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+
+            <div id="EstadoDireccionAlerta" name="EstadoDireccionAlerta" style="visibility:hidden;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong><label id="EstadoDireccionAlertaCabecera"></label></strong> <label id="EstadoDireccionAlertaMensaje"></label>
+            </div>
+
+
+
+        </form>
+
+
+    </div>
+</div>

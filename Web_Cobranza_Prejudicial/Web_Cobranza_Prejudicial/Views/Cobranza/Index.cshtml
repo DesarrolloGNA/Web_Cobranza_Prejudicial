@@ -83,13 +83,13 @@
                     onchange="CambiarEstado();">
 
                 <optgroup label="Estados">
-                    <option value="1">🟢 En Línea</option>
-                    <option value="2">🟢 Disponible</option>
+                    <option value="1" selected>🟢 En Línea (Manual) </option>
+                    <option value="2">🟢 Disponible (Predictivo)</option>
                     <option value="3">🟡 Break</option>
                     <option value="4">🟡 Almuerzo</option>
                     <option value="5">🟡 Coach</option>
                     <option value="6">🔴 Ocupado</option>
-                    <option value="7" selected>⚪ Desconectado</option>
+                    <option value="7">⚪ Desconectado</option>
                 </optgroup>
 
                 <optgroup label="Sesión">
@@ -240,6 +240,61 @@
             <div class="modal-body">
 
                 <div id="_PartialViewEstado_PreJudicial"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Click aqui para cerrar Pop-Up.">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Estado Email-->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="MODAL_ESTADO_EMAIL" tabindex="-1" aria-labelledby="MODAL_ESTADO_EMAIL" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div id="_PartialViewEstado_Email"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Click aqui para cerrar Pop-Up.">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Estado Direccion-->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="MODAL_ESTADO_DIRECCION" tabindex="-1" aria-labelledby="MODAL_ESTADO_DIRECCION" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div id="_PartialViewEstado_Direccion"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Click aqui para cerrar Pop-Up.">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Estado Telefono-->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="MODAL_ESTADO_TELEFONO" tabindex="-1" aria-labelledby="MODAL_ESTADO_TELEFONO" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div id="_PartialViewEstado_Telefono"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Click aqui para cerrar Pop-Up.">Cerrar</button>

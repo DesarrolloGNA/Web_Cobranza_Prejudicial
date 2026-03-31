@@ -451,7 +451,7 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
-        public async Task<List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>> SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO(int ID_RESPUESTA_CONTACTO)
+        public async Task<List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>> SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO(int ID_RESPUESTA_CONTACTO,int BLOQUEO_LEY)
         {
             List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO> Excusa = new List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>();
 
@@ -465,7 +465,7 @@ namespace Web_Cobranza_Prejudicial.Models
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ID_RESPUESTA_CONTACTO", SqlDbType.Int).Value = ID_RESPUESTA_CONTACTO;
-
+                        cmd.Parameters.Add("@BLOQUEO_LEY", SqlDbType.Int).Value = BLOQUEO_LEY;
                         await connection.OpenAsync();
 
                         using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
@@ -1322,9 +1322,297 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
+        public async Task<List<oSP_READ_ESTADO_EMAIL>> SP_READ_ESTADO_EMAIL()
+        {
+            List<oSP_READ_ESTADO_EMAIL> Estados_Email = new List<oSP_READ_ESTADO_EMAIL>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_ESTADO_EMAIL", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_ESTADO_EMAIL output = new oSP_READ_ESTADO_EMAIL();
+
+                                output.ID_ESTADO_EMAIL = Convert.ToInt32(dr["ID_ESTADO_EMAIL"]?.ToString());
+                                output.ESTADO_EMAIL = dr["ESTADO_EMAIL"]?.ToString();
+
+
+                                Estados_Email.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Estados_Email;
+        }
 
 
 
+        public async Task<oSP_UPDATE_ESTADO_EMAIL> SP_UPDATE_ESTADO_EMAIL(iSP_UPDATE_ESTADO_EMAIL input, int ID_RESPONSABLE)
+        {
+
+            oSP_UPDATE_ESTADO_EMAIL output = new oSP_UPDATE_ESTADO_EMAIL();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_UPDATE_ESTADO_EMAIL", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_EMAIL", SqlDbType.Int).Value = input.ID_EMAIL_ESTADO_EMAIL;
+                        cmd.Parameters.Add("@ID_ESTADO_EMAIL", SqlDbType.Int).Value = input.ID_ESTADO_EMAIL;
+                        cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
+
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+
+
+                                output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
+                                output.MENSAJE = dr["MENSAJE"]?.ToString();
+
+                            }
+                            else
+                            {
+                                output.RETURN_VALUE = 0;
+                                output.MENSAJE = "No fue posible Registrar Telefono.";
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception EX)
+                {
+                    output.RETURN_VALUE = -1;
+                    output.MENSAJE = "Error : " + EX.Message.ToString();
+
+                    connection.Close();
+                }
+            }
+            return output;
+        }
+
+
+
+
+
+
+
+        public async Task<List<oSP_READ_ESTADO_DIRECCION>> SP_READ_ESTADO_DIRECCION()
+        {
+            List<oSP_READ_ESTADO_DIRECCION> Estados_direccion = new List<oSP_READ_ESTADO_DIRECCION>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_ESTADO_DIRECCION", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_ESTADO_DIRECCION output = new oSP_READ_ESTADO_DIRECCION();
+
+                                output.ID_ESTADO_DIRECCION = Convert.ToInt32(dr["ID_ESTADO_DIRECCION"]?.ToString());
+                                output.ESTADO_DIRECCION = dr["ESTADO_DIRECCION"]?.ToString();
+
+
+                                Estados_direccion.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Estados_direccion;
+        }
+
+
+        public async Task<oSP_UPDATE_ESTADO_DIRECCION> SP_UPDATE_ESTADO_DIRECCION(iSP_UPDATE_ESTADO_DIRECCION input, int ID_RESPONSABLE)
+        {
+
+            oSP_UPDATE_ESTADO_DIRECCION output = new oSP_UPDATE_ESTADO_DIRECCION();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_UPDATE_ESTADO_DIRECCION", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_DIRECCION", SqlDbType.Int).Value = input.ID_DIRECCION_ESTADO_DIRECCION;
+                        cmd.Parameters.Add("@ID_ESTADO_DIRECCION", SqlDbType.Int).Value = input.ID_ESTADO_DIRECCION;
+                        cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
+
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+
+
+                                output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
+                                output.MENSAJE = dr["MENSAJE"]?.ToString();
+
+                            }
+                            else
+                            {
+                                output.RETURN_VALUE = 0;
+                                output.MENSAJE = "No fue posible Registrar Telefono.";
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception EX)
+                {
+                    output.RETURN_VALUE = -1;
+                    output.MENSAJE = "Error : " + EX.Message.ToString();
+
+                    connection.Close();
+                }
+            }
+            return output;
+        }
+
+
+
+
+
+
+        public async Task<List<oSP_READ_ESTADO_TELEFONO>> SP_READ_ESTADO_TELEFONO()
+        {
+            List<oSP_READ_ESTADO_TELEFONO> Estados_Telefono = new List<oSP_READ_ESTADO_TELEFONO>();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_READ_ESTADO_TELEFONO", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                oSP_READ_ESTADO_TELEFONO output = new oSP_READ_ESTADO_TELEFONO();
+
+                                output.ID_ESTADO_TELEFONO= Convert.ToInt32(dr["ID_ESTADO_TELEFONO"]?.ToString());
+                                output.ESTADO_TELEFONO = dr["ESTADO_TELEFONO"]?.ToString();
+
+
+                                Estados_Telefono.Add(output);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch
+                {
+                    connection.Close();
+                }
+            }
+            return Estados_Telefono;
+        }
+
+
+
+        public async Task<oSP_UPDATE_ESTADO_TELEFONO> SP_UPDATE_ESTADO_TELEFONO(iSP_UPDATE_ESTADO_TELEFONO input, int ID_RESPONSABLE)
+        {
+
+            oSP_UPDATE_ESTADO_TELEFONO output = new oSP_UPDATE_ESTADO_TELEFONO();
+
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+
+                    using (SqlCommand cmd = new SqlCommand("PRE.SP_UPDATE_ESTADO_TELEFONO", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ID_TELEFONO", SqlDbType.Int).Value = input.ID_TELEFONO_ESTADO_TELEFONO;
+                        cmd.Parameters.Add("@ID_ESTADO_TELEFONO", SqlDbType.Int).Value = input.ID_ESTADO_TELEFONO;
+                        cmd.Parameters.Add("@ID_RESPONSABLE", SqlDbType.Int).Value = ID_RESPONSABLE;
+
+
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await dr.ReadAsync())
+                            {
+
+
+                                output.RETURN_VALUE = Convert.ToInt32(dr["RETURN_VALUE"]?.ToString());
+                                output.MENSAJE = dr["MENSAJE"]?.ToString();
+
+                            }
+                            else
+                            {
+                                output.RETURN_VALUE = 0;
+                                output.MENSAJE = "No fue posible Registrar Telefono.";
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception EX)
+                {
+                    output.RETURN_VALUE = -1;
+                    output.MENSAJE = "Error : " + EX.Message.ToString();
+
+                    connection.Close();
+                }
+            }
+            return output;
+        }
 
 
 

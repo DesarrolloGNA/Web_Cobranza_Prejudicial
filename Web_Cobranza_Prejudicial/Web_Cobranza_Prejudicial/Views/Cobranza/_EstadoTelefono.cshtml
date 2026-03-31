@@ -1,0 +1,60 @@
+﻿@model Web_Cobranza_Prejudicial.Models.Entities.OBJ_MODIFICAR_ESTADO_TELEFONO
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-header">Actualizar Estado Telefono</div>
+        <form class="was-validated" id="GRABARESTADOTELEFONO" onsubmit="return Actualizar_Estado_Telefono()">
+
+            <input type="hidden" id="ID_TELEFONO_ESTADO_TELEFONO" name="ID_TELEFONO_ESTADO_TELEFONO" value="@Model.ID_TELEFONO" />
+
+            <br />
+            <div class="col-sm-12">
+                <label class="form-label h6"> Telefono : @Model.TELEFONO.ToString()</label>
+            </div>
+            <br />
+            <div class="col-sm-12">
+                <label class="form-label h6"> Estado Actual : @Model.ESTADO_ACTUAL_TELEFONO.ToString()</label>
+            </div>
+            <br />
+
+ 
+            <div class="col-sm-12">
+                <label for="ID_ESTADO_TELEFONO" class="form-label h6">Estado Telefono</label>
+                <select id="ID_ESTADO_TELEFONO" name="ID_ESTADO_TELEFONO" data-placeholder="Seleccione Estado Telefono" class="form-select" required>
+                    @foreach (var Est in Model.ESTADO_TELEFONO.ToList())
+                    {
+                        if (Model.ESTADO_ACTUAL_TELEFONO == Est.ESTADO_TELEFONO)
+                        {
+                            <option value="@Est.ID_ESTADO_TELEFONO" selected>@Est.ESTADO_TELEFONO</option>
+                        }
+                        else
+                        {
+                            <option value="@Est.ID_ESTADO_TELEFONO">@Est.ESTADO_TELEFONO</option>
+                        }
+
+                    }
+
+                </select>
+                <div class="invalid-feedback">Campo Obligatorio.</div>
+            </div>
+
+            <br>
+
+            <div class="mb-3">
+                <button vale="Submit" id="BTN_GRABAR_ESTADO_TELEFONO" class="btn btn-primary" title="Click aqui para actualizar estado.">Actualizar Estado <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+
+            <div id="EstadoTelefonoAlerta" name="EstadoTelefonoAlerta" style="visibility:hidden;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong><label id="EstadoTelefonoAlertaCabecera"></label></strong> <label id="EstadoTelefonoAlertaMensaje"></label>
+            </div>
+
+
+
+        </form>
+
+
+    </div>
+</div>

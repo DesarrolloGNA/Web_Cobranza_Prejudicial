@@ -287,12 +287,12 @@ namespace Web_Cobranza_Prejudicial.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> OBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO(int ID_RESPUESTA_CONTACTO)
+        public async Task<IActionResult> OBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO(int ID_RESPUESTA_CONTACTO, int BLOQUEO_LEY = 0)
         {
 
             List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO> Contacto = new List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>();
 
-            Contacto = await _methods.SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO(ID_RESPUESTA_CONTACTO);
+            Contacto = await _methods.SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO(ID_RESPUESTA_CONTACTO, BLOQUEO_LEY);
 
             return Ok(Contacto);
 
@@ -501,9 +501,128 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> _LeerEstadoEmaill(int ID_EMAIL,string ESTADO_ACTUAL_EMAIL,string EMAIL)
+        {
+
+            OBJ_MODIFICAR_ESTADO_EMAIL Estados_Email = new OBJ_MODIFICAR_ESTADO_EMAIL();
+
+            Estados_Email.ESTADO_EMAIL = await _methods.SP_READ_ESTADO_EMAIL();
+            Estados_Email.ID_EMAIL = ID_EMAIL;
+            Estados_Email.ESTADO_ACTUAL_EMAIL = ESTADO_ACTUAL_EMAIL;
+            Estados_Email.EMAIL = EMAIL;
+
+            return PartialView("_EstadoEmail", Estados_Email);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update_Estado_Email(iSP_UPDATE_ESTADO_EMAIL Input)
+        {
+
+            oSP_UPDATE_ESTADO_EMAIL output = new oSP_UPDATE_ESTADO_EMAIL();
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
+
+            output = await _methods.SP_UPDATE_ESTADO_EMAIL(Input, outputCookie.ID_RESPONSABLE);
+
+            return Ok(output);
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> _LeerEstadoDireccion(int ID_DIRECCION, string ESTADO_ACTUAL_DIRECCION, string DIRECCION, string COMUNA)
+        {
+
+            OBJ_MODIFICAR_ESTADO_DIRECCION Estados_Direccion = new OBJ_MODIFICAR_ESTADO_DIRECCION();
+
+            Estados_Direccion.ESTADO_DIRECCION = await _methods.SP_READ_ESTADO_DIRECCION();
+            Estados_Direccion.ID_DIRECCION = ID_DIRECCION;
+            Estados_Direccion.ESTADO_ACTUAL_DIRECCION = ESTADO_ACTUAL_DIRECCION;
+            Estados_Direccion.DIRECCION = DIRECCION;
+            Estados_Direccion.COMUNA = COMUNA;
+
+            return PartialView("_EstadoDireccion", Estados_Direccion);
+        }
 
 
 
+        [HttpPost]
+        public async Task<IActionResult> Update_Estado_Direccion(iSP_UPDATE_ESTADO_DIRECCION Input)
+        {
+
+            oSP_UPDATE_ESTADO_DIRECCION output = new oSP_UPDATE_ESTADO_DIRECCION();
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
+
+            output = await _methods.SP_UPDATE_ESTADO_DIRECCION(Input, outputCookie.ID_RESPONSABLE);
+
+            return Ok(output);
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> _LeerEstadoTelefono(int ID_TELEFONO, string ESTADO_ACTUAL_TELEFONO, int TELEFONO)
+        {
+
+            OBJ_MODIFICAR_ESTADO_TELEFONO Estados_telefono = new OBJ_MODIFICAR_ESTADO_TELEFONO();
+
+            Estados_telefono.ESTADO_TELEFONO= await _methods.SP_READ_ESTADO_TELEFONO();
+            Estados_telefono.ID_TELEFONO = ID_TELEFONO;
+            Estados_telefono.ESTADO_ACTUAL_TELEFONO = ESTADO_ACTUAL_TELEFONO;
+            Estados_telefono.TELEFONO = TELEFONO;
+
+
+            return PartialView("_EstadoTelefono", Estados_telefono);
+        }
+
+
+
+
+        
+
+        [HttpPost]
+        public async Task<IActionResult> Update_Estado_Telefono(iSP_UPDATE_ESTADO_TELEFONO Input)
+        {
+
+            oSP_UPDATE_ESTADO_TELEFONO output = new oSP_UPDATE_ESTADO_TELEFONO();
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
+
+            output = await _methods.SP_UPDATE_ESTADO_TELEFONO(Input, outputCookie.ID_RESPONSABLE);
+
+            return Ok(output);
+
+        }
 
 
 

@@ -205,6 +205,7 @@ function Funcion_Cargar_Contacto_x_Lugar() {
 function Funcion_Cargar_Excusa_x_Contacto() {
 
     var SelectExcusa = document.getElementById('ID_RESPUESTA_EXCUSA');
+    var BLOQUEO_LEY = document.getElementById("BLOQUEO_LEY").value;
     while (SelectExcusa.firstChild) {
         SelectExcusa.removeChild(SelectExcusa.firstChild);
     }
@@ -214,7 +215,7 @@ function Funcion_Cargar_Excusa_x_Contacto() {
     SelectExcusa.appendChild(optionDefault);
 
     var ID_RESPUESTA_CONTACTO = document.getElementById("ID_RESPUESTA_CONTACTO").value;
-    var Get = ('/Cobranza/OBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO?ID_RESPUESTA_CONTACTO=' + ID_RESPUESTA_CONTACTO);
+    var Get = ('/Cobranza/OBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO?ID_RESPUESTA_CONTACTO=' + ID_RESPUESTA_CONTACTO + '&BLOQUEO_LEY=' + BLOQUEO_LEY);
     fetch(Get)
         .then(response => response.text())
         .then(data => {
@@ -845,6 +846,22 @@ function Funcion_CargarEstadoPreJudicial() {
 }
 
 
+function Funcion_CargarModEstadoEmail(ID_EMAIL, ESTADO_ACTUAL_EMAIL,EMAIL) {
+
+
+    var Get = ('/Cobranza/_LeerEstadoEmail?ID_EMAIL=' + ID_EMAIL + '&ESTADO_ACTUAL_EMAIL=' + ESTADO_ACTUAL_EMAIL + '&EMAIL=' + EMAIL);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewEstado_Email').innerHTML = data;
+
+
+            Dibujar_Select2("#ID_ESTADO_EMAIL");
+
+        });
+
+}
+
 
 
 
@@ -909,12 +926,221 @@ function Actualizar_Estado_PreJudicial() {
 
 
 
+function Actualizar_Estado_Email() {
+
+    var button = document.getElementById("BTN_GRABAR_ESTADO_EMAIL");
+
+
+    var Post = ('/Cobranza/Update_Estado_Email');
+    var DatosFormulario = new FormData(document.getElementById("GRABARESTADOEMAIL"));
+    fetch(Post, {
+        method: "POST",
+        body: DatosFormulario
+    })
+        .then(res => {
+            if (res.status != 200) { throw new Error("Bad Server Response"); }
+            return res.text();
+        })
+        .then(res => {
+
+            //Serializo el Json
+            var dataObj = JSON.parse(res);
+            //aqui la logica si registra o no
+            if (dataObj.returN_VALUE > 0) {
+                var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+                Funcion_CargarInformacion(ID_DEUDA);
+
+                //muestro la alerta
+
+                document.getElementById("EstadoEmailAlerta").style.visibility = "visible";
+                document.getElementById("EstadoEmailAlerta").className = "alert alert-success alert-dismissible fade show";
+                document.getElementById("EstadoEmailAlertaCabecera").innerText = "Registro Correcto! ";
+                document.getElementById("EstadoEmailAlertaMensaje").innerText = dataObj.mensaje;
+                document.getElementById("BTN_GRABAR_ESTADO_EMAIL").style.visibility = "hidden";
+
+
+
+            } else {
+                //muestro la alerta
+                document.getElementById("EstadoEmailAlerta").style.visibility = "visible";
+                document.getElementById("EstadoEmailAlerta").className = "alert alert-danger alert-dismissible fade show";
+                document.getElementById("EstadoEmailAlertaCabecera").innerText = "Error! ";
+                document.getElementById("EstadoEmailAlertaMensaje").innerText = dataObj.mensaje;
+
+
+            }
+
+
+
+        })
+        .catch(err => console.error(err));
+
+
+    return false;
+}
 
 
 
 
 
 
+
+
+function Funcion_CargarModEstadoDireccion(ID_DIRECCION,ESTADO_ACTUAL_DIRECCION, DIRECCION, COMUNA) {
+
+
+    var Get = ('/Cobranza/_LeerEstadoDireccion?ID_DIRECCION=' + ID_DIRECCION + '&ESTADO_ACTUAL_DIRECCION=' + ESTADO_ACTUAL_DIRECCION + '&DIRECCION=' + DIRECCION + '&COMUNA=' + COMUNA);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewEstado_Direccion').innerHTML = data;
+
+
+            Dibujar_Select2("#ID_ESTADO_DIRECCION");
+
+        });
+
+}
+
+
+
+
+
+
+
+
+
+function Actualizar_Estado_Direccion() {
+
+    var button = document.getElementById("BTN_GRABAR_ESTADO_DIRECCION");
+
+
+    var Post = ('/Cobranza/Update_Estado_Direccion');
+    var DatosFormulario = new FormData(document.getElementById("GRABARESTADODIRECCION"));
+    fetch(Post, {
+        method: "POST",
+        body: DatosFormulario
+    })
+        .then(res => {
+            if (res.status != 200) { throw new Error("Bad Server Response"); }
+            return res.text();
+        })
+        .then(res => {
+
+            //Serializo el Json
+            var dataObj = JSON.parse(res);
+            //aqui la logica si registra o no
+            if (dataObj.returN_VALUE > 0) {
+                var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+                Funcion_CargarInformacion(ID_DEUDA);
+
+                //muestro la alerta
+
+                document.getElementById("EstadoDireccionAlerta").style.visibility = "visible";
+                document.getElementById("EstadoDireccionAlerta").className = "alert alert-success alert-dismissible fade show";
+                document.getElementById("EstadoDireccionAlertaCabecera").innerText = "Registro Correcto! ";
+                document.getElementById("EstadoDireccionAlertaMensaje").innerText = dataObj.mensaje;
+                document.getElementById("BTN_GRABAR_ESTADO_DIRECCION").style.visibility = "hidden";
+
+
+
+            } else {
+                //muestro la alerta
+                document.getElementById("EstadoDireccionAlerta").style.visibility = "visible";
+                document.getElementById("EstadoDireccionAlerta").className = "alert alert-danger alert-dismissible fade show";
+                document.getElementById("EstadoDireccionAlertaCabecera").innerText = "Error! ";
+                document.getElementById("EstadoDireccionAlertaMensaje").innerText = dataObj.mensaje;
+
+
+            }
+
+
+
+        })
+        .catch(err => console.error(err));
+
+
+    return false;
+}
+
+
+
+
+
+
+function Funcion_CargarModEstadoTelefono(ID_TELEFONO, ESTADO_ACTUAL_TELEFONO, TELEFONO) {
+
+
+    var Get = ('/Cobranza/_LeerEstadoTelefono?ID_TELEFONO=' + ID_TELEFONO + '&ESTADO_ACTUAL_TELEFONO=' + ESTADO_ACTUAL_TELEFONO + '&TELEFONO=' + TELEFONO);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewEstado_Telefono').innerHTML = data;
+
+
+            Dibujar_Select2("#ID_ESTADO_TELEFONO");
+
+        });
+
+}
+
+
+
+function Actualizar_Estado_Telefono() {
+
+    var button = document.getElementById("BTN_GRABAR_ESTADO_TELEFONO");
+
+
+    var Post = ('/Cobranza/Update_Estado_Telefono');
+    var DatosFormulario = new FormData(document.getElementById("GRABARESTADOTELEFONO"));
+    fetch(Post, {
+        method: "POST",
+        body: DatosFormulario
+    })
+        .then(res => {
+            if (res.status != 200) { throw new Error("Bad Server Response"); }
+            return res.text();
+        })
+        .then(res => {
+
+            //Serializo el Json
+            var dataObj = JSON.parse(res);
+            //aqui la logica si registra o no
+            if (dataObj.returN_VALUE > 0) {
+                var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+                Funcion_CargarInformacion(ID_DEUDA);
+
+                //muestro la alerta
+
+                document.getElementById("EstadoTelefonoAlerta").style.visibility = "visible";
+                document.getElementById("EstadoTelefonoAlerta").className = "alert alert-success alert-dismissible fade show";
+                document.getElementById("EstadoTelefonoAlertaCabecera").innerText = "Registro Correcto! ";
+                document.getElementById("EstadoTelefonoAlertaMensaje").innerText = dataObj.mensaje;
+                document.getElementById("BTN_GRABAR_ESTADO_TELEFONO").style.visibility = "hidden";
+
+
+
+            } else {
+                //muestro la alerta
+                document.getElementById("EstadoTelefonoAlerta").style.visibility = "visible";
+                document.getElementById("EstadoTelefonoAlerta").className = "alert alert-danger alert-dismissible fade show";
+                document.getElementById("EstadoTelefonoAlertaCabecera").innerText = "Error! ";
+                document.getElementById("EstadoTelefonoAlertaMensaje").innerText = dataObj.mensaje;
+
+
+            }
+
+
+
+        })
+        .catch(err => console.error(err));
+
+
+    return false;
+}
 
 
 

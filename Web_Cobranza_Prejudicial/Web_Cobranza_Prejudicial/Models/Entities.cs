@@ -474,6 +474,116 @@ namespace Web_Cobranza_Prejudicial.Models
         }
 
 
+        public class OBJ_MODIFICAR_ESTADO_EMAIL
+        {
+            public int ID_EMAIL { get; set; }
+            public string ESTADO_ACTUAL_EMAIL { get; set; }
+            public List<oSP_READ_ESTADO_EMAIL> ESTADO_EMAIL { get; set; }
+            public string EMAIL { get; set; }
+
+        }
+
+
+
+
+
+        public class oSP_READ_ESTADO_EMAIL
+        {
+            public int ID_ESTADO_EMAIL { get; set; }
+            public string ESTADO_EMAIL { get; set; }
+        }
+
+
+        public class iSP_UPDATE_ESTADO_EMAIL
+        {
+            [Required]
+            public int ID_EMAIL_ESTADO_EMAIL { get; set; }
+
+            [Required]
+            public int ID_ESTADO_EMAIL { get; set; }
+
+
+        }
+
+
+        public class oSP_UPDATE_ESTADO_EMAIL
+        {
+            public int RETURN_VALUE { get; set; }
+            public string MENSAJE { get; set; }
+        }
+
+
+
+
+
+        public class oSP_READ_ESTADO_DIRECCION
+        {
+            public int ID_ESTADO_DIRECCION { get; set; }
+            public string ESTADO_DIRECCION { get; set; }
+        }
+
+
+        public class OBJ_MODIFICAR_ESTADO_DIRECCION
+        {
+            public int ID_DIRECCION { get; set; }
+            public string ESTADO_ACTUAL_DIRECCION { get; set; }
+            public List<oSP_READ_ESTADO_DIRECCION> ESTADO_DIRECCION { get; set; }
+            public string DIRECCION { get; set; }
+            public string COMUNA { get; set; }
+    
+        }
+
+
+   
+        public class iSP_UPDATE_ESTADO_DIRECCION
+        {
+            [Required]
+            public int ID_DIRECCION_ESTADO_DIRECCION{ get; set; }
+
+            [Required]
+            public int ID_ESTADO_DIRECCION { get; set; }
+
+
+        }
+        public class oSP_UPDATE_ESTADO_DIRECCION
+        {
+            public int RETURN_VALUE { get; set; }
+            public string MENSAJE { get; set; }
+        }
+
+        public class OBJ_MODIFICAR_ESTADO_TELEFONO
+        {
+            public int ID_TELEFONO { get; set; }
+            public string ESTADO_ACTUAL_TELEFONO { get; set; }
+            public List<oSP_READ_ESTADO_TELEFONO> ESTADO_TELEFONO { get; set; }
+            public int TELEFONO { get; set; }
+
+        }
+
+        public class oSP_READ_ESTADO_TELEFONO
+        {
+            public int ID_ESTADO_TELEFONO { get; set; }
+            public string ESTADO_TELEFONO { get; set; }
+        }
+
+        public class iSP_UPDATE_ESTADO_TELEFONO
+        {
+            [Required]
+            public int ID_TELEFONO_ESTADO_TELEFONO { get; set; }
+
+            [Required]
+            public int ID_ESTADO_TELEFONO { get; set; }
+
+
+        }
+
+        public class oSP_UPDATE_ESTADO_TELEFONO
+        {
+            public int RETURN_VALUE { get; set; }
+            public string MENSAJE { get; set; }
+        }
+
+
 
     }
 }

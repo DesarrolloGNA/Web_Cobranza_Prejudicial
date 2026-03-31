@@ -148,9 +148,10 @@
 
                                 <thead>
                                     <tr>
+                                        <th>Estado</th>
                                         <th>Fono</th>
                                         <th>Fecha</th>
-                                        <th>Estado</th>
+
                                         <th>CD</th>
                                         <th>CI</th>
                                         <th>SC</th>
@@ -161,27 +162,39 @@
                                     @foreach (var Tel in Model.TELEFONOS.ToList())
                                     {
                                         <tr title="@Tel.OBSERVACION">
-                                            <th><strong>@Tel.TELEFONO</strong> </th>
+
+                                                @if (@Tel.ESTADO_TELEFONO == "VALIDO")
+                                                {
+                                                    <th> <span class="badge bg-success btn" onclick="Funcion_CargarModEstadoTelefono(@Tel.ID_TELEFONO,'@Tel.ESTADO_TELEFONO','@Tel.TELEFONO')" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_TELEFONO"><img title="Modificar Telefono" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span> &nbsp;@Tel.ESTADO_TELEFONO</th>
+                                                }
+                                                else if (@Tel.ESTADO_TELEFONO == "NO CONFIRMADO")
+                                                {
+
+                                                    <th><span class="badge bg-warning btn" onclick="Funcion_CargarModEstadoTelefono(@Tel.ID_TELEFONO,'@Tel.ESTADO_TELEFONO','@Tel.TELEFONO')" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_TELEFONO"><img title="Modificar Telefono" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span>&nbsp;@Tel.ESTADO_TELEFONO</th>
+                                                }
+                                                else
+                                                {
+                                                    <th><span class="badge bg-danger btn" onclick="Funcion_CargarModEstadoTelefono(@Tel.ID_TELEFONO,'@Tel.ESTADO_TELEFONO','@Tel.TELEFONO')" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_TELEFONO"><img title="Modificar Telefono" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span>&nbsp;@Tel.ESTADO_TELEFONO</th>
+                                                }
+
+                                            <th>
+                                                @if (DateTime.Now <= @Tel.FECHA_ACTUALIZACION.AddDays(10))
+                                                {
+                                                        @Tel.TELEFONO
+                                                        
+
+                                                        <span class="badge bg-success">Nuevo</span>
+                                                }
+                                                else
+                                                {
+                                                        @Tel.TELEFONO
+                                                }
+
+      
+                                            </th>
+
+
                                             <th>@Tel.FECHA_ACTUALIZACION.ToString("dd-MM-yyyy HH:mm:ss")</th>
-
-
-                                            @if (@Tel.ESTADO_TELEFONO == "VALIDO")
-                                            {
-                                                <th> <span class="badge bg-success">&nbsp;</span> &nbsp;@Tel.ESTADO_TELEFONO</th>
-                                            }
-                                            else if (@Tel.ESTADO_TELEFONO == "NO CONFIRMADO")
-                                            {
-
-                                                <th><span class="badge bg-warning">&nbsp;</span>&nbsp;@Tel.ESTADO_TELEFONO</th>
-                                            }
-                                            else
-                                            {
-                                                <th><span class="badge bg-danger">&nbsp;</span>&nbsp;@Tel.ESTADO_TELEFONO</th>
-                                            }
-
-                                         
-
-
                                             <th>@Tel.C_CD</th>
                                             <th>@Tel.C_CI</th>
                                             <th>@Tel.C_SC</th>
@@ -242,16 +255,16 @@
 
                                             @if (@Ema.ESTADO_EMAIL == "VALIDO")
                                             {
-                                                <th> <span class="badge bg-success">&nbsp;</span> &nbsp;@Ema.ESTADO_EMAIL</th>
+                                                    <th> <span class="badge bg-success btn" onclick="Funcion_CargarModEstadoEmail(@Ema.ID_EMAIL,'@Ema.ESTADO_EMAIL','@Ema.EMAIL')" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_EMAIL"><img title="Modificar Email" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span>&nbsp;@Ema.ESTADO_EMAIL</th>
                                             }
                                             else if (@Ema.ESTADO_EMAIL == "NO CONFIRMADO")
                                             {
 
-                                                <th><span class="badge bg-warning">&nbsp;</span>&nbsp;@Ema.ESTADO_EMAIL</th>
+                                                    <th><span class="badge bg-warning  btn" onclick="Funcion_CargarModEstadoEmail(@Ema.ID_EMAIL,'@Ema.ESTADO_EMAIL','@Ema.EMAIL'))" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_EMAIL"><img title="Modificar Email" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span>&nbsp;@Ema.ESTADO_EMAIL</th>
                                             }
                                             else
                                             {
-                                                <th><span class="badge bg-danger">&nbsp;</span>&nbsp;@Ema.ESTADO_EMAIL</th>
+                                                    <th><span class="badge bg-danger  btn" onclick="Funcion_CargarModEstadoEmail(@Ema.ID_EMAIL,'@Ema.ESTADO_EMAIL','@Ema.EMAIL'))" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_EMAIL"><img title="Modificar Email" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span>&nbsp;@Ema.ESTADO_EMAIL</th>
                                             }
                                             <th title="@Ema.ID_EMAIL"><strong>@Ema.EMAIL</strong></th>
                                             <th>@Ema.FECHA_ACTUALIZACION.ToString("dd-MM-yyyy HH:mm:ss")</th>
@@ -298,16 +311,16 @@
 
                                             @if (@dir.ESTADO_DIRECCION == "VALIDO")
                                             {
-                                                <th> <span class="badge bg-success">&nbsp;</span> &nbsp;@dir.ESTADO_DIRECCION</th>
+                                                    <th> <span class="badge bg-success btn" onclick="Funcion_CargarModEstadoDireccion(@dir.ID_DIRECCION,'@dir.ESTADO_DIRECCION','@dir.DIRECCION','@dir.COMUNA')" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_DIRECCION"><img title="Modificar Direccion" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span> &nbsp;@dir.ESTADO_DIRECCION</th>
                                             }
                                             else if (@dir.ESTADO_DIRECCION == "NO CONFIRMADO")
                                             {
 
-                                                <th><span class="badge bg-warning">&nbsp;</span>&nbsp;@dir.ESTADO_DIRECCION</th>
+                                                    <th><span class="badge bg-warning btn" onclick="Funcion_CargarModEstadoDireccion(@dir.ID_DIRECCION,'@dir.ESTADO_DIRECCION','@dir.DIRECCION','@dir.COMUNA')" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_DIRECCION"><img title="Modificar Direccion" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span>&nbsp;@dir.ESTADO_DIRECCION</th>
                                             }
                                             else
                                             {
-                                                <th><span class="badge bg-danger">&nbsp;</span>&nbsp;@dir.ESTADO_DIRECCION</th>
+                                                    <th><span class="badge bg-danger btn" onclick="Funcion_CargarModEstadoDireccion(@dir.ID_DIRECCION,'@dir.ESTADO_DIRECCION','@dir.DIRECCION','@dir.COMUNA')" data-bs-toggle="modal" data-bs-target="#MODAL_ESTADO_DIRECCION"><img title="Modificar Direccion" src="~/img/btngrabargestion.svg" width="8px;" height="8px;" /></span>&nbsp;@dir.ESTADO_DIRECCION</th>
                                             }
                                             <th title="@dir.DIRECCION"><strong>@dir.DIRECCION</strong></th>
                                             <th>@dir.COMUNA</th>
