@@ -15,15 +15,14 @@
                        class="form-control"
                        type="text"
                        inputmode="numeric"
-                       pattern="[0-9]{9}"
+                       pattern="^(?!.*(\d)\1{4})[0-9]{9}$"
                        maxlength="9"
                        minlength="9"
                        required
                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 9)">
                 <div class="invalid-feedback">
-                    El teléfono debe tener 9 dígitos.
+                    El teléfono debe tener 9 dígitos y no puede contener 5 o más dígitos iguales consecutivos.
                 </div>
-
 
             </div>
 

@@ -101,7 +101,7 @@ async function Funcion_CargarDeuda() {
 
 function Funcion_CargarInformacion(IDDEUDA) {
 
-    console.log("Cargando información para ID_DEUDA:", IDDEUDA);
+
     document.getElementById("ID_DEUDA").value = IDDEUDA;
 
 
@@ -177,6 +177,7 @@ function Dibujar_Select2(ID_SELECT) {
 function Funcion_Cargar_Contacto_x_Lugar() {
 
     var SelectContacto = document.getElementById('ID_RESPUESTA_CONTACTO');
+    var BLOQUEO_LEY = document.getElementById("BLOQUEO_LEY").value;
     while (SelectContacto.firstChild) {
         SelectContacto.removeChild(SelectContacto.firstChild);
     }
@@ -186,7 +187,7 @@ function Funcion_Cargar_Contacto_x_Lugar() {
     SelectContacto.appendChild(optionDefault);
 
     var ID_RESPUESTA_LUGAR = document.getElementById("ID_RESPUESTA_LUGAR").value;
-    var Get = ('/Cobranza/OBTENER_CONTACTO_X_LUGAR?ID_RESPUESTA_LUGAR=' + ID_RESPUESTA_LUGAR);
+    var Get = ('/Cobranza/OBTENER_CONTACTO_X_LUGAR?ID_RESPUESTA_LUGAR=' + ID_RESPUESTA_LUGAR + '&BLOQUEO_LEY=' + BLOQUEO_LEY);
     fetch(Get)
         .then(response => response.text())
         .then(data => {

@@ -275,12 +275,12 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> OBTENER_CONTACTO_X_LUGAR(int ID_RESPUESTA_LUGAR)
+        public async Task<IActionResult> OBTENER_CONTACTO_X_LUGAR(int ID_RESPUESTA_LUGAR, int BLOQUEO_LEY = 0)
         {
 
             List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR> Contacto = new List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>();
 
-            Contacto = await _methods.SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR(ID_RESPUESTA_LUGAR);
+            Contacto = await _methods.SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR(ID_RESPUESTA_LUGAR, BLOQUEO_LEY);
 
             return Ok(Contacto);
 
@@ -502,7 +502,7 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> _LeerEstadoEmaill(int ID_EMAIL,string ESTADO_ACTUAL_EMAIL,string EMAIL)
+        public async Task<IActionResult> _LeerEstadoEmail(int ID_EMAIL,string ESTADO_ACTUAL_EMAIL,string EMAIL)
         {
 
             OBJ_MODIFICAR_ESTADO_EMAIL Estados_Email = new OBJ_MODIFICAR_ESTADO_EMAIL();

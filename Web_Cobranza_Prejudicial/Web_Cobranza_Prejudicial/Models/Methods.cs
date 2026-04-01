@@ -404,7 +404,7 @@ namespace Web_Cobranza_Prejudicial.Models
 
 
 
-        public async Task<List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>> SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR(int ID_RESPUESTA_LUGAR)
+        public async Task<List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>> SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR(int ID_RESPUESTA_LUGAR, int BLOQUEO_LEY)
         {
             List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR> Contacto = new List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>();
 
@@ -418,7 +418,7 @@ namespace Web_Cobranza_Prejudicial.Models
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ID_RESPUESTA_LUGAR", SqlDbType.Int).Value = ID_RESPUESTA_LUGAR;
-
+                        cmd.Parameters.Add("@BLOQUEO_LEY", SqlDbType.Int).Value = BLOQUEO_LEY;
                         await connection.OpenAsync();
 
                         using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
