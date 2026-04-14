@@ -19,6 +19,7 @@
                     type="button"
                     id="TIPO_BUSQUEDA"
                     data-bs-toggle="dropdown"
+                    translate="no"
                     aria-expanded="false">
                 Rut
             </button>
@@ -37,6 +38,7 @@
                    id="VALOR_BUSCAR"
                    placeholder="Ingrese valor a buscar"
                    autocomplete="off"
+               
                    onkeypress="if(event.key === 'Enter'){ Funcion_CargarDeuda(); }">
 
             <!-- Botón buscar -->
@@ -44,6 +46,7 @@
                     type="button"
                     title="Click aquí para buscar deuda"
                     id="Buscar_Deuda"
+                   
                     onclick="Funcion_CargarDeuda()">
                 Buscar <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -79,6 +82,7 @@
             <select class="form-select border-secondary text-secondary"
                     id="ID_ESTADO_RESPONSABLE"
                     name="IdEstado"
+                    translate="no"
                     style="width:100%;"
                     onchange="CambiarEstado();">
 
@@ -133,6 +137,7 @@
             <div class="modal-body">
 
                 <input type="hidden" id="DISCADOR" name="DISCADOR" value="0" />
+       
 
                 <div id="_PartialViewDiscador"></div>
 
@@ -302,6 +307,36 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Modal Registros de Gestiones -->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="MODAL_REGISTRAR_GESTIONES_REGULARIZADOS" tabindex="-1" aria-labelledby="MODAL_REGISTRAR_GESTIONES_REGULARIZADOS" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div id="_PartialViewRegistrarGestionRegularizados"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="Btn_Cerrar_Modal_Gestiones" type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Click aqui para cerrar Pop-Up.">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 
 
 

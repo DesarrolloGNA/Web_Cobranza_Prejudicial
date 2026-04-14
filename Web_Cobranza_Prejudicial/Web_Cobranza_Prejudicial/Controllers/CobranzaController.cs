@@ -262,8 +262,54 @@ namespace Web_Cobranza_Prejudicial.Controllers
 
 
 
+            return PartialView("_RegistrarGestion", objRegistrarGestion);
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> _RegistrarGestionRegularizados(int ID_DEUDA)
+        {
+
+
+            string JsonCookie_Codificado = Request.Cookies["Session"];
+
+            string JsonCookie_Decodificado = "";
+            using (Helpers helpers = new Helpers())
+            {
+                JsonCookie_Decodificado = (helpers.Base64Decode(JsonCookie_Codificado.Replace("#####GNA####", "")));
+            }
+
+            oLogin outputCookie = new oLogin();
+            outputCookie = JsonConvert.DeserializeObject<oLogin>(JsonCookie_Decodificado);
+
+
+            obj_REGISTRAR_GESTION objRegistrarGestion = new obj_REGISTRAR_GESTION();
+            objRegistrarGestion.ID_DEUDA = ID_DEUDA;
+            objRegistrarGestion.ID_RESPONSABLE = outputCookie.ID_RESPONSABLE;
+
+
+            objRegistrarGestion.LUGAR = await _methods.SP_READ_LUGAR_X_ID_DEUDA(ID_DEUDA, 0, 0,1);
+
 
             return PartialView("_RegistrarGestion", objRegistrarGestion);
+        }
+
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> OBTENER_CONTACTO_X_LUGAR_REGULARIZADOS(int ID_RESPUESTA_LUGAR, int BLOQUEO_LEY = 0)
+        {
+
+            List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR> Contacto = new List<oSP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR>();
+
+            Contacto = await _methods.SP_READ_CONTACTO_X_ID_RESPUESTA_LUGAR(ID_RESPUESTA_LUGAR, BLOQUEO_LEY,1);
+
+            return Ok(Contacto);
+
         }
 
 
@@ -297,6 +343,20 @@ namespace Web_Cobranza_Prejudicial.Controllers
             return Ok(Contacto);
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> OBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO_REGULARIZADO(int ID_RESPUESTA_CONTACTO, int BLOQUEO_LEY = 0)
+        {
+
+            List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO> Contacto = new List<oOBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO>();
+
+            Contacto = await _methods.SP_READ_EXCUSA_X_ID_RESPUESTA_CONTACTO(ID_RESPUESTA_CONTACTO, BLOQUEO_LEY,0);
+
+            return Ok(Contacto);
+
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult>Create_Gestion_Prejudicial(iSP_CREATE_GESTION_PREJUDICIAL Input)

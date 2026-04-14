@@ -203,6 +203,39 @@ function Funcion_Cargar_Contacto_x_Lugar() {
         });
 }
 
+
+
+function Funcion_Cargar_Contacto_x_Lugar_Regularizado() {
+
+    var SelectContacto = document.getElementById('ID_RESPUESTA_CONTACTO');
+    var BLOQUEO_LEY = document.getElementById("BLOQUEO_LEY").value;
+    while (SelectContacto.firstChild) {
+        SelectContacto.removeChild(SelectContacto.firstChild);
+    }
+    var optionDefault = document.createElement("option");
+    optionDefault.value = "";
+    optionDefault.text = "Seleccione Contacto";
+    SelectContacto.appendChild(optionDefault);
+
+    var ID_RESPUESTA_LUGAR = document.getElementById("ID_RESPUESTA_LUGAR").value;
+    var Get = ('/Cobranza/OBTENER_CONTACTO_X_LUGAR_REGULARIZADOS?ID_RESPUESTA_LUGAR=' + ID_RESPUESTA_LUGAR + '&BLOQUEO_LEY=' + BLOQUEO_LEY);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            var dataObj = JSON.parse(data);
+            dataObj.forEach(function (option) {
+                var optionElement = document.createElement("option");
+                optionElement.value = option.iD_RESPUESTA_CONTACTO;
+                optionElement.text = option.contacto;
+                SelectContacto.appendChild(optionElement);
+            });
+
+            Dibujar_Select2("#ID_RESPUESTA_CONTACTO");
+        });
+}
+
+
+
 function Funcion_Cargar_Excusa_x_Contacto() {
 
     var SelectExcusa = document.getElementById('ID_RESPUESTA_EXCUSA');
@@ -232,6 +265,40 @@ function Funcion_Cargar_Excusa_x_Contacto() {
             Dibujar_Select2("#ID_RESPUESTA_EXCUSA");
         });
 }
+
+
+function Funcion_Cargar_Excusa_x_Contacto_Regularizado() {
+
+    var SelectExcusa = document.getElementById('ID_RESPUESTA_EXCUSA');
+    var BLOQUEO_LEY = document.getElementById("BLOQUEO_LEY").value;
+    while (SelectExcusa.firstChild) {
+        SelectExcusa.removeChild(SelectExcusa.firstChild);
+    }
+    var optionDefault = document.createElement("option");
+    optionDefault.value = "";
+    optionDefault.text = "Seleccione Contacto";
+    SelectExcusa.appendChild(optionDefault);
+
+    var ID_RESPUESTA_CONTACTO = document.getElementById("ID_RESPUESTA_CONTACTO").value;
+    var Get = ('/Cobranza/OBTENER_EXCUSA_X_ID_RESPUESTA_CONTACTO?ID_RESPUESTA_CONTACTO=' + ID_RESPUESTA_CONTACTO + '&BLOQUEO_LEY=' + BLOQUEO_LEY);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            var dataObj = JSON.parse(data);
+
+            dataObj.forEach(function (option) {
+                var optionElement = document.createElement("option");
+                optionElement.value = option.iD_RESPUESTA_EXCUSA;
+                optionElement.text = option.respuestA_EXCUSA;
+                SelectExcusa.appendChild(optionElement);
+            });
+
+            Dibujar_Select2("#ID_RESPUESTA_EXCUSA");
+        });
+}
+
+
+
 
 function Grabar_Gestion_Pre() {
 
@@ -368,6 +435,24 @@ function LLamar() {
 
 
 }
+
+
+
+function Funcion_CargarRegistrarGestionRegularizados() {
+    var ID_DEUDA = document.getElementById("ID_DEUDA").value;
+
+    var Get = ('/Cobranza/_RegistrarGestionRegularizados?ID_DEUDA=' + ID_DEUDA);
+    fetch(Get)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('_PartialViewRegistrarGestionRegularizados').innerHTML = data;
+
+            Dibujar_Select2("#ID_RESPUESTA_LUGAR");
+
+        });
+}
+
+
 
 function Funcion_CargarRegistrarGestion() {
     var ID_DEUDA = document.getElementById("ID_DEUDA").value;
